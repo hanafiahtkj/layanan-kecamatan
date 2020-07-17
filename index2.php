@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <?php include_once "config/config.php"; ?>
-<!-- awdniawon -->
+
 <html lang="en">
 
 <head>
