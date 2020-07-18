@@ -94,14 +94,14 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
-                                            <thead class="text-center thead-light" style="vertical-align: middle;">
-                                                <tr style="vertical-align: middle;">
-                                                    <th>No</th>
-                                                    <th>Tanggal Permohonan</th>
-                                                    <th>Nama Pemohon</th>
-                                                    <th>Nama Perusahaan</th>
-                                                    <th>Posisi Berkas</th>
-                                                    <th>Status</th>
+                                            <thead class="text-center thead-light">
+                                                <tr>
+                                                    <th style="vertical-align: middle;">No</th>
+                                                    <th style="vertical-align: middle;">Tanggal Permohonan</th>
+                                                    <th style="vertical-align: middle;">Nama Pemohon</th>
+                                                    <th style="vertical-align: middle;">Nama Perusahaan</th>
+                                                    <th style="vertical-align: middle;">Posisi Berkas</th>
+                                                    <th style="vertical-align: middle;">Status</th>
                                                     <th style="vertical-align: middle;">Keterangan</th>
                                                     <th></th>
                                                 </tr>
