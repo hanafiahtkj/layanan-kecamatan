@@ -20,6 +20,19 @@ $po  = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_p
             </td>
         </tr>
         <tr>
+            <th width="30%">Nomor IUMK</th>
+            <td width="2%">:</td>
+            <td>
+                <?php
+                if ($row['id_posisi'] != 4) {
+                    echo "-";
+                } else {
+                    echo $row['nomor_iumk'];
+                }
+                ?>
+            </td>
+        </tr>
+        <tr>
             <th width="30%">Nama Pemohon</th>
             <td width="2%">:</td>
             <td><?= $row['nama_pemohon'] ?></td>

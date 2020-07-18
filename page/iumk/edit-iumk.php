@@ -52,6 +52,14 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                     <div class="row">
 
                         <div class="col-md-12">
+                            <?php if ($row['kelengkapan'] == "Tidak Lengkap") : ?>
+                                <div class="alert" style="background-color: crimson; color: white; font-size: 20px;">
+                                    <i class="fa fa-exclamation-triangle"> Keterangan</i>
+                                    <p>
+                                        "<?= $row['keterangan']; ?>"
+                                    </p>
+                                </div>
+                            <?php endif ?>
                             <div class="card">
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -122,7 +130,7 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                                     <div class="form-group row">
                                         <label for="npwp" class="col-sm-3 col-form-label">NPWP</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="npwp" id="npwp" value="<?= $row['npwp'] ?>">
+                                            <input type="text" class="form-control" name="npwp" id="npwp" value="<?= $row['npwp'] ?>" placeholder="Kosongkan jika tidak ada NPWP">
                                             <span style="color: red; font-style: italic;"><small>*Input hanya angka</small></span>
                                         </div>
                                     </div>

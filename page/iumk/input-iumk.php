@@ -37,7 +37,7 @@ $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
                     <ol>
                         <li><a href="<?= base_url(); ?>">Home</a></li>
                         <li><a href="<?= base_url('page/iumk'); ?>">IUMK</a></li>
-                        <li>Input IUMK</li>
+                        <li>Input</li>
                     </ol>
                 </div>
 
@@ -130,7 +130,7 @@ $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
                                     <div class="form-group row">
                                         <label for="npwp" class="col-sm-3 col-form-label">NPWP</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="npwp" id="npwp">
+                                            <input type="text" class="form-control" name="npwp" id="npwp" placeholder="Kosongkan jika tidak ada NPWP">
                                             <span style="color: red; font-style: italic;"><small>*Input hanya angka</small></span>
                                         </div>
                                     </div>

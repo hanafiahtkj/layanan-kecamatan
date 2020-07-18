@@ -43,7 +43,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
         <!-- ======= Services Section ======= -->
         <section class="contact graform">
-            <div class="container">
+            <div class="container-fluid">
 
                 <div class="section-title">
                     <h2>Data Surat Izin Usaha Mikro dan Kecil</h2>
@@ -57,57 +57,53 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
                         <?php
                         $kondisi = "";
-                        $data = $koneksi->query("SELECT * FROM iumk WHERE id_masyarakat = '$idm'");
+                        $data = $koneksi->query("SELECT * FROM iumk WHERE id_masyarakat = '$idm' ORDER BY id_iumk DESC");
                         if (mysqli_num_rows($data)) {
 
-                            $row = $data->fetch_array();
-                            if ($row['kelengkapan'] == "Tidak Lengkap") {
-                                $kondisi .= "true";
+                            // $row = $data->fetch_array();
+                            foreach ($data as $row) {
+                                if ($row['kelengkapan'] == "Tidak Lengkap") {
+                                    // $kondisi .= "true";
                         ?>
 
-                                <div class="alert" style="background-color: crimson; color: white; font-size: 20px;">
-                                    <i class="fa fa-exclamation-triangle"> Notifikasi</i>
-                                    <p>
-                                        Berkas tidak disetujui dengan keterangan : <br>
-                                        "<?= $row['keterangan']; ?>" <br>
+                                    <div class="alert" style="background-color: crimson; color: white; font-size: 20px;">
+                                        <i class="fa fa-exclamation-triangle"> Notifikasi</i>
+                                        <p>
+                                            Berkas "<?= $row['nama_perusahaan']; ?>" tidak disetujui dengan keterangan : <br>
+                                            "<?= $row['keterangan']; ?>" <br>
 
-                                        Silahkan klik tombol "Edit Data" dibawah ini untuk memperbaiki berkas permohonan
-                                    </p>
-                                </div>
+                                            Silahkan klik tombol "<i class="fa fa-edit"></i>" pada tabel untuk memperbaiki berkas permohonan
+                                        </p>
+                                    </div>
 
-                            <?php } ?>
+                            <?php }
+                            } ?>
 
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-tools">
-                                        <a href="input-iumk" class="btn btn-primary btn-tool"><i class="fa fa-plus-square"> Buat IUMK Baru</i></a>
-
-                                        <?php if (!empty($kondisi)) : ?>
-                                            <a href="edit-iumk?id=<?= encryptor('encrypt', $row['id_iumk']) ?>" class="btn btn-info btn-tool">
-                                                <i class="fa fa-edit"> Edit Data</i>
-                                            </a>
-                                        <?php endif ?>
-
+                                        <a href="input-iumk" class="btn btn-primary btn-tool"><i class="fa fa-plus-square"> Buat Baru</i></a>
                                     </div>
                                 </div>
 
                                 <div class="card-body">
 
-                                    <div class="alert alert-info">
+                                    <!-- <div class="alert alert-info">
                                         *Klik tabel untuk melihat detail
-                                    </div>
+                                    </div> -->
 
                                     <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="text-center thead-light">
-                                                <tr>
+                                        <table class="table table-bordered">
+                                            <thead class="text-center thead-light" style="vertical-align: middle;">
+                                                <tr style="vertical-align: middle;">
                                                     <th>No</th>
                                                     <th>Tanggal Permohonan</th>
                                                     <th>Nama Pemohon</th>
                                                     <th>Nama Perusahaan</th>
                                                     <th>Posisi Berkas</th>
                                                     <th>Status</th>
-                                                    <th>Keterangan</th>
+                                                    <th style="vertical-align: middle;">Keterangan</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody class="warna-hover">
@@ -115,7 +111,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                 foreach ($data as $r) :
                                                     $po  = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$r[id_posisi]'")->fetch_array();
                                                 ?>
-                                                    <tr id="detail" data-id="<?= encryptor('encrypt', $r['id_iumk']) ?>">
+                                                    <tr>
                                                         <td align="center"><?= $no++; ?></td>
                                                         <td align="center">
                                                             <?=
@@ -139,7 +135,18 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                             ?>
                                                         </td>
                                                         <td><?= $r['keterangan']; ?></td>
+                                                        <td align="center" width="10%">
+                                                            <button id="detail" data-id="<?= encryptor('encrypt', $r['id_iumk']) ?>" class="btn btn-primary btn-sm" title="Lihat Detail Berkas">
+                                                                <i class="fa fa-eye"></i>
+                                                            </button>
+                                                            <?php if ($r['kelengkapan'] == "Tidak Lengkap") : ?>
+                                                                <a href="edit-iumk?id=<?= encryptor('encrypt', $r['id_iumk']) ?>" class="btn btn-danger btn-sm" title="Perbaiki Berkas">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                            <?php endif ?>
+                                                        </td>
                                                     </tr>
+
                                                 <?php endforeach ?>
                                             </tbody>
                                         </table>
@@ -163,7 +170,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                 </div>
                 <!-- ROW-->
 
-            </div>
+                <!-- </div> -->
         </section><!-- End Services Section -->
 
     </main><!-- End #main -->

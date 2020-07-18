@@ -136,7 +136,7 @@ $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
                                         <div class="form-group row">
                                             <label for="bentuk_perusahaan" class="col-sm-2 col-form-label">Bentuk Perusahaan</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="bentuk_perusahaan" name="bentuk_perusahaan" required placeholder="Contoh : Perorangan">
+                                                <input type="text" class="form-control" id="bentuk_perusahaan" name="bentuk_perusahaan" required readonly value="Perseorangan">
                                             </div>
                                         </div>
 
@@ -157,7 +157,12 @@ $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
                                         <div class="form-group row">
                                             <label for="sarana_usaha" class="col-sm-2 col-form-label">Sarana Usaha Yang Digunakan</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="sarana_usaha" id="sarana_usaha" required placeholder="Contoh : Milik Sendiri">
+                                                <select name="sarana_usaha" id="sarana_usaha" class="form-control" required>
+                                                    <option value="">--Pilih--</option>
+                                                    <option value="Milik Sendiri">Milik Sendiri</option>
+                                                    <option value="Pinjam Pakai">Pinjam Pakai</option>
+                                                    <option value="Sewa">Sewa</option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -474,7 +479,7 @@ $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
                 $submit = $koneksi->query("INSERT INTO iumk VALUES (
             null, 
             '$id_masyarakat', 
-            null, 
+            '$nomor_iumk', 
             '$peraturan', 
             '$nama_pemohon', 
             '$nomor_ktp', 

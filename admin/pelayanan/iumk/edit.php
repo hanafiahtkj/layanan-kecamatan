@@ -112,7 +112,7 @@ $row  = $data->fetch_array();
                                         <div class="form-group row">
                                             <label for="bentuk_perusahaan" class="col-sm-2 col-form-label">Bentuk Perusahaan</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="bentuk_perusahaan" name="bentuk_perusahaan" required value="<?= $row['bentuk_perusahaan']; ?>">
+                                                <input type="text" class="form-control" id="bentuk_perusahaan" name="bentuk_perusahaan" required readonly value="<?= $row['bentuk_perusahaan']; ?>">
                                             </div>
                                         </div>
 
@@ -133,7 +133,18 @@ $row  = $data->fetch_array();
                                         <div class="form-group row">
                                             <label for="sarana_usaha" class="col-sm-2 col-form-label">Sarana Usaha</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="sarana_usaha" id="sarana_usaha" required value="<?= $row['sarana_usaha']; ?>">
+                                                <select name="sarana_usaha" id="sarana_usaha" class="form-control" required>
+                                                    <option value="">--Pilih--</option>
+                                                    <option value="Milik Sendiri" <?php if ($row['sarana_usaha'] == "Milik Sendiri") {
+                                                                                        echo "selected";
+                                                                                    } ?>>Milik Sendiri</option>
+                                                    <option value="Pinjam Pakai" <?php if ($row['sarana_usaha'] == "Pinjam Pakai") {
+                                                                                        echo "selected";
+                                                                                    } ?>>Pinjam Pakai</option>
+                                                    <option value="Sewa" <?php if ($row['sarana_usaha'] == "Sewa") {
+                                                                                echo "selected";
+                                                                            } ?>>Sewa</option>
+                                                </select>
                                             </div>
                                         </div>
 
