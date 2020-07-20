@@ -47,7 +47,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
                 <div class="section-title">
                     <h2>Data Surat Izin Usaha Mikro dan Kecil</h2>
-                    <p>Pembuatan Izin Usaha Mikro dan Kecil</p>
+                    <!-- <p>Pembuatan Izin Usaha Mikro dan Kecil</p> -->
                 </div>
 
                 <!-- ROW -->

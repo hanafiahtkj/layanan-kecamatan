@@ -43,7 +43,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
         <!-- ======= Services Section ======= -->
         <section id="services" class="services graform">
-            <div class="container">
+            <div class="container-fluid">
 
                 <div class="section-title">
                     <h2>Informasi Surat Keterangan Tempat Usaha</h2>
@@ -93,12 +93,14 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
                                             <?php } ?>
 
-                                            <div class="alert alert-info">
+                                            <!-- <div class="alert alert-info">
                                                 *Klik tabel untuk melihat detail
-                                            </div>
+                                            </div> -->
+
+                                            <a href="input-sktu-baru" class="btn btn-primary mb-3"><i class="fa fa-plus-square"> Buat Baru</i></a>
 
                                             <div class="table-responsive">
-                                                <table class="table">
+                                                <table class="table table-bordered">
                                                     <thead class="text-center thead-light">
                                                         <tr>
                                                             <th>No</th>
@@ -106,13 +108,14 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                             <th>Nama Pemohon</th>
                                                             <th>Nama Perusahaan</th>
                                                             <th>Posisi Berkas</th>
-                                                            <th>Status</th>
                                                             <th>Keterangan</th>
+                                                            <th>Status</th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="warna-hover">
                                                         <?php foreach ($data as $r) : ?>
-                                                            <tr id="detail" data-id="<?= encryptor('encrypt', $r['id_sktu']) ?>">
+                                                            <tr>
                                                                 <td align="center"><?= $no++; ?></td>
                                                                 <td align="center">
                                                                     <?=
@@ -123,19 +126,29 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                                 </td>
                                                                 <td><?= $r['nama_pemohon']; ?></td>
                                                                 <td><?= $r['nama_perusahaan']; ?></td>
-                                                                <td><?= $po['posisi']; ?></td>
-                                                                <td>
+                                                                <td align="center"><?= $po['posisi']; ?></td>
+                                                                <td><?= $r['keterangan']; ?></td>
+                                                                <td align="center">
                                                                     <?php
-                                                                    if ($row['status'] == "Belum Diproses") {
-                                                                        echo "<span class='badge badge-danger'>" . $row['status'] . "</span>";
-                                                                    } elseif ($row['status'] == "Dalam Proses") {
-                                                                        echo "<span class='badge badge-warning'>" . $row['status'] . "</span>";
+                                                                    if ($r['status'] == "Belum Diproses") {
+                                                                        echo "<span class='badge badge-danger'>" . $r['status'] . "</span>";
+                                                                    } elseif ($r['status'] == "Dalam Proses") {
+                                                                        echo "<span class='badge badge-warning'>" . $r['status'] . "</span>";
                                                                     } else {
-                                                                        echo "<span class='badge badge-success'>" . $row['status'] . "</span>";
+                                                                        echo "<span class='badge badge-success'>" . $r['status'] . "</span>";
                                                                     }
                                                                     ?>
                                                                 </td>
-                                                                <td><?= $r['keterangan']; ?></td>
+                                                                <td align="center" width="10%">
+                                                                    <button id="detail" data-id="<?= encryptor('encrypt', $r['id_sktu']) ?>" class="btn btn-primary btn-sm" title="Lihat Detail Berkas">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </button>
+                                                                    <?php if ($r['kelengkapan'] == "Tidak Lengkap") : ?>
+                                                                        <a href="edit-iumk?id=<?= encryptor('encrypt', $r['id_sktu']) ?>" class="btn btn-danger btn-sm" title="Perbaiki Berkas">
+                                                                            <i class="fa fa-edit"></i>
+                                                                        </a>
+                                                                    <?php endif ?>
+                                                                </td>
                                                             </tr>
                                                         <?php endforeach ?>
                                                     </tbody>
