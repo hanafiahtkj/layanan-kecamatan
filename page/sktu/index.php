@@ -82,14 +82,12 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                 <div class="alert" style="background-color: crimson; color: white; font-size: 20px;">
                                                     <i class="fa fa-exclamation-triangle"> Notifikasi</i>
                                                     <p>
-                                                        Berkas tidak disetujui dengan keterangan : <br>
+                                                        Berkas "<?= $row['nama_perusahaan']; ?>" tidak disetujui dengan keterangan : <br>
                                                         "<?= $row['keterangan']; ?>" <br>
 
-                                                        Silahkan klik tombol "Edit SKTU" dibawah ini untuk memperbaiki berkas permohonan
+                                                        Silahkan klik tombol "<i class="fa fa-edit"></i>" pada tabel untuk memperbaiki berkas permohonan
                                                     </p>
                                                 </div>
-
-                                                <a href="edit-sktu-baru?id=<?= encryptor('encrypt', $row['id_sktu']) ?>" class="btn btn-primary"><i class="fa fa-edit"> Edit SKTU</i></a><br><br>
 
                                             <?php } ?>
 
@@ -144,7 +142,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                                         <i class="fa fa-eye"></i>
                                                                     </button>
                                                                     <?php if ($r['kelengkapan'] == "Tidak Lengkap") : ?>
-                                                                        <a href="edit-iumk?id=<?= encryptor('encrypt', $r['id_sktu']) ?>" class="btn btn-danger btn-sm" title="Perbaiki Berkas">
+                                                                        <a href="edit-sktu-baru?id=<?= encryptor('encrypt', $r['id_sktu']) ?>" class="btn btn-danger btn-sm" title="Perbaiki Berkas">
                                                                             <i class="fa fa-edit"></i>
                                                                         </a>
                                                                     <?php endif ?>
