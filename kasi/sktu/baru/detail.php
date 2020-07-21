@@ -303,7 +303,7 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                         </button>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body modal-view">
 
                     </div>
 
@@ -350,7 +350,7 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                         id: $(this).attr('data-id')
                     },
                     function(html) {
-                        $(".modal-body").html(html);
+                        $(".modal-view").html(html);
                     }
                 );
             });

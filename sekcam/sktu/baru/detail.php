@@ -71,14 +71,22 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                                                 <td width="2%">:</td>
                                                 <td>
                                                     <?=
-                                                        date('d', strtotime($row['tgl'])) . " " . $bln[date('m', strtotime($row['tgl']))] . " " . date('Y', strtotime($row['tgl']));
+                                                        tgl_indo(date('Y-m-d', strtotime($row['tgl'])));
                                                     ?>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%">Nomor SKTU</th>
                                                 <td width="2%">:</td>
-                                                <td><?= $row['nomor_sktu'] ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($row['id_posisi'] != 4) {
+                                                        echo "-";
+                                                    } else {
+                                                        echo $row['nomor_sktu'];
+                                                    }
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%">Nama Pemohon</th>
@@ -119,12 +127,11 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                                                 <th width="30%">Masa Berlaku</th>
                                                 <td width="2%">:</td>
                                                 <td>
-                                                    <?php if (!empty($row['masa_berlaku_awal']) && !empty($row['masa_berlaku_akhir'])) {
-                                                        echo
-                                                            date('d', strtotime($row['masa_berlaku_awal'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_awal']))] . " " . date('Y', strtotime($row['masa_berlaku_awal'])) . " S/D " .
-                                                                date('d', strtotime($row['masa_berlaku_akhir'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_akhir']))] . " " . date('Y', strtotime($row['masa_berlaku_akhir']));
-                                                    } else {
+                                                    <?php
+                                                    if (($row['masa_berlaku_awal'] == "0000-00-00" or is_null($row['masa_berlaku_awal'])) and ($row['masa_berlaku_akhir'] == "0000-00-00" or is_null($row['masa_berlaku_akhir']))) {
                                                         echo "-";
+                                                    } else {
+                                                        echo tgl_indo($row['masa_berlaku_awal']) . " s/d " . tgl_indo($row['masa_berlaku_akhir']);
                                                     }
                                                     ?>
                                                 </td>
@@ -190,7 +197,17 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" value="<?= $file['nama_lampiran'] ?>" title="<?= $file['nama_lampiran'] ?>" readonly>
                                                 <div class="input-group-append">
-                                                    <a href="<?= base_url() ?>/assets/sktu/<?= $file['file'] ?>" class="input-group-text bg-gradient-info" title="Preview" data-toggle="lightbox" data-title="Preview" data-gallery="gallery"><i class="fas fa-eye"></i></a>
+
+                                                    <?php
+                                                    $nama_lamp      = explode('.', $file['file']);
+                                                    $format_lamp    = end($nama_lamp);
+                                                    if ($format_lamp == 'pdf') :
+                                                    ?>
+                                                        <button data-id="<?= $file['file'] ?>" class="input-group-text bg-gradient-info lihatfile" title="Preview"><i class="fas fa-eye"></i></button>
+                                                    <?php else : ?>
+                                                        <a href="<?= base_url() ?>/assets/sktu/<?= $file['file'] ?>" class="input-group-text bg-gradient-info" title="Preview" data-toggle="lightbox" data-title="Preview" data-gallery="gallery"><i class="fas fa-eye"></i></a>
+                                                    <?php endif ?>
+
                                                     <a href="<?= base_url() ?>/assets/sktu/<?= $file['file'] ?>" class="input-group-text bg-gradient-purple" title="Download" download=""><i class="fas fa-download"></i></a>
                                                 </div>
                                             </div>
@@ -266,6 +283,28 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
         </div>
 
 
+
+        <div class="modal fade" id="modal-preview">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Preview</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body modal-view">
+
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+
         <?php include_once "../../../template/footer.php"; ?>
 
         <!-- Control Sidebar -->
@@ -286,6 +325,26 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                 alwaysShowClose: true,
                 width: 1105,
                 height: 750
+            });
+        });
+    </script>
+
+    <script>
+        $(function() {
+            $(document).on('click', '.lihatfile', function(e) {
+                e.preventDefault();
+                // $("#modal-preview").modal('show');
+                $('#modal-preview').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
+                $.post('view.php', {
+                        id: $(this).attr('data-id')
+                    },
+                    function(html) {
+                        $(".modal-view").html(html);
+                    }
+                );
             });
         });
     </script>

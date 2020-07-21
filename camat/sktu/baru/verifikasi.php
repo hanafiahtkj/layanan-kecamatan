@@ -8,14 +8,20 @@ if (isset($_POST['verif'])) {
     $keterangan = $_POST['keterangan'];
 
     if ($status == 1) {
-        $posisi = 4;
-        $kelengkapan = 'Lengkap';
+        $posisi             = 4;
+        $kelengkapan        = 'Lengkap';
+        $masa_berlaku_awal  = date('Y-m-d');
+        $masa_berlaku_akhir = date('Y-m-d', strtotime('+1 year'));
+        $tgl_selesai        = date('Y-m-d');
     } else {
-        $posisi = 3;
-        $kelengkapan = 'Tidak Lengkap';
+        $posisi             = 3;
+        $kelengkapan        = 'Tidak Lengkap';
+        $masa_berlaku_awal  = null;
+        $masa_berlaku_akhir = null;
+        $tgl_selesai        = null;
     }
 
-    $submit = $koneksi->query("UPDATE sktu_baru SET kelengkapan = '$kelengkapan', keterangan = '$keterangan', id_posisi = '$posisi' WHERE id_sktu = '$id_sktu'");
+    $submit = $koneksi->query("UPDATE sktu_baru SET masa_berlaku_awal = '$masa_berlaku_awal', masa_berlaku_akhir = '$masa_berlaku_akhir', kelengkapan = '$kelengkapan', keterangan = '$keterangan', tgl_selesai = '$tgl_selesai', id_posisi = '$posisi' WHERE id_sktu = '$id_sktu'");
 
     if ($submit) {
         $_SESSION['pesan'] = "Data Permohonan SKTU BARU Telah Diverifikasi";

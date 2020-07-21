@@ -26,6 +26,8 @@ $po  = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_p
                 <?php
                 if ($row['id_posisi'] != 4) {
                     echo "-";
+                } else {
+                    echo $row['nomor_sktu'];
                 }
                 ?>
             </td>

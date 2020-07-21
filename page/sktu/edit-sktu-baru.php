@@ -9,7 +9,7 @@ include_once "../../template/ui/head.php";
 $idm      = $_SESSION['id_masyarakat'];
 $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$idm'")->fetch_array();
 
-$id = encryptor('decrypt', $_GET['id']);
+$id  = encryptor('decrypt', $_GET['id']);
 $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_array();
 ?>
 
@@ -68,18 +68,34 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
                                         </div>
                                     </div>
 
+                                    <div class="card mb-3" style="border: 2px solid crimson;">
+                                        <div class="card-body">
 
-                                    <div class="form-group row">
-                                        <label for="nama_pemohon" class="col-sm-3 col-form-label">Nama Pemohon</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="nama_pemohon" name="nama_pemohon" value="<?= $row['nama_pemohon']; ?>" required readonly>
-                                        </div>
-                                    </div>
+                                            <div class="form-group row">
+                                                <label for="nama_pemohon" class="col-sm-3 col-form-label">Nama Pemohon</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="nama_pemohon" name="nama_pemohon" value="<?= $row['nama_pemohon']; ?>" required readonly>
+                                                </div>
+                                            </div>
 
-                                    <div class="form-group row">
-                                        <label for="no_telp" class="col-sm-3 col-form-label">Nomor Telpon</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $row['no_telp']; ?>" required readonly>
+                                            <div class="form-group row">
+                                                <label for="no_telp" class="col-sm-3 col-form-label">Nomor Telpon</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $row['no_telp']; ?>" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="alamat_kediaman" class="col-sm-3 col-form-label">Alamat Kediaman</label>
+                                                <div class="col-sm-9">
+                                                    <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required readonly><?= $row['alamat_kediaman']; ?></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="justify-content-between text-right" style="color: red; font-style: italic;">
+                                                <small>*Klik Tombol Edit Profil untuk mengubah data profil anda</small> <a href="<?= base_url('profil') ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"> Edit Profil</i></a>
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -101,13 +117,6 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
                                         <label for="nama_pimpinan_perusahaan" class="col-sm-3 col-form-label">Nama Pimpinan Perusahaan</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="nama_pimpinan_perusahaan" name="nama_pimpinan_perusahaan" required value="<?= $row['nama_pimpinan_perusahaan']; ?>">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="alamat_kediaman" class="col-sm-3 col-form-label">Alamat Kediaman</label>
-                                        <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required readonly><?= $row['alamat_kediaman']; ?></textarea>
                                         </div>
                                     </div>
 
@@ -340,7 +349,7 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
             ");
 
             if ($submit) {
-                $koneksi->query("UPDATE riwayat_tgl_sktu SET tgl_dibuat = '$tgl' WHERE nomor_sktu = '$nomor_sktu'");
+                $koneksi->query("UPDATE riwayat_tgl_sktu SET tgl_dibuat = '$tgl' WHERE id_sktu = '$id'");
                 echo "
                 <script type='text/javascript'>
                 setTimeout(function () {    

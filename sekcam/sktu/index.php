@@ -97,19 +97,26 @@ include_once "../../template/head.php";
                                                                 <td width="5%"><?= $no++; ?></td>
                                                                 <td>
                                                                     <?=
-                                                                        date('d', strtotime($row['tgl'])) . " " . $bln[date('m', strtotime($row['tgl']))] . " " . date('Y', strtotime($row['tgl']));
+                                                                        tgl_indo(date('Y-m-d', strtotime($row['tgl'])));
                                                                     ?>
                                                                 </td>
-                                                                <td><?= $row['nomor_sktu'] ?></td>
+                                                                <td>
+                                                                    <?php
+                                                                    if ($row['id_posisi'] != 4) {
+                                                                        echo "-";
+                                                                    } else {
+                                                                        echo $row['nomor_sktu'];
+                                                                    }
+                                                                    ?>
+                                                                </td>
                                                                 <td align="left"><?= $row['nama_pemohon'] ?></td>
                                                                 <td align="left"><?= $row['nama_perusahaan'] ?></td>
                                                                 <td>
-                                                                    <?php if (!empty($row['masa_berlaku_awal']) && !empty($row['masa_berlaku_akhir'])) {
-                                                                        echo
-                                                                            date('d', strtotime($row['masa_berlaku_awal'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_awal']))] . " " . date('Y', strtotime($row['masa_berlaku_awal'])) . " s/d " .
-                                                                                date('d', strtotime($row['masa_berlaku_akhir'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_akhir']))] . " " . date('Y', strtotime($row['masa_berlaku_akhir']));
-                                                                    } else {
+                                                                    <?php
+                                                                    if (($row['masa_berlaku_awal'] == "0000-00-00" or is_null($row['masa_berlaku_awal'])) and ($row['masa_berlaku_akhir'] == "0000-00-00" or is_null($row['masa_berlaku_akhir']))) {
                                                                         echo "-";
+                                                                    } else {
+                                                                        echo tgl_indo($row['masa_berlaku_awal']) . " s/d " . tgl_indo($row['masa_berlaku_akhir']);
                                                                     }
                                                                     ?>
                                                                 </td>
