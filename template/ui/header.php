@@ -31,8 +31,6 @@
                 <li><a href="#pelayanan">Pelayanan</a></li>
                 <li><a href="#tentang">Tentang</a></li>
                 <li><a href="#contact">Kontak</a></li>
-                <!-- <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li> -->
 
                 <?php if (!isset($_SESSION['id_masyarakat'])) { ?>
                     <li>
@@ -46,16 +44,17 @@
                         </ul>
                     </li>
                 <?php } ?>
+                <li><a href="#"><i class="fa fa-bell"></i></a></li>
 
             </ul>
         </nav><!-- .nav-menu -->
 
         <!-- <div class="header-social-links">
-                <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
-                <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-                <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="icofont-linkedin"></i></i></a>
-            </div> -->
+            <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
+            <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
+            <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="icofont-linkedin"></i></i></a>
+        </div> -->
 
     </div>
 </header>

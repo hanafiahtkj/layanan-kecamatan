@@ -13,6 +13,8 @@
 <script src="<?= base_url() ?>/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- Sweet Alert -->
 <script src="<?= base_url() ?>/assets/alert/sweetalert.min.js"></script>
+<!-- Select2 -->
+<script src="<?= base_url() ?>/assets/plugins/select2/js/select2.full.min.js"></script>
 <!-- Toastr -->
 <script src="<?= base_url() ?>/assets/plugins/toastr/toastr.min.js"></script>
 <!-- bs-custom-file-input -->
@@ -42,7 +44,7 @@
         bsCustomFileInput.init();
 
         // Combobox select
-        // $('.select2').select2();
+        $('.select2').select2();
 
         // FORMAT RUPIAH
         $(".rupiah").mask("000.000.000.000", {

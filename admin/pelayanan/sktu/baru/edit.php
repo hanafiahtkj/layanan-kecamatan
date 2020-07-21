@@ -71,7 +71,13 @@ $row  = $data->fetch_array();
                                         <div class="form-group row">
                                             <label for="nomor_sktu" class="col-sm-2 col-form-label">Nomor</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nomor_sktu" name="nomor_sktu" value="<?= $row['nomor_sktu']; ?>" readonly>
+                                                <input type="text" class="form-control" id="nomor_sktu" name="nomor_sktu" value=" <?php
+                                                                                                                                    if ($row['id_posisi'] != 4) {
+                                                                                                                                        echo "-";
+                                                                                                                                    } else {
+                                                                                                                                        echo $row['nomor_sktu'];
+                                                                                                                                    }
+                                                                                                                                    ?>" readonly>
                                             </div>
                                         </div>
 
@@ -138,18 +144,18 @@ $row  = $data->fetch_array();
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Masa Berlaku</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control datepicker" id="masa_berlaku_awal" name="masa_berlaku_awal" value="<?= $row['masa_berlaku_awal'] ?>" required>
+                                                <input type="date" class="form-control datepicker" id="masa_berlaku_awal" name="masa_berlaku_awal" value="<?= $row['masa_berlaku_awal'] ?>">
                                             </div>
                                             <label class="col-form-label">S/D</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control" id="masa_berlaku_akhir" name="masa_berlaku_akhir" value="<?= $row['masa_berlaku_akhir'] ?>" required>
+                                                <input type="date" class="form-control" id="masa_berlaku_akhir" name="masa_berlaku_akhir" value="<?= $row['masa_berlaku_akhir'] ?>">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label for="sifat" class="col-sm-2 col-form-label">Sifat</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="sifat" value="Baru" readonly>
+                                                <input type="text" class="form-control" name="sifat" value="<?= $row['sifat']; ?>" readonly>
                                             </div>
                                         </div>
 
@@ -352,7 +358,7 @@ $row  = $data->fetch_array();
         // AMBIL DASAR HUKUM SKTU
         $dataperaturan = $koneksi->query("SELECT * FROM peraturan_sktu")->fetch_array();
 
-        $nomor_sktu               = $_POST['nomor_sktu'];
+        $nomor_sktu               = $row['nomor_sktu'];
         $nama_pemohon             = $_POST['nama_pemohon'];
         $no_telp                  = $_POST['no_telp'];
         $tgl                      = $_POST['tgl'] . " " . date('H:i:s');;

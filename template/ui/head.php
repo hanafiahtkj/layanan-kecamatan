@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- Sweet Alert -->
   <link rel="stylesheet" href="<?= base_url() ?>/assets/alert/sweetalert.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/select2/css/select2.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/toastr/toastr.min.css">
   <!-- file upload -->

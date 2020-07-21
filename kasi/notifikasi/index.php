@@ -61,7 +61,7 @@ include_once "../../template/head.php";
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <?php
-                                    $n_sktubaru = $koneksi->query("SELECT * FROM sktu_baru WHERE id_posisi = 1 AND status = 'Belum Diproses' AND ISNULL(kelengkapan)");
+                                    $n_sktubaru = $koneksi->query("SELECT * FROM sktu_baru WHERE id_posisi = 1 AND status = 'Belum Diproses' AND ISNULL(kelengkapan) OR kelengkapan = '' ORDER BY id_sktu DESC");
                                     foreach ($n_sktubaru as $r) :
                                         $tgl_sekarang = new DateTime();
                                         $tgl_upload   = new DateTime($r['tgl']);

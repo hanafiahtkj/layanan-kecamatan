@@ -3,6 +3,7 @@
 
 <?php
 include_once "../../config/config.php";
+include_once "../../config/bulan.php";
 include_once "../../config/auth-mas.php";
 include_once "../../template/ui/head.php";
 
@@ -17,7 +18,8 @@ $kode   = $data['kode'];
 $nourut = (int) substr($kode, 5, 3);
 $nourut++;
 
-$kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-V/CAM-BU/" . date('Y');
+$b_romawi = $bulan_romawi[date('m')];
+$kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
 ?>
 
 <body>
@@ -71,18 +73,34 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-V/CAM-BU/" . date('Y'
                                         </div>
                                     </div>
 
+                                    <div class="card mb-3" style="border: 2px solid crimson;">
+                                        <div class="card-body">
 
-                                    <div class="form-group row">
-                                        <label for="nama_pemohon" class="col-sm-3 col-form-label">Nama Pemohon</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="nama_pemohon" name="nama_pemohon" value="<?= $data_mas['nama']; ?>" required>
-                                        </div>
-                                    </div>
+                                            <div class="form-group row">
+                                                <label for="nama_pemohon" class="col-sm-3 col-form-label">Nama Pemohon</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="nama_pemohon" name="nama_pemohon" value="<?= $data_mas['nama']; ?>" required readonly>
+                                                </div>
+                                            </div>
 
-                                    <div class="form-group row">
-                                        <label for="no_telp" class="col-sm-3 col-form-label">Nomor Telpon</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $data_mas['telpon']; ?>" required>
+                                            <div class="form-group row">
+                                                <label for="no_telp" class="col-sm-3 col-form-label">Nomor Telpon</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $data_mas['telpon']; ?>" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="alamat_kediaman" class="col-sm-3 col-form-label">Alamat Kediaman</label>
+                                                <div class="col-sm-9">
+                                                    <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required readonly><?= $data_mas['alamat']; ?></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="justify-content-between text-right" style="color: red; font-style: italic;">
+                                                <small>*Klik Tombol Edit Profil untuk mengubah data profil anda</small> <a href="<?= base_url('profil') ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"> Edit Profil</i></a>
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -108,16 +126,10 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-V/CAM-BU/" . date('Y'
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="alamat_kediaman" class="col-sm-3 col-form-label">Alamat Kediaman</label>
-                                        <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required><?= $data_mas['alamat']; ?></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
                                         <label for="kegiatan_usaha" class="col-sm-3 col-form-label">Kegiatan Usaha</label>
                                         <div class="col-sm-5">
-                                            <select name="kegiatan_usaha" id="kegiatan_usaha" class="form-control" required>
+                                            <select class="form-control" name="kegiatan_usaha" id="kegiatan_usaha" required>
+                                                <option value="">--Pilih--</option>
                                                 <?php
                                                 $kegiatan = $koneksi->query("SELECT * FROM kegiatan_usaha ORDER BY kegiatan_usaha ASC");
                                                 foreach ($kegiatan as $ku) {

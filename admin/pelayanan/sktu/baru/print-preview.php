@@ -68,7 +68,7 @@ $row  = $data->fetch_array();
                     <b><?= strtoupper($row['nama_pemohon']); ?></b> <br>
                     Tanggal : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <?=
-                        date('d', strtotime($row['masa_berlaku_awal'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_awal']))] . " " . date('Y', strtotime($row['masa_berlaku_awal']));
+                        tgl_indo(date('Y-m-d', strtotime($row['tgl'])));
                     ?>
                 </td>
             </tr>
@@ -178,9 +178,7 @@ $row  = $data->fetch_array();
             <td width="30%" align="right">Pada Tanggal</td>
             <td width="2%" align="center">:</td>
             <td width="30%">
-                <?=
-                    date('d', strtotime($row['masa_berlaku_awal'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_awal']))] . " " . date('Y', strtotime($row['masa_berlaku_awal']));
-                ?>
+                <?= tgl_indo(date('Y-m-d', strtotime($row['tgl_selesai']))); ?>
             </td>
         </tr>
         <tr style="text-align: center;"">

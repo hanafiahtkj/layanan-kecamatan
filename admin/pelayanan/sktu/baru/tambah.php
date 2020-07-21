@@ -4,6 +4,7 @@
 <?php
 include_once "../../../../config/config.php";
 include_once "../../../../config/auth-admin.php";
+include_once "../../../../config/bulan.php";
 include_once "../../../../template/head.php";
 
 $query  = mysqli_query($koneksi, "SELECT max(nomor_sktu) AS kode FROM sktu_baru");
@@ -13,7 +14,9 @@ $kode   = $data['kode'];
 $nourut = (int) substr($kode, 5, 3);
 $nourut++;
 
-$kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-V/CAM-BU/" . date('Y');
+$b_romawi = $bulan_romawi[date('m')];
+$kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
+
 ?>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -77,7 +80,7 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-V/CAM-BU/" . date('Y'
                                         <div class="form-group row">
                                             <label for="nomor_sktu" class="col-sm-2 col-form-label">Nomor</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nomor_sktu" name="nomor_sktu" value="<?= $kodeotomatis; ?>" readonly>
+                                                <input type="text" class="form-control" id="nomor_sktu" value="-" readonly>
                                             </div>
                                         </div>
 
@@ -160,11 +163,11 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-V/CAM-BU/" . date('Y'
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Masa Berlaku</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control datepicker" id="masa_berlaku_awal" name="masa_berlaku_awal" value="<?= date('Y-m-d') ?>" required>
+                                                <input type="date" class="form-control datepicker" id="masa_berlaku_awal" name="masa_berlaku_awal">
                                             </div>
                                             <label class="col-form-label">S/D</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control" id="masa_berlaku_akhir" name="masa_berlaku_akhir" value="<?= date('Y-m-d', strtotime('+1 year')) ?>" required>
+                                                <input type="date" class="form-control" id="masa_berlaku_akhir" name="masa_berlaku_akhir">
                                             </div>
                                         </div>
 
@@ -372,7 +375,7 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-V/CAM-BU/" . date('Y'
         // AMBIL DASAR HUKUM SKTU
         $dataperaturan = $koneksi->query("SELECT * FROM peraturan_sktu")->fetch_array();
 
-        $nomor_sktu               = $_POST['nomor_sktu'];
+        $nomor_sktu               = $kodeotomatis;
         $id_masyarakat            = $_POST['id_masyarakat'];
         $nama_pemohon             = $_POST['nama_pemohon'];
         $no_telp                  = $_POST['no_telp'];
@@ -400,51 +403,34 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-V/CAM-BU/" . date('Y'
             $tgl_selesai = null;
         }
 
-        // CEK VALIDASI DUPLICATE DATA
-        $cekid = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$id_masyarakat'")->fetch_array();
-        if (!empty($cekid)) {
-            echo "
-            <script type='text/javascript'>
-            setTimeout(function () {    
-                swal({
-                    title: 'Duplicate Data !',
-                    text: 'Data Pemohon Sudah Ada',
-                    type: 'warning',
-                    timer: 3000,
-                    showConfirmButton: true
-                });
-            }, 10);    
-            </script>";
-        } else {
+        $gambar_arr    = array();
+        $idl           = $_POST['id_lampiran'];
+        $hitungidl     = count($idl);
 
-            $gambar_arr    = array();
-            $idl           = $_POST['id_lampiran'];
-            $hitungidl     = count($idl);
+        $event = "";
 
-            $event = "";
+        for ($i = 0; $i < $hitungidl; $i++) {
 
-            for ($i = 0; $i < $hitungidl; $i++) {
+            $file          = $_FILES['file']['name'][$i];
+            $nama_lamp     = explode('.', $file);
+            $format_lamp   = end($nama_lamp);
+            $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
+            $allow_sizefile = 1024 * 1024 * 1;
 
-                $file          = $_FILES['file']['name'][$i];
-                $nama_lamp     = explode('.', $file);
-                $format_lamp   = end($nama_lamp);
-                $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
-                $allow_sizefile = 1024 * 1024 * 1;
+            // temporari file
+            $tmp_file  = $_FILES['file']['tmp_name'][$i];
 
-                // temporari file
-                $tmp_file  = $_FILES['file']['tmp_name'][$i];
+            $targer_dir = '../../../../assets/sktu/';
+            $target_file = $targer_dir . $nama_lampiran;
 
-                $targer_dir = '../../../../assets/sktu/';
-                $target_file = $targer_dir . $nama_lampiran;
+            move_uploaded_file($tmp_file, $target_file);
+            $gambar_arr[] = $target_file;
+            $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$nomor_sktu', '$nama_lampiran', 'Baru', null)");
+            $event .= "upload berhasil";
+        }
 
-                move_uploaded_file($tmp_file, $target_file);
-                $gambar_arr[] = $target_file;
-                $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$nomor_sktu', '$nama_lampiran', 'Baru', null)");
-                $event .= "upload berhasil";
-            }
-
-            if (!empty($event)) {
-                $submit = $koneksi->query("INSERT INTO sktu_baru VALUES (
+        if (!empty($event)) {
+            $submit = $koneksi->query("INSERT INTO sktu_baru VALUES (
             null, 
             '$id_masyarakat', 
             '$nomor_sktu', 
@@ -470,14 +456,14 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-V/CAM-BU/" . date('Y'
             '$status'
             )");
 
-                if ($submit) {
-                    $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$nomor_sktu', '$tgl', '$masa_berlaku_akhir')");
-                    $_SESSION['pesan'] = "Data SKTU Ditambahkan";
-                    echo "<script>window.location.replace('../');</script>";
-                }
+            if ($submit) {
+                $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$nomor_sktu', '$tgl', '$masa_berlaku_akhir')");
+                $_SESSION['pesan'] = "Data SKTU Ditambahkan";
+                echo "<script>window.location.replace('../');</script>";
             }
         }
     }
+
     ?>
 
 </body>
