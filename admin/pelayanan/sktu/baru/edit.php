@@ -214,8 +214,17 @@ $row  = $data->fetch_array();
                                             </div>
                                         </div>
 
-                                        <div class="form-group row" id="tglselesai" style="display: none;">
-                                        </div>
+                                        <?php if ($row['tgl_selesai'] == "0000-00-00" or is_null($row['tgl_selesai'])) { ?>
+                                            <div class="form-group row" id="tglselesai" style="display: none;">
+                                            </div>
+                                        <?php } else { ?>
+                                            <div class="form-group row">
+                                                <label for="tgl_selesai" class="col-sm-2 col-form-label">Tanggal Selesai</label>
+                                                <div class="col-sm-10">
+                                                    <input type="date" class="form-control" name="tgl_selesai" value="<?= $row['tgl_selesai']; ?>" required>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
 
                                         <div class="form-group row">
                                             <label for="nama_camat" class="col-sm-2 col-form-label">Camat</label>

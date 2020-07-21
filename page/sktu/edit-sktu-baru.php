@@ -349,7 +349,7 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
             ");
 
             if ($submit) {
-                $koneksi->query("UPDATE riwayat_tgl_sktu SET tgl_dibuat = '$tgl' WHERE id_sktu = '$id'");
+                $koneksi->query("UPDATE riwayat_tgl_sktu SET tgl_dibuat = '$tgl' WHERE nomor_sktu = '$nomor_sktu'");
                 echo "
                 <script type='text/javascript'>
                 setTimeout(function () {    

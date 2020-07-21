@@ -4,7 +4,7 @@
 
         <div class="logo mr-auto">
             <h1>
-                <a href="index"> <img src="<?= base_url() ?>/assets/img/logo-bjm.png" style="width: 35px; height: 40px; margin-top: -6px;"> Layanan Kecamatan</a>
+                <a href="<?= base_url(); ?>"> <img src="<?= base_url() ?>/assets/img/logo-bjm.png" style="width: 35px; height: 40px; margin-top: -6px;"> Layanan Kecamatan</a>
             </h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -43,8 +43,8 @@
                             <li><a href="<?= base_url('logout') ?>" class="alert-logout">Logout</a></li>
                         </ul>
                     </li>
+                    <li><a href="#"><i class="fa fa-bell"></i></a></li>
                 <?php } ?>
-                <li><a href="#"><i class="fa fa-bell"></i></a></li>
 
             </ul>
         </nav><!-- .nav-menu -->

@@ -4,6 +4,7 @@ include_once "../../../config/auth-camat.php";
 
 if (isset($_POST['verif'])) {
     $id_sktu    = $_POST['id_sktu'];
+    $nomor_sktu = $_POST['nomor_sktu'];
     $status     = $_POST['status'];
     $keterangan = $_POST['keterangan'];
 
@@ -24,6 +25,7 @@ if (isset($_POST['verif'])) {
     $submit = $koneksi->query("UPDATE sktu_baru SET masa_berlaku_awal = '$masa_berlaku_awal', masa_berlaku_akhir = '$masa_berlaku_akhir', kelengkapan = '$kelengkapan', keterangan = '$keterangan', tgl_selesai = '$tgl_selesai', id_posisi = '$posisi' WHERE id_sktu = '$id_sktu'");
 
     if ($submit) {
+        $koneksi->query("UPDATE riwayat_tgl_sktu SET terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE nomor_sktu = '$nomor_sktu'");
         $_SESSION['pesan'] = "Data Permohonan SKTU BARU Telah Diverifikasi";
         echo "<script>window.location.replace('../');</script>";
     }

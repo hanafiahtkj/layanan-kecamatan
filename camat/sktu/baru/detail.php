@@ -261,6 +261,7 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                         <div class="modal-body">
 
                             <input type="text" name="id_sktu" value="<?= $row['id_sktu']; ?>" hidden>
+                            <input type="text" name="nomor_sktu" value="<?= $row['nomor_sktu']; ?>" hidden>
 
                             <div class="form-group">
                                 <label for="status" class="col-sm-4 col-form-label">Status</label>
