@@ -72,11 +72,10 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                     <!-- TAB SKTU BARU -->
                                     <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                                         <?php
-                                        $data = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'");
+                                        $data = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm' ORDER BY id_sktu DESC");
                                         if (mysqli_num_rows($data)) {
 
                                             $row = $data->fetch_array();
-                                            $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_posisi]'")->fetch_array();
                                             if ($row['kelengkapan'] == "Tidak Lengkap") {
                                         ?>
                                                 <div class="alert" style="background-color: crimson; color: white; font-size: 20px;">
@@ -112,7 +111,10 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                         </tr>
                                                     </thead>
                                                     <tbody class="warna-hover">
-                                                        <?php foreach ($data as $r) : ?>
+                                                        <?php
+                                                        foreach ($data as $r) {
+                                                            $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$r[id_posisi]'")->fetch_array();
+                                                        ?>
                                                             <tr>
                                                                 <td align="center"><?= $no++; ?></td>
                                                                 <td align="center">
@@ -148,7 +150,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                                     <?php endif ?>
                                                                 </td>
                                                             </tr>
-                                                        <?php endforeach ?>
+                                                        <?php } ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -173,7 +175,6 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                         if (mysqli_num_rows($data)) {
 
                                             $row = $data->fetch_array();
-                                            $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_posisi]'")->fetch_array();
                                             if ($row['kelengkapan'] == "Tidak Lengkap") {
                                         ?>
                                                 <div class="alert" style="background-color: crimson; color: white; font-size: 20px;">
@@ -204,17 +205,20 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                             <th>Posisi Berkas</th>
                                                             <th>Status</th>
                                                             <th>Keterangan</th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="warna-hover">
-                                                        <?php foreach ($data as $r) : ?>
-                                                            <tr id="detail1" data-id="<?= encryptor('encrypt', $r['id_sktu']) ?>">
-                                                                <td align="center"><?= $no++; ?></td>
+                                                        <?php
+                                                        $n1 = 1;
+                                                        foreach ($data as $r) :
+                                                            $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$r[id_posisi]'")->fetch_array();
+                                                        ?>
+                                                            <tr>
+                                                                <td align="center"><?= $n1++; ?></td>
                                                                 <td align="center">
                                                                     <?=
-                                                                        date('d', strtotime($r['tgl'])) . " " .
-                                                                            $bln[date('m', strtotime($r['tgl']))] . " " .
-                                                                            date('Y', strtotime($r['tgl']));
+                                                                        tgl_indo(date('Y-m-d', strtotime($r['tgl'])));
                                                                     ?>
                                                                 </td>
                                                                 <td><?= $r['nama_pemohon']; ?></td>
@@ -222,16 +226,26 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                                 <td><?= $po['posisi']; ?></td>
                                                                 <td>
                                                                     <?php
-                                                                    if ($row['status'] == "Belum Diproses") {
-                                                                        echo "<span class='badge badge-danger'>" . $row['status'] . "</span>";
-                                                                    } elseif ($row['status'] == "Dalam Proses") {
-                                                                        echo "<span class='badge badge-warning'>" . $row['status'] . "</span>";
+                                                                    if ($r['status'] == "Belum Diproses") {
+                                                                        echo "<span class='badge badge-danger'>" . $r['status'] . "</span>";
+                                                                    } elseif ($r['status'] == "Dalam Proses") {
+                                                                        echo "<span class='badge badge-warning'>" . $r['status'] . "</span>";
                                                                     } else {
-                                                                        echo "<span class='badge badge-success'>" . $row['status'] . "</span>";
+                                                                        echo "<span class='badge badge-success'>" . $r['status'] . "</span>";
                                                                     }
                                                                     ?>
                                                                 </td>
                                                                 <td><?= $r['keterangan']; ?></td>
+                                                                <td align="center" width="10%">
+                                                                    <button id="detail1" data-id="<?= encryptor('encrypt', $r['id_sktu']) ?>" class="btn btn-primary btn-sm" title="Lihat Detail Berkas">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </button>
+                                                                    <?php if ($r['kelengkapan'] == "Tidak Lengkap") : ?>
+                                                                        <a href="edit-sktu-ppj?id=<?= encryptor('encrypt', $r['id_sktu']) ?>" class="btn btn-danger btn-sm" title="Perbaiki Berkas">
+                                                                            <i class="fa fa-edit"></i>
+                                                                        </a>
+                                                                    <?php endif ?>
+                                                                </td>
                                                             </tr>
                                                         <?php endforeach ?>
                                                     </tbody>
@@ -252,10 +266,10 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                     $masa_berlaku = new DateTime($data['masa_berlaku_akhir']);
                                                     $tgl_sekarang = new DateTime();
                                                     $selisih = $masa_berlaku->diff($tgl_sekarang);
-                                                    if ($selisih->days <= 30 or $tgl_sekarang >= $masa_berlaku) {
+                                                    if ($selisih->days <= 30 or $tgl_sekarang >= $masa_berlaku or $selisih->m <= 6) {
                                                         echo "<a href='input-sktu-perpanjangan' class='btn btn-primary btn-lg'>Perpanjang SKTU</a>";
                                                     }
-                                                    // var_dump($masa_berlaku);
+                                                    // var_dump($selisih->m);
                                                     // die();
                                                 }
                                             }
@@ -283,7 +297,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
 
     <!-- MODAL DETAIL -->
-    <div class="modal" id="baru" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog fadeIn animated modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: whitesmoke;">
@@ -312,32 +326,28 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
     <?php include_once "../../template/ui/script.php"; ?>
 
     <script>
-        $(document).ready(function() {
+        $(document).on('click', '#detail', function(e) {
+            e.preventDefault();
+            $(".modal").modal('show');
+            $.post('req-sktu-baru.php', {
+                    id: $(this).attr('data-id')
+                },
+                function(html) {
+                    $("#data-detail").html(html);
+                }
+            );
+        });
 
-            $('#detail').on('click', function(e) {
-                e.preventDefault();
-                $(".modal").modal('show');
-                $.post('req-sktu-baru.php', {
-                        id: $(this).attr('data-id')
-                    },
-                    function(html) {
-                        $("#data-detail").html(html);
-                    }
-                );
-            });
-
-            $('#detail1').on('click', function(e) {
-                e.preventDefault();
-                $(".modal").modal('show');
-                $.post('req-sktu-ppj.php', {
-                        id: $(this).attr('data-id')
-                    },
-                    function(html) {
-                        $("#data-detail").html(html);
-                    }
-                );
-            });
-
+        $(document).on('click', '#detail1', function(e) {
+            e.preventDefault();
+            $(".modal").modal('show');
+            $.post('req-sktu-ppj.php', {
+                    id: $(this).attr('data-id')
+                },
+                function(html) {
+                    $("#data-detail").html(html);
+                }
+            );
         });
     </script>
 
