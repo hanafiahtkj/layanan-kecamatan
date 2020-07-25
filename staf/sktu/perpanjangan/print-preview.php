@@ -68,7 +68,7 @@ $row  = $data->fetch_array();
                     <b><?= strtoupper($row['nama_pemohon']); ?></b> <br>
                     Tanggal : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <?=
-                        date('d', strtotime($row['tgl'])) . " " . $bln[date('m', strtotime($row['tgl']))] . " " . date('Y', strtotime($row['tgl']));
+                        tgl_indo(date('Y-m-d', strtotime($row['tgl'])));
                     ?>
                 </td>
             </tr>
@@ -144,8 +144,8 @@ $row  = $data->fetch_array();
             <td>:</td>
             <td width="60%">
                 <?=
-                    date('d', strtotime($row['masa_berlaku_awal'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_awal']))] . " " . date('Y', strtotime($row['masa_berlaku_awal'])) . " S/D " .
-                        date('d', strtotime($row['masa_berlaku_akhir'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_akhir']))] . " " . date('Y', strtotime($row['masa_berlaku_akhir']))
+                    tgl_indo($row['masa_berlaku_awal']) . " S/D " .
+                        tgl_indo($row['masa_berlaku_akhir']);
                 ?>
             </td>
         </tr>
@@ -179,7 +179,7 @@ $row  = $data->fetch_array();
             <td width="2%" align="center">:</td>
             <td width="30%">
                 <?=
-                    date('d') . " " . $bln[date('m')] . " " . date('Y');
+                    tgl_indo($row['tgl_selesai']);
                 ?>
             </td>
         </tr>

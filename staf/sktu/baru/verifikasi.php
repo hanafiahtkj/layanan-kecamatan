@@ -6,9 +6,8 @@ if (isset($_POST['verif'])) {
     $id_sktu            = $_POST['id_sktu'];
     $status             = $_POST['status'];
     $keterangan         = $_POST['keterangan'];
-    $tgl                = date('Y-m-d');
 
-    $submit = $koneksi->query("UPDATE sktu_baru SET keterangan = '$keterangan', tgl_selesai = '$tgl', status = '$status', id_posisi = 4 WHERE id_sktu = '$id_sktu'");
+    $submit = $koneksi->query("UPDATE sktu_baru SET keterangan = '$keterangan', status = '$status', id_posisi = 4 WHERE id_sktu = '$id_sktu'");
 
     if ($submit) {
         $_SESSION['pesan'] = "Status Permohonan SKTU Baru Diubah";

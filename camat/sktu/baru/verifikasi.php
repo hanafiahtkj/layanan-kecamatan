@@ -15,7 +15,7 @@ if (isset($_POST['verif'])) {
         $masa_berlaku_akhir = date('Y-m-d', strtotime('+1 year'));
         $tgl_selesai        = date('Y-m-d');
     } else {
-        $posisi             = 3;
+        $posisi             = 1;
         $kelengkapan        = 'Tidak Lengkap';
         $masa_berlaku_awal  = null;
         $masa_berlaku_akhir = null;

@@ -138,11 +138,11 @@ $row  = $data->fetch_array();
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Masa Berlaku</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control datepicker" id="masa_berlaku_awal" name="masa_berlaku_awal" required value="<?= $row['masa_berlaku_awal'] ?>">
+                                                <input type="date" class="form-control datepicker" id="masa_berlaku_awal" name="masa_berlaku_awal" value="<?= $row['masa_berlaku_awal'] ?>">
                                             </div>
                                             <label class="col-form-label">S/D</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control" id="masa_berlaku_akhir" name="masa_berlaku_akhir" required value="<?= $row['masa_berlaku_akhir'] ?>">
+                                                <input type="date" class="form-control" id="masa_berlaku_akhir" name="masa_berlaku_akhir" value="<?= $row['masa_berlaku_akhir'] ?>">
                                             </div>
                                         </div>
 
