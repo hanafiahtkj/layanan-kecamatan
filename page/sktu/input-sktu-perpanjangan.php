@@ -9,7 +9,8 @@ include_once "../../template/ui/head.php";
 $idm      = $_SESSION['id_masyarakat'];
 $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$idm'")->fetch_array();
 
-$row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'")->fetch_array();
+$id_sktu = encryptor('decrypt', $_GET['id']);
+$row     = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm' AND id_sktu = '$id_sktu'")->fetch_array();
 
 ?>
 
@@ -121,9 +122,6 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'")->
                                             </select>
                                         </div>
                                     </div>
-
-                                    <input type="date" name="masa_berlaku_awal" value="<?= $row['masa_berlaku_akhir'] ?>" hidden>
-                                    <input type="date" name="masa_berlaku_akhir" value="<?= date('Y-m-d', strtotime($row['masa_berlaku_akhir'] . '+1 year')) ?>" hidden>
 
                                     <div class="form-group row">
                                         <label for="sifat" class="col-sm-3 col-form-label">Sifat</label>
@@ -267,8 +265,6 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'")->
         $nama_pimpinan_perusahaan = $_POST['nama_pimpinan_perusahaan'];
         $alamat_kediaman          = $_POST['alamat_kediaman'];
         $kegiatan_usaha           = $_POST['kegiatan_usaha'];
-        $masa_berlaku_awal        = $_POST['masa_berlaku_awal'];
-        $masa_berlaku_akhir       = $_POST['masa_berlaku_akhir'];
         $sifat                    = $_POST['sifat'];
         $nama_camat               = $camat['nama_camat'];
         $nip                      = $camat['nip'];
@@ -322,8 +318,8 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'")->
             '$nama_pimpinan_perusahaan',
             '$alamat_kediaman',
             '$kegiatan_usaha',
-            '$masa_berlaku_awal',
-            '$masa_berlaku_akhir',
+            null,
+            null,
             '$sifat',
             '$nama_camat',
             '$nip',
@@ -337,7 +333,6 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'")->
             )");
 
             if ($submit) {
-                $koneksi->query("UPDATE riwayat_tgl_sktu SET terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE nomor_sktu = '$nomor_sktu'");
                 echo "
                 <script type='text/javascript'>
                 setTimeout(function () {    

@@ -183,9 +183,12 @@ include_once "../../template/head.php";
                                                                 <td align="left"><?= $row['nama_pemohon'] ?></td>
                                                                 <td align="left"><?= $row['nama_perusahaan'] ?></td>
                                                                 <td>
-                                                                    <?=
-                                                                        date('d', strtotime($row['masa_berlaku_awal'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_awal']))] . " " . date('Y', strtotime($row['masa_berlaku_awal'])) . " s/d " .
-                                                                            date('d', strtotime($row['masa_berlaku_akhir'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_akhir']))] . " " . date('Y', strtotime($row['masa_berlaku_akhir']));
+                                                                    <?php
+                                                                    if (($row['masa_berlaku_awal'] == "0000-00-00" or is_null($row['masa_berlaku_awal'])) and ($row['masa_berlaku_akhir'] == "0000-00-00" or is_null($row['masa_berlaku_akhir']))) {
+                                                                        echo "-";
+                                                                    } else {
+                                                                        echo tgl_indo($row['masa_berlaku_awal']) . " s/d " . tgl_indo($row['masa_berlaku_akhir']);
+                                                                    }
                                                                     ?>
                                                                 </td>
                                                                 <td><?= $po['posisi'] ?></td>

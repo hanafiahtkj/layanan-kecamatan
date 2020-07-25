@@ -343,7 +343,7 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM
             )");
 
             if ($submit) {
-                $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$nomor_sktu', '$tgl', null)");
+                $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$idm', '$nomor_sktu', '$tgl', null)");
                 echo "
                 <script type='text/javascript'>
                 setTimeout(function () {    

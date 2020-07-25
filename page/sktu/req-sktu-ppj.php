@@ -20,6 +20,11 @@ $po  = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_p
             </td>
         </tr>
         <tr>
+            <th width="30%">Nomor SKTU</th>
+            <td width="2%">:</td>
+            <td><?= $row['nomor_sktu']; ?></td>
+        </tr>
+        <tr>
             <th width="30%">Nama Pemohon</th>
             <td width="2%">:</td>
             <td><?= $row['nama_pemohon'] ?></td>
@@ -129,7 +134,16 @@ $po  = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_p
                         <th width="30%"><?= $file['nama_lampiran']; ?></th>
                         <td width="2%">:</td>
                         <td>
-                            <img class="profile-user-img img-fluid" style="width: auto; height: auto;" src="<?= base_url() ?>/assets/sktu/perpanjangan/<?= $file['file'] ?>" alt="User profile picture">
+                            <?php
+                            $nama_lamp      = explode('.', $file['file']);
+                            $format_lamp    = end($nama_lamp);
+                            if ($format_lamp == 'pdf') :
+                            ?>
+                                <embed src="<?= base_url('assets/sktu/perpanjangan/' . $file['file']) ?>#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" width="100%" height="600px" />
+
+                            <?php else : ?>
+                                <img class="profile-user-img img-fluid" style="width: auto; height: auto;" src="<?= base_url() ?>/assets/sktu/perpanjangan/<?= $file['file'] ?>" alt="File">
+                            <?php endif ?>
                         </td>
                     </tr>
 

@@ -43,7 +43,7 @@
                             <li><a href="<?= base_url('logout') ?>" class="alert-logout">Logout</a></li>
                         </ul>
                     </li>
-                    <li><a href="#"><i class="fa fa-bell"></i></a></li>
+                    <!-- <li><a href="#"><i class="fa fa-bell"></i></a></li> -->
                 <?php } ?>
 
             </ul>

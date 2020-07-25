@@ -457,7 +457,7 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM
             )");
 
             if ($submit) {
-                $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$nomor_sktu', '$tgl', '$masa_berlaku_akhir')");
+                $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$id_masyarakat', '$nomor_sktu', '$tgl', '$masa_berlaku_akhir')");
                 $_SESSION['pesan'] = "Data SKTU Ditambahkan";
                 echo "<script>window.location.replace('../');</script>";
             }

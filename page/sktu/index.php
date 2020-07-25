@@ -62,7 +62,10 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                         <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Baru</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Riwayat Perpanjangan</a>
+                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">
+                                            Perpanjangan
+                                            <sup style="color: red;">*</sup>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -171,6 +174,66 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                     <!-- TAB SKTU PERPANJANGAN -->
                                     <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                                         <?php
+                                        // $kondisi = "";
+                                        // $cekbaru = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat");
+                                        // foreach ($cekbaru as $cp) {
+                                        //     $cekppj = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE nomor_sktu = '$cp[nomor_sktu]'");
+                                        //     foreach ($cekppj as $cj) {
+                                        //         if (!empty($cj)) {
+                                        //             $kondisi .= "true";
+                                        //         }
+                                        //     }
+                                        // }
+
+                                        $data1 = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE id_masyarakat = '$idm'");
+                                        foreach ($data1 as $r1) {
+
+                                            if (!empty($r1['terakhir_diperpanjang'])) {
+                                                $masa_berlaku = $r1['terakhir_diperpanjang'];
+                                                $tgl_sekarang = date('Y-m-d');
+                                                $selisih      = strtotime($masa_berlaku) - strtotime($tgl_sekarang);
+                                                $selisih_hari = $selisih / (60 * 60 * 24);
+                                                $batas_perpanjangan = date('Y-m-d', strtotime('+6 month', strtotime($masa_berlaku)));
+                                                // var_dump($batas_perpanjangan);
+                                                if ($selisih_hari <= 30 and $selisih_hari > 0) {
+                                        ?>
+                                                    <div class="alert alert-info" style="font-size: 20px;" role="alert">
+                                                        <i class="fas fa-bullhorn">
+                                                            <p>
+                                                                Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Akan Berakhir <?= $selisih_hari; ?> Hari Lagi
+                                                            </p>
+                                                        </i> <br>
+                                                        <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $r['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
+                                                    </div>
+
+                                                <?php } elseif ($tgl_sekarang >= $masa_berlaku and $tgl_sekarang <= $batas_perpanjangan) { ?>
+                                                    <div class="alert alert-info" style="font-size: 20px;" role="alert">
+                                                        <i class="fas fa-bullhorn">
+                                                            <p>
+                                                                Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Telah Berakhir Pada Tanggal <u><?= tgl_indo($r1['terakhir_diperpanjang']); ?></u>, Batas Waktu Perpanjangan Paling Lambat 6 bulan, Jika Tidak Diperpanjang Dalam Waktu 6 Bulan Maka Diwajibkan Mengajukan Pembuatan SKTU Baru.
+                                                            </p>
+                                                        </i> <br>
+                                                        <a href="" class="btn btn-primary">Perpanjang SKTU</a>
+                                                    </div>
+
+                                                <?php } elseif ($tgl_sekarang >= $batas_perpanjangan) { ?>
+                                                    <div class="alert alert-info" style="font-size: 20px;" role="alert">
+                                                        <i class="fas fa-bullhorn">
+                                                            <p>
+                                                                Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Telah Berakhir Pada Tanggal <u><?= tgl_indo($r1['terakhir_diperpanjang']); ?></u>, dan Masa Perpanjangan Telah Berakhir Pada <u><?= tgl_indo($batas_perpanjangan); ?></u>. Silahkan Buat Pengajuan SKTU Baru.
+                                                            </p>
+                                                        </i> <br>
+                                                        <a href="input-sktu-baru" class="btn btn-primary">Buat SKTU Baru</a>
+                                                    </div>
+
+                                        <?php
+                                                }
+                                            }
+                                        }
+
+                                        ?>
+
+                                        <?php
                                         $data = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_masyarakat = '$idm'");
                                         if (mysqli_num_rows($data)) {
 
@@ -180,19 +243,17 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                 <div class="alert" style="background-color: crimson; color: white; font-size: 20px;">
                                                     <i class="fa fa-exclamation-triangle"> Notifikasi</i>
                                                     <p>
-                                                        Berkas tidak disetujui dengan keterangan : <br>
+                                                        Berkas "<?= $row['nama_perusahaan']; ?>" tidak disetujui dengan keterangan : <br>
                                                         "<?= $row['keterangan']; ?>" <br>
 
-                                                        Silahkan klik tombol "Edit SKTU" dibawah ini untuk memperbaiki berkas permohonan
+                                                        Silahkan klik tombol "<i class="fa fa-edit"></i>" pada tabel untuk memperbaiki berkas permohonan
                                                     </p>
                                                 </div>
 
                                                 <a href="edit-sktu-perpanjangan?id=<?= encryptor('encrypt', $row['id_sktu']) ?>" class="btn btn-primary"><i class="fa fa-edit"> Edit SKTU</i></a><br><br>
 
                                             <?php } ?>
-                                            <div class="alert alert-info">
-                                                *Klik tabel untuk melihat detail
-                                            </div>
+
 
                                             <div class="table-responsive">
                                                 <table class="table">
@@ -241,7 +302,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                                         <i class="fa fa-eye"></i>
                                                                     </button>
                                                                     <?php if ($r['kelengkapan'] == "Tidak Lengkap") : ?>
-                                                                        <a href="edit-sktu-ppj?id=<?= encryptor('encrypt', $r['id_sktu']) ?>" class="btn btn-danger btn-sm" title="Perbaiki Berkas">
+                                                                        <a href="edit-sktu-perpanjangan?id=<?= encryptor('encrypt', $r['id_sktu']) ?>" class="btn btn-danger btn-sm" title="Perbaiki Berkas">
                                                                             <i class="fa fa-edit"></i>
                                                                         </a>
                                                                     <?php endif ?>
@@ -254,26 +315,11 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
                                         <?php } else { ?>
 
-                                            <div class="alert alert-danger" role="alert">
+                                            <div class="alert alert-info" role="alert">
                                                 <i class="fa fa-info-circle">
                                                     BELUM ADA PERPANJANGAN SKTU
                                                 </i>
                                             </div>
-                                            <?php
-                                            $data = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'")->fetch_array();
-                                            if (!empty($data)) {
-                                                if (!empty($data['masa_berlaku_akhir'])) {
-                                                    $masa_berlaku = new DateTime($data['masa_berlaku_akhir']);
-                                                    $tgl_sekarang = new DateTime();
-                                                    $selisih = $masa_berlaku->diff($tgl_sekarang);
-                                                    if ($selisih->days <= 30 or $tgl_sekarang >= $masa_berlaku or $selisih->m <= 6) {
-                                                        echo "<a href='input-sktu-perpanjangan' class='btn btn-primary btn-lg'>Perpanjang SKTU</a>";
-                                                    }
-                                                    // var_dump($selisih->m);
-                                                    // die();
-                                                }
-                                            }
-                                            ?>
 
                                         <?php } ?>
 
