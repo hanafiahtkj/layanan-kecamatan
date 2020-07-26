@@ -28,7 +28,7 @@ include_once "config/config.php";
         <div class="container text-center" data-aos="fade-up">
             <h1 style="color: yellow; text-shadow: 0 0 25px #000000;">
                 APLIKASI <br>
-                <span>E-LAYANAN KECAMATAN BANJARMASIN UTARA</span>
+                <span>E-LAYANAN ONLINE KECAMATAN</span>
             </h1>
             <h5 style="color: yellow; text-shadow: 0 0 15px #000000; font-weight: bold;">JL. HKSN RT. 10. Alalak Utara Banjarmasin 70125</h5>
             <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a> -->
