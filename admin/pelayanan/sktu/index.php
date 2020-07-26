@@ -199,6 +199,8 @@ include_once "../../../template/head.php";
                                                                     <?php
                                                                     if (($row['masa_berlaku_awal'] == "0000-00-00" or is_null($row['masa_berlaku_awal'])) and ($row['masa_berlaku_akhir'] == "0000-00-00" or is_null($row['masa_berlaku_akhir']))) {
                                                                         echo "-";
+                                                                    } else {
+                                                                        echo tgl_indo($row['masa_berlaku_awal']) . " s/d " . tgl_indo($row['masa_berlaku_akhir']);
                                                                     }
                                                                     ?>
                                                                 </td>

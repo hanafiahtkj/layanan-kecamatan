@@ -7,12 +7,19 @@ include_once "../../../../config/auth-admin.php";
 include_once "../../../../config/bulan.php";
 include_once "../../../../template/head.php";
 
-$query  = mysqli_query($koneksi, "SELECT max(nomor_sktu) AS kode FROM sktu_baru");
-$data   = mysqli_fetch_array($query);
-$kode   = $data['kode'];
-
-$nourut = (int) substr($kode, 5, 3);
-$nourut++;
+$ceksktu = $koneksi->query("SELECT * FROM sktu_baru");
+if (mysqli_num_rows($ceksktu) === 0) {
+    $query  = mysqli_query($koneksi, "SELECT max(nomor_urut) AS kode FROM nomor_urut_sktu");
+    $data   = mysqli_fetch_array($query);
+    $kode   = $data['kode'];
+    $nourut = $kode++;
+} else {
+    $query  = mysqli_query($koneksi, "SELECT max(nomor_sktu) AS kode FROM sktu_baru");
+    $data   = mysqli_fetch_array($query);
+    $kode   = $data['kode'];
+    $nourut = (int) substr($kode, 5, 3);
+    $nourut++;
+}
 
 $b_romawi = $bulan_romawi[date('m')];
 $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');

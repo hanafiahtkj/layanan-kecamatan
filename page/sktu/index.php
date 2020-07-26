@@ -160,7 +160,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
                                         <?php } else { ?>
 
-                                            <div class="alert alert-danger" role="alert">
+                                            <div class="alert alert-info" role="alert">
                                                 <i class="fa fa-info-circle">
                                                     ANDA BELUM MENGAJUKAN PEMBUATAN SKTU, KLIK TOMBOL DI BAWAH INI UNTUK MEMBUAT SKTU BARU
                                                 </i>
