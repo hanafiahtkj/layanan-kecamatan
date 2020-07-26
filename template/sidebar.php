@@ -546,9 +546,564 @@ if ($_SESSION['role'] == "Admin") {
                 <?php } ?>
 
 
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-laporan">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            Laporan
+                        </p>
+                    </a>
+                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
 </aside>
+
+
+<!-- MODAL LAPORAN -->
+<div class="modal fade" id="modal-laporan">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Print Laporan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div id="accordion">
+                    <!-- SKTU BARU -->
+                    <div class="card card-navy">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#sktu-baru">
+                                    SKTU Baru
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="sktu-baru" class="panel-collapse collapse in">
+                            <div class="card-body">
+
+                                <form role="form" action="<?= base_url('laporan/lap-sktu-baru') ?>" method="POST" target="blank">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bulan</label>
+                                                <select name="bulan" id="bulan" class="form-control">
+                                                    <option value="">--Pilih Bulan--</option>
+                                                    <option value="01">Januari</option>
+                                                    <option value="02">Februari</option>
+                                                    <option value="03">Maret</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">Mei</option>
+                                                    <option value="06">Juni</option>
+                                                    <option value="07">Juli</option>
+                                                    <option value="08">Agustus</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tahun</label>
+                                                <select name="tahun" id="tahun" class="form-control" required>
+                                                    <?php
+                                                    $tnow = date('Y');
+                                                    for ($i = $tnow; $i >= 2020; $i--) :
+                                                    ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php endfor ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> </label> <br>
+                                                <button type="submit" name="print" class="btn btn-primary mt-2"><i class="fa fa-print"></i> Print</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- SKTU PERPANJANGAN -->
+                    <div class="card card-navy">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#sktu-ppj">
+                                    SKTU Perpanjangan
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="sktu-ppj" class="panel-collapse collapse">
+                            <div class="card-body">
+
+                                <form role="form" action="<?= base_url('laporan/lap-sktu-perpanjangan') ?>" method="POST" target="blank">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bulan</label>
+                                                <select name="bulan" id="bulan" class="form-control">
+                                                    <option value="">--Pilih Bulan--</option>
+                                                    <option value="01">Januari</option>
+                                                    <option value="02">Februari</option>
+                                                    <option value="03">Maret</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">Mei</option>
+                                                    <option value="06">Juni</option>
+                                                    <option value="07">Juli</option>
+                                                    <option value="08">Agustus</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tahun</label>
+                                                <select name="tahun" id="tahun" class="form-control" required>
+                                                    <?php
+                                                    $tnow = date('Y');
+                                                    for ($i = $tnow; $i >= 2020; $i--) :
+                                                    ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php endfor ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> </label> <br>
+                                                <button type="submit" name="print" class="btn btn-primary mt-2"><i class="fa fa-print"></i> Print</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- IUMK -->
+                    <div class="card card-navy">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#lap-iumk">
+                                    Izin Usaha Mikro dan Kecil
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="lap-iumk" class="panel-collapse collapse">
+                            <div class="card-body">
+
+                                <form role="form" action="<?= base_url('laporan/lap-iumk') ?>" method="POST" target="blank">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bulan</label>
+                                                <select name="bulan" id="bulan" class="form-control">
+                                                    <option value="">--Pilih Bulan--</option>
+                                                    <option value="01">Januari</option>
+                                                    <option value="02">Februari</option>
+                                                    <option value="03">Maret</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">Mei</option>
+                                                    <option value="06">Juni</option>
+                                                    <option value="07">Juli</option>
+                                                    <option value="08">Agustus</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tahun</label>
+                                                <select name="tahun" id="tahun" class="form-control" required>
+                                                    <?php
+                                                    $tnow = date('Y');
+                                                    for ($i = $tnow; $i >= 2020; $i--) :
+                                                    ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php endfor ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> </label> <br>
+                                                <button type="submit" name="print" class="btn btn-primary mt-2"><i class="fa fa-print"></i> Print</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- AHLI WARIS -->
+                    <div class="card card-navy">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#lap-ahli-waris">
+                                    Surat Pernyataan Ahli Waris
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="lap-ahli-waris" class="panel-collapse collapse">
+                            <div class="card-body">
+
+                                <form role="form" action="<?= base_url('laporan/lap-ahli-waris') ?>" method="POST" target="blank">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bulan</label>
+                                                <select name="bulan" id="bulan" class="form-control">
+                                                    <option value="">--Pilih Bulan--</option>
+                                                    <option value="01">Januari</option>
+                                                    <option value="02">Februari</option>
+                                                    <option value="03">Maret</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">Mei</option>
+                                                    <option value="06">Juni</option>
+                                                    <option value="07">Juli</option>
+                                                    <option value="08">Agustus</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tahun</label>
+                                                <select name="tahun" id="tahun" class="form-control" required>
+                                                    <?php
+                                                    $tnow = date('Y');
+                                                    for ($i = $tnow; $i >= 2020; $i--) :
+                                                    ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php endfor ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> </label> <br>
+                                                <button type="submit" name="print" class="btn btn-primary mt-2"><i class="fa fa-print"></i> Print</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- REKOMENDASI PENDIRIAN PAUD -->
+                    <div class="card card-navy">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#lap-rpp">
+                                    Rekomendasi Pendirian PAUD
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="lap-rpp" class="panel-collapse collapse">
+                            <div class="card-body">
+
+                                <form role="form" action="<?= base_url('laporan/lap-rpp') ?>" method="POST" target="blank">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bulan</label>
+                                                <select name="bulan" id="bulan" class="form-control">
+                                                    <option value="">--Pilih Bulan--</option>
+                                                    <option value="01">Januari</option>
+                                                    <option value="02">Februari</option>
+                                                    <option value="03">Maret</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">Mei</option>
+                                                    <option value="06">Juni</option>
+                                                    <option value="07">Juli</option>
+                                                    <option value="08">Agustus</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tahun</label>
+                                                <select name="tahun" id="tahun" class="form-control" required>
+                                                    <?php
+                                                    $tnow = date('Y');
+                                                    for ($i = $tnow; $i >= 2020; $i--) :
+                                                    ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php endfor ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> </label> <br>
+                                                <button type="submit" name="print" class="btn btn-primary mt-2"><i class="fa fa-print"></i> Print</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- IMB -->
+                    <div class="card card-navy">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#lap-imb">
+                                    Legalisasi Permohonan IMB
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="lap-imb" class="panel-collapse collapse">
+                            <div class="card-body">
+
+                                <form role="form" action="<?= base_url('laporan/lap-imb') ?>" method="POST" target="blank">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bulan</label>
+                                                <select name="bulan" id="bulan" class="form-control">
+                                                    <option value="">--Pilih Bulan--</option>
+                                                    <option value="01">Januari</option>
+                                                    <option value="02">Februari</option>
+                                                    <option value="03">Maret</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">Mei</option>
+                                                    <option value="06">Juni</option>
+                                                    <option value="07">Juli</option>
+                                                    <option value="08">Agustus</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tahun</label>
+                                                <select name="tahun" id="tahun" class="form-control" required>
+                                                    <?php
+                                                    $tnow = date('Y');
+                                                    for ($i = $tnow; $i >= 2020; $i--) :
+                                                    ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php endfor ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> </label> <br>
+                                                <button type="submit" name="print" class="btn btn-primary mt-2"><i class="fa fa-print"></i> Print</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- PROPOSAL -->
+                    <div class="card card-navy">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#lap-proposal">
+                                    Legalisasi Proposal
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="lap-proposal" class="panel-collapse collapse">
+                            <div class="card-body">
+
+                                <form role="form" action="<?= base_url('laporan/lap-proposal') ?>" method="POST" target="blank">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bulan</label>
+                                                <select name="bulan" id="bulan" class="form-control">
+                                                    <option value="">--Pilih Bulan--</option>
+                                                    <option value="01">Januari</option>
+                                                    <option value="02">Februari</option>
+                                                    <option value="03">Maret</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">Mei</option>
+                                                    <option value="06">Juni</option>
+                                                    <option value="07">Juli</option>
+                                                    <option value="08">Agustus</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tahun</label>
+                                                <select name="tahun" id="tahun" class="form-control" required>
+                                                    <?php
+                                                    $tnow = date('Y');
+                                                    for ($i = $tnow; $i >= 2020; $i--) :
+                                                    ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php endfor ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> </label> <br>
+                                                <button type="submit" name="print" class="btn btn-primary mt-2"><i class="fa fa-print"></i> Print</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- IZIN TOWER -->
+                    <div class="card card-navy">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#lap-tower">
+                                    Legalisasi Permohonan Izin Tower
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="lap-tower" class="panel-collapse collapse">
+                            <div class="card-body">
+
+                                <form role="form" action="<?= base_url('laporan/lap-tower') ?>" method="POST" target="blank">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bulan</label>
+                                                <select name="bulan" id="bulan" class="form-control">
+                                                    <option value="">--Pilih Bulan--</option>
+                                                    <option value="01">Januari</option>
+                                                    <option value="02">Februari</option>
+                                                    <option value="03">Maret</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">Mei</option>
+                                                    <option value="06">Juni</option>
+                                                    <option value="07">Juli</option>
+                                                    <option value="08">Agustus</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tahun</label>
+                                                <select name="tahun" id="tahun" class="form-control" required>
+                                                    <?php
+                                                    $tnow = date('Y');
+                                                    for ($i = $tnow; $i >= 2020; $i--) :
+                                                    ?>
+                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                    <?php endfor ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> </label> <br>
+                                                <button type="submit" name="print" class="btn btn-primary mt-2"><i class="fa fa-print"></i> Print</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL LAPORAN -->
