@@ -24,7 +24,8 @@ $menumasterdata  = [
     "role",
     "user",
     "kegiatan-usaha",
-    "masyarakat"
+    "masyarakat",
+    "nomor-urut-sktu"
 ];
 
 $menupelayanan  = [
@@ -182,6 +183,12 @@ if ($_SESSION['role'] == "Admin") {
                                 <a href="<?= base_url('admin/masyarakat') ?>" class="nav-link <?= aktif("masyarakat"); ?>">
                                     <i class="fa fa-minus nav-icon"></i>
                                     <p>Masyarakat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('admin/nomor-urut-sktu') ?>" class="nav-link <?= aktif("nomor-urut-sktu"); ?>">
+                                    <i class="fa fa-minus nav-icon"></i>
+                                    <p>Nomor Urut SKTU</p>
                                 </a>
                             </li>
                         </ul>
