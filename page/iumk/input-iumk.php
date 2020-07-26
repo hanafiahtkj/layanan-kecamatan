@@ -10,12 +10,19 @@ $idm      = $_SESSION['id_masyarakat'];
 $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$idm'")->fetch_array();
 
 // NOMOR SURAT OTOMATIS
-$query  = mysqli_query($koneksi, "SELECT max(nomor_iumk) AS kode FROM iumk");
-$data   = mysqli_fetch_array($query);
-$kode   = $data['kode'];
-
-$nourut = (int) substr($kode, 8, 3);
-$nourut++;
+$cekiumk = $koneksi->query("SELECT * FROM iumk");
+if (mysqli_num_rows($cekiumk) === 0) {
+    $query  = mysqli_query($koneksi, "SELECT max(nomor_urut) AS kode FROM nomor_urut_iumk");
+    $data   = mysqli_fetch_array($query);
+    $kode   = $data['kode'];
+    $nourut = $kode++;
+} else {
+    $query  = mysqli_query($koneksi, "SELECT max(nomor_iumk) AS kode FROM iumk");
+    $data   = mysqli_fetch_array($query);
+    $kode   = $data['kode'];
+    $nourut = (int) substr($kode, 8, 3);
+    $nourut++;
+}
 
 $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
 ?>

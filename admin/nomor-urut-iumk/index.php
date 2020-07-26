@@ -26,12 +26,12 @@ include_once "../../template/head.php";
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Data Nomor Urut SKTU</h1>
+                            <h1 class="m-0 text-dark">Data Nomor Urut IUMK</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Nomor Urut SKTU</li>
+                                <li class="breadcrumb-item active">Nomor Urut IUMK</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -50,7 +50,7 @@ include_once "../../template/head.php";
                                 <div class="card-body">
                                     <?php
                                     if (isset($_SESSION['pesan']) && $_SESSION['pesan'] <> '') {
-                                        if ($_SESSION['pesan'] == "Nomor Urut SKTU Sudah Ada !") {
+                                        if ($_SESSION['pesan'] == "Nomor Urut IUMK Sudah Ada !") {
                                     ?>
                                             <div class="alert alert-warning alertinfo" role="alert">
                                                 <i class="fa fa-exclamation-triangle"> <?= $_SESSION['pesan']; ?></i>
@@ -76,7 +76,7 @@ include_once "../../template/head.php";
 
                                             <tbody style="background-color: azure">
                                                 <?php
-                                                $data = $koneksi->query("SELECT * FROM nomor_urut_sktu");
+                                                $data = $koneksi->query("SELECT * FROM nomor_urut_iumk");
                                                 foreach ($data as $row) {
                                                 ?>
                                                     <tr align="center">
@@ -130,7 +130,7 @@ include_once "../../template/head.php";
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Nomor Urut SKTU</h4>
+                    <h4 class="modal-title">Edit Nomor Urut IUMK</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

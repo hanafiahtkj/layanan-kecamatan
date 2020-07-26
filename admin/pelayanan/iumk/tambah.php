@@ -6,12 +6,20 @@ include_once "../../../config/config.php";
 include_once "../../../config/auth-admin.php";
 include_once "../../../template/head.php";
 
-$query  = mysqli_query($koneksi, "SELECT max(nomor_iumk) AS kode FROM iumk");
-$data   = mysqli_fetch_array($query);
-$kode   = $data['kode'];
+$cekiumk = $koneksi->query("SELECT * FROM iumk");
+if (mysqli_num_rows($cekiumk) === 0) {
+    $query  = mysqli_query($koneksi, "SELECT max(nomor_urut) AS kode FROM nomor_urut_iumk");
+    $data   = mysqli_fetch_array($query);
+    $kode   = $data['kode'];
+    $nourut = $kode++;
+} else {
+    $query  = mysqli_query($koneksi, "SELECT max(nomor_iumk) AS kode FROM iumk");
+    $data   = mysqli_fetch_array($query);
+    $kode   = $data['kode'];
+    $nourut = (int) substr($kode, 8, 3);
+    $nourut++;
+}
 
-$nourut = (int) substr($kode, 8, 3);
-$nourut++;
 $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
 
 ?>

@@ -154,12 +154,12 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
                                 <?php } else { ?>
 
-                                    <div class="alert alert-danger" role="alert">
+                                    <div class="alert alert-info" role="alert">
                                         <i class="fa fa-info-circle">
                                             ANDA BELUM MENGAJUKAN PEMBUATAN BERKAS, KLIK TOMBOL DI BAWAH INI UNTUK MEMBUAT SURAT IZIN USAHA MIKRO DAN KECIL
                                         </i>
                                     </div>
-                                    <a href="input-iumk" class="btn btn-primary btn-lg">Buat IUMK Baru</a>
+                                    <a href="input-iumk" class="btn btn-primary btn-lg">Buat IUMK</a>
                                 <?php } ?>
 
                                 </div>
