@@ -27,8 +27,8 @@ include_once "config/config.php";
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <div class="container text-center" data-aos="fade-up">
             <h1 style="color: yellow; text-shadow: 0 0 25px #000000;">
-                APLIKASI PELAYANAN <br>
-                <span>KECAMATAN BANJARMASIN UTARA</span>
+                APLIKASI <br>
+                <span>E-LAYANAN KECAMATAN BANJARMASIN UTARA</span>
             </h1>
             <h5 style="color: yellow; text-shadow: 0 0 15px #000000; font-weight: bold;">JL. HKSN RT. 10. Alalak Utara Banjarmasin 70125</h5>
             <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a> -->
@@ -128,29 +128,99 @@ include_once "config/config.php";
 
                 <div class="section-title" id="tentang" style="font-weight: bold; color: black; margin-top: 3%;">
                     <h2>Tentang</h2>
-                    <p>Tentang Aplikasi Layanan Kecamatan</p>
+                    <p>Tentang Aplikasi E-Lok</p>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-12 my-4" style="color: black;">
 
                         <div class="card my-4">
-                            <div class="card-header">
-                                <h3>APLIKASI LAYANAN KECAMATAN BANJARMASIN UTARA</h3>
+                            <div class="card-header" style="background-color: #386dff; color: white;">
+                                APLIKASI E-LAYANAN ONLINE KECAMATAN
                             </div>
                             <div class="card-body">
-                                Aplikasil layanan kecamatan adalah aplikasi yang difungsikan untuk mempermudah masyarakat dalam mengajukan pembuatan surat menyurat secara online
+                                Aplikasi E-layanan online kecamatan adalah aplikasi yang difungsikan untuk mempermudah masyarakat dalam mengajukan pembuatan surat menyurat secara online
                             </div>
                         </div>
 
 
                         <div class="card my-4">
-                            <div class="card-header">
-                                <h3>ALUR LAYANAN KECAMATAN BANJARMASIN UTARA</h3>
+                            <div class="card-header" style="background-color: #386dff; color: white;">
+                                ALUR PELAYANAN PEMOHON
                             </div>
                             <div class="card-body">
-                                <h1>ALUR PELAYANAN KECAMATAN BANJARMASIN UTARA</h1>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum iste veniam, repudiandae sapiente eos vero fuga laborum est porro officiis saepe praesentium commodi, blanditiis quo repellendus! Molestiae pariatur beatae ducimus!</p>
+                                <img src="<?= base_url('assets/img/alurpemohon.png'); ?>" style="width: 100%; height: 100%;" alt="digram alur">
+                            </div>
+                        </div>
+
+                        <div class="card my-4">
+                            <div class="card-header" style="background-color: #386dff; color: white;">
+                                PERSYARATAN
+                            </div>
+                            <div class="card-body">
+
+                                <div class="accordion" id="accordionExample">
+
+                                    <div class="card">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#sktu-baru" aria-expanded="true" aria-controls="collapseOne" style="font-size: 20px; font-weight: bold;">
+                                                Surat Keterangan Tempat Usaha (Baru)
+                                            </button>
+                                        </h2>
+
+                                        <div id="sktu-baru" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <ol>
+                                                <?php
+                                                $syaratsktubaru = $koneksi->query("SELECT * FROM lampiran_sktu WHERE keterangan LIKE '%Baru%' ORDER BY id_lampiran DESC");
+                                                foreach ($syaratsktubaru as $sb) {
+                                                    echo "<li>" . $sb['nama_lampiran'] . "</li>";
+                                                }
+                                                ?>
+                                            </ol>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#sktu-ppj" aria-expanded="true" aria-controls="collapseOne" style="font-size: 20px; font-weight: bold;">
+                                                Surat Keterangan Tempat Usaha (Perpanjangan)
+                                            </button>
+                                        </h2>
+
+                                        <div id="sktu-ppj" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <ol>
+                                                <?php
+                                                $syaratsktuppj = $koneksi->query("SELECT * FROM lampiran_sktu WHERE keterangan LIKE '%Perpanjangan%' ORDER BY id_lampiran DESC");
+                                                foreach ($syaratsktuppj as $sp) {
+                                                    echo "<li>" . $sp['nama_lampiran'] . "</li>";
+                                                }
+                                                ?>
+                                            </ol>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#iumk" aria-expanded="true" aria-controls="collapseOne" style="font-size: 20px; font-weight: bold;">
+                                                Surat Izin Usaha Mikro dan Kecil
+                                            </button>
+                                        </h2>
+
+                                        <div id="iumk" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <ol>
+                                                <?php
+                                                $syaratiumk = $koneksi->query("SELECT * FROM lampiran_iumk ORDER BY id_lampiran DESC");
+                                                foreach ($syaratiumk as $si) {
+                                                    echo "<li>" . $si['nama_lampiran'] . "</li>";
+                                                }
+                                                ?>
+                                            </ol>
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
                         </div>
 
