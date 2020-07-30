@@ -66,6 +66,13 @@ $row     = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'
                                     </div>
 
                                     <div class="form-group row">
+                                        <label for="nomor_sktu" class="col-sm-3 col-form-label">Nomor SKTU</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="nomor_sktu" name="nomor_sktu" value="<?= $row['nomor_sktu']; ?>" required readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
                                         <label for="nama_pemohon" class="col-sm-3 col-form-label">Nama Pemohon</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="nama_pemohon" name="nama_pemohon" value="<?= $row['nama_pemohon']; ?>" required>
@@ -333,6 +340,9 @@ $row     = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'
             )");
 
             if ($submit) {
+                $ubahlog = $koneksi->query("UPDATE riwayat_tgl_sktu SET log_status = 1 WHERE id_masyarakat = '$idm' AND nomor_sktu = '$row[nomor_sktu]' AND terakhir_diperpanjang = '$row[masa_berlaku_akhir]'");
+                var_dump($ubahlog, $koneksi->error);
+                die();
                 echo "
                 <script type='text/javascript'>
                 setTimeout(function () {    

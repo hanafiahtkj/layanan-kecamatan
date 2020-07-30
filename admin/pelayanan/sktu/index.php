@@ -184,15 +184,7 @@ include_once "../../../template/head.php";
                                                                         date('d', strtotime($row['tgl'])) . " " . $bln[date('m', strtotime($row['tgl']))] . " " . date('Y', strtotime($row['tgl']));
                                                                     ?>
                                                                 </td>
-                                                                <td>
-                                                                    <?php
-                                                                    if ($row['id_posisi'] != 4) {
-                                                                        echo "-";
-                                                                    } else {
-                                                                        echo $row['nomor_sktu'];
-                                                                    }
-                                                                    ?>
-                                                                </td>
+                                                                <td><?= $row['nomor_sktu']; ?></td>
                                                                 <td align="left"><?= $row['nama_pemohon'] ?></td>
                                                                 <td align="left"><?= $row['nama_perusahaan'] ?></td>
                                                                 <td>

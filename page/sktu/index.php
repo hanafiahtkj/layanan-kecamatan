@@ -174,21 +174,10 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                     <!-- TAB SKTU PERPANJANGAN -->
                                     <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                                         <?php
-                                        // $kondisi = "";
-                                        // $cekbaru = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat");
-                                        // foreach ($cekbaru as $cp) {
-                                        //     $cekppj = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE nomor_sktu = '$cp[nomor_sktu]'");
-                                        //     foreach ($cekppj as $cj) {
-                                        //         if (!empty($cj)) {
-                                        //             $kondisi .= "true";
-                                        //         }
-                                        //     }
-                                        // }
-
                                         $data1 = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE id_masyarakat = '$idm'");
                                         foreach ($data1 as $r1) {
 
-                                            if (!empty($r1['terakhir_diperpanjang'])) {
+                                            if (!empty($r1['terakhir_diperpanjang']) and $r1['log_status'] == 0) {
                                                 $masa_berlaku = $r1['terakhir_diperpanjang'];
                                                 $tgl_sekarang = date('Y-m-d');
                                                 $selisih      = strtotime($masa_berlaku) - strtotime($tgl_sekarang);
@@ -213,7 +202,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                                 Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Telah Berakhir Pada Tanggal <u><?= tgl_indo($r1['terakhir_diperpanjang']); ?></u>, Batas Waktu Perpanjangan Paling Lambat 6 bulan, Jika Tidak Diperpanjang Dalam Waktu 6 Bulan Maka Diwajibkan Mengajukan Pembuatan SKTU Baru.
                                                             </p>
                                                         </i> <br>
-                                                        <a href="" class="btn btn-primary">Perpanjang SKTU</a>
+                                                        <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $r['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
                                                     </div>
 
                                                 <?php } elseif ($tgl_sekarang >= $batas_perpanjangan) { ?>
