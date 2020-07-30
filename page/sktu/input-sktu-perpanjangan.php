@@ -39,7 +39,7 @@ $row     = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'
         </section><!-- End Breadcrumbs -->
 
         <!-- ======= Services Section ======= -->
-        <section id="services" class="services section-bg">
+        <section id="services" class="services graform">
             <div class="container">
 
                 <div class="section-title">
@@ -339,10 +339,10 @@ $row     = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'
             '$fc'
             )");
 
+
             if ($submit) {
-                $ubahlog = $koneksi->query("UPDATE riwayat_tgl_sktu SET log_status = 1 WHERE id_masyarakat = '$idm' AND nomor_sktu = '$row[nomor_sktu]' AND terakhir_diperpanjang = '$row[masa_berlaku_akhir]'");
-                var_dump($ubahlog, $koneksi->error);
-                die();
+                $koneksi->query("UPDATE riwayat_tgl_sktu SET log_status = 1 WHERE id_masyarakat = '$idm' AND nomor_sktu = '$nomor_sktu' AND terakhir_diperpanjang = '$row[masa_berlaku_akhir]'");
+
                 echo "
                 <script type='text/javascript'>
                 setTimeout(function () {    

@@ -177,7 +177,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                         $data1 = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE id_masyarakat = '$idm'");
                                         foreach ($data1 as $r1) {
 
-                                            if (!empty($r1['terakhir_diperpanjang'])) {
+                                            if (!empty($r1['terakhir_diperpanjang']) and $r1['log_status'] != 1) {
                                                 $masa_berlaku = $r1['terakhir_diperpanjang'];
                                                 $tgl_sekarang = date('Y-m-d');
                                                 $selisih      = strtotime($masa_berlaku) - strtotime($tgl_sekarang);
@@ -185,7 +185,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                 $batas_perpanjangan = date('Y-m-d', strtotime('+6 month', strtotime($masa_berlaku)));
                                                 // var_dump($batas_perpanjangan);
                                                 if ($selisih_hari <= 30 and $selisih_hari > 0) {
-                                                    $ubah = $koneksi->query("UPDATE riwayat_tgl_sktu SET log_status = '0' WHERE id_riwayat = '$r1[id_riwayat]'");
+                                                    // $ubah = $koneksi->query("UPDATE riwayat_tgl_sktu SET log_status = '0' WHERE id_riwayat = '$r1[id_riwayat]'");
                                         ?>
                                                     <div class="alert alert-info" style="font-size: 20px;" role="alert">
                                                         <i class="fas fa-bullhorn">
@@ -246,7 +246,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
 
                                             <div class="table-responsive">
-                                                <table class="table">
+                                                <table class="table table-bordered">
                                                     <thead class="text-center thead-light">
                                                         <tr>
                                                             <th>No</th>
