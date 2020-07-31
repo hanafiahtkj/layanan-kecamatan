@@ -186,7 +186,7 @@ $row  = $data->fetch_array();
         <tr style="text-align: center;"">
             <td colspan=" 3">
             CAMAT,
-            <br><br><br><br>
+            <br><br><br><br><br><br>
             <?= $row['nama_camat']; ?> <br>
             <?= $row['jabatan']; ?> <br>
             <?= "NIP. " . $row['nip']; ?>

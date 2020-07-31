@@ -176,47 +176,50 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                         <?php
                                         $data1 = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE id_masyarakat = '$idm'");
                                         foreach ($data1 as $r1) {
+                                            $ceknotif = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE nomor_sktu = '$r1[nomor_sktu]' AND id_masyarakat = '$r1[id_masyarakat]'");
+                                            if (mysqli_num_rows($ceknotif) === 0) {
 
-                                            if (!empty($r1['terakhir_diperpanjang']) and $r1['log_status'] != 1) {
-                                                $masa_berlaku = $r1['terakhir_diperpanjang'];
-                                                $tgl_sekarang = date('Y-m-d');
-                                                $selisih      = strtotime($masa_berlaku) - strtotime($tgl_sekarang);
-                                                $selisih_hari = $selisih / (60 * 60 * 24);
-                                                $batas_perpanjangan = date('Y-m-d', strtotime('+6 month', strtotime($masa_berlaku)));
-                                                // var_dump($batas_perpanjangan);
-                                                if ($selisih_hari <= 30 and $selisih_hari > 0) {
-                                                    // $ubah = $koneksi->query("UPDATE riwayat_tgl_sktu SET log_status = '0' WHERE id_riwayat = '$r1[id_riwayat]'");
+                                                if (!empty($r1['terakhir_diperpanjang'])) {
+                                                    $masa_berlaku = $r1['terakhir_diperpanjang'];
+                                                    $tgl_sekarang = date('Y-m-d');
+                                                    $selisih      = strtotime($masa_berlaku) - strtotime($tgl_sekarang);
+                                                    $selisih_hari = $selisih / (60 * 60 * 24);
+                                                    $batas_perpanjangan = date('Y-m-d', strtotime('+6 month', strtotime($masa_berlaku)));
+                                                    // var_dump($batas_perpanjangan);
+                                                    if ($selisih_hari <= 30 and $selisih_hari > 0) {
+                                                        // $ubah = $koneksi->query("UPDATE riwayat_tgl_sktu SET log_status = '0' WHERE id_riwayat = '$r1[id_riwayat]'");
                                         ?>
-                                                    <div class="alert alert-info" style="font-size: 20px;" role="alert">
-                                                        <i class="fas fa-bullhorn">
-                                                            <p>
-                                                                Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Akan Berakhir <?= $selisih_hari; ?> Hari Lagi
-                                                            </p>
-                                                        </i> <br>
-                                                        <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $r['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
-                                                    </div>
+                                                        <div class="alert alert-info" style="font-size: 20px;" role="alert">
+                                                            <i class="fas fa-bullhorn">
+                                                                <p>
+                                                                    Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Akan Berakhir <?= $selisih_hari; ?> Hari Lagi
+                                                                </p>
+                                                            </i> <br>
+                                                            <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $r['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
+                                                        </div>
 
-                                                <?php } elseif ($tgl_sekarang >= $masa_berlaku and $tgl_sekarang <= $batas_perpanjangan) { ?>
-                                                    <div class="alert alert-info" style="font-size: 20px;" role="alert">
-                                                        <i class="fas fa-bullhorn">
-                                                            <p>
-                                                                Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Telah Berakhir Pada Tanggal <u><?= tgl_indo($r1['terakhir_diperpanjang']); ?></u>, Batas Waktu Perpanjangan Paling Lambat 6 bulan, Jika Tidak Diperpanjang Dalam Waktu 6 Bulan Maka Diwajibkan Mengajukan Pembuatan SKTU Baru.
-                                                            </p>
-                                                        </i> <br>
-                                                        <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $r['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
-                                                    </div>
+                                                    <?php } elseif ($tgl_sekarang >= $masa_berlaku and $tgl_sekarang <= $batas_perpanjangan) { ?>
+                                                        <div class="alert alert-info" style="font-size: 20px;" role="alert">
+                                                            <i class="fas fa-bullhorn">
+                                                                <p>
+                                                                    Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Telah Berakhir Pada Tanggal <u><?= tgl_indo($r1['terakhir_diperpanjang']); ?></u>, Batas Waktu Perpanjangan Paling Lambat 6 bulan, Jika Tidak Diperpanjang Dalam Waktu 6 Bulan Maka Diwajibkan Mengajukan Pembuatan SKTU Baru.
+                                                                </p>
+                                                            </i> <br>
+                                                            <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $r['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
+                                                        </div>
 
-                                                <?php } elseif ($tgl_sekarang >= $batas_perpanjangan) { ?>
-                                                    <div class="alert alert-info" style="font-size: 20px;" role="alert">
-                                                        <i class="fas fa-bullhorn">
-                                                            <p>
-                                                                Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Telah Berakhir Pada Tanggal <u><?= tgl_indo($r1['terakhir_diperpanjang']); ?></u>, dan Masa Perpanjangan Telah Berakhir Pada <u><?= tgl_indo($batas_perpanjangan); ?></u>. Silahkan Buat Pengajuan SKTU Baru.
-                                                            </p>
-                                                        </i> <br>
-                                                        <a href="input-sktu-baru" class="btn btn-primary">Buat SKTU Baru</a>
-                                                    </div>
+                                                    <?php } elseif ($tgl_sekarang >= $batas_perpanjangan) { ?>
+                                                        <div class="alert alert-info" style="font-size: 20px;" role="alert">
+                                                            <i class="fas fa-bullhorn">
+                                                                <p>
+                                                                    Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Telah Berakhir Pada Tanggal <u><?= tgl_indo($r1['terakhir_diperpanjang']); ?></u>, dan Masa Perpanjangan Telah Berakhir Pada <u><?= tgl_indo($batas_perpanjangan); ?></u>. Silahkan Buat Pengajuan SKTU Baru.
+                                                                </p>
+                                                            </i> <br>
+                                                            <a href="input-sktu-baru" class="btn btn-primary">Buat SKTU Baru</a>
+                                                        </div>
 
                                         <?php
+                                                    }
                                                 }
                                             }
                                         }
@@ -233,14 +236,12 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                 <div class="alert" style="background-color: crimson; color: white; font-size: 20px;">
                                                     <i class="fa fa-exclamation-triangle"> Notifikasi</i>
                                                     <p>
-                                                        Berkas "<?= $row['nama_perusahaan']; ?>" tidak disetujui dengan keterangan : <br>
+                                                        Perpanjangan SKTU dengan nama perusahaan "<?= $row['nama_perusahaan']; ?>" tidak disetujui dengan keterangan : <br>
                                                         "<?= $row['keterangan']; ?>" <br>
 
                                                         Silahkan klik tombol "<i class="fa fa-edit"></i>" pada tabel untuk memperbaiki berkas permohonan
                                                     </p>
                                                 </div>
-
-                                                <a href="edit-sktu-perpanjangan?id=<?= encryptor('encrypt', $row['id_sktu']) ?>" class="btn btn-primary"><i class="fa fa-edit"> Edit SKTU</i></a><br><br>
 
                                             <?php } ?>
 
