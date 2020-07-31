@@ -178,6 +178,8 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                         foreach ($data1 as $r1) {
                                             $ceknotif = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE nomor_sktu = '$r1[nomor_sktu]' AND id_masyarakat = '$r1[id_masyarakat]'");
                                             if (mysqli_num_rows($ceknotif) === 0) {
+                                                $rcek = $ceknotif->fetch_array();
+                                                $ambilidsktu = $koneksi->query("SELECT id_sktu FROM sktu_baru WHERE nomor_sktu = '$r1[nomor_sktu]'")->fetch_array();
 
                                                 if (!empty($r1['terakhir_diperpanjang'])) {
                                                     $masa_berlaku = $r1['terakhir_diperpanjang'];
@@ -192,10 +194,10 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                         <div class="alert alert-info" style="font-size: 20px;" role="alert">
                                                             <i class="fas fa-bullhorn">
                                                                 <p>
-                                                                    Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Akan Berakhir <?= $selisih_hari; ?> Hari Lagi
+                                                                    Masa Berlaku SKTU Dengan Nomor "<u><?= $rcek['nomor_sktu']; ?></u>" Akan Berakhir <?= $selisih_hari; ?> Hari Lagi
                                                                 </p>
                                                             </i> <br>
-                                                            <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $r['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
+                                                            <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $ambilidsktu['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
                                                         </div>
 
                                                     <?php } elseif ($tgl_sekarang >= $masa_berlaku and $tgl_sekarang <= $batas_perpanjangan) { ?>
@@ -205,7 +207,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                                     Masa Berlaku SKTU Dengan Nomor "<u><?= $r1['nomor_sktu']; ?></u>" Telah Berakhir Pada Tanggal <u><?= tgl_indo($r1['terakhir_diperpanjang']); ?></u>, Batas Waktu Perpanjangan Paling Lambat 6 bulan, Jika Tidak Diperpanjang Dalam Waktu 6 Bulan Maka Diwajibkan Mengajukan Pembuatan SKTU Baru.
                                                                 </p>
                                                             </i> <br>
-                                                            <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $r['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
+                                                            <a href="input-sktu-perpanjangan?id=<?= encryptor('encrypt', $ambilidsktu['id_sktu']); ?>" class="btn btn-primary">Perpanjang SKTU</a>
                                                         </div>
 
                                                     <?php } elseif ($tgl_sekarang >= $batas_perpanjangan) { ?>
@@ -227,7 +229,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                         ?>
 
                                         <?php
-                                        $data = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_masyarakat = '$idm'");
+                                        $data = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_masyarakat = '$idm' ORDER BY id_sktu DESC");
                                         if (mysqli_num_rows($data)) {
 
                                             $row = $data->fetch_array();
