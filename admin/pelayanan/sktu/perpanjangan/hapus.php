@@ -25,7 +25,7 @@ if ($hapus) {
         $file = $row['file'];
         $koneksi->query("DELETE FROM lampiran_sktu_file WHERE id_file = '$idf' AND nomor_sktu = '$nomor' AND keterangan = 'Perpanjangan' AND file_count = '$fc'");
         unlink('../../../../assets/sktu/perpanjangan/' . $file);
-        $koneksi->query("UPDATE riwayat_tgl_sktu SET log_status = 0 WHERE id_masyarakat = '$idm' AND nomor_sktu = '$nomor' AND terakhir_diperpanjang = '$masa_akhir'");
+        $koneksi->query("UPDATE riwayat_tgl_sktu SET terakhir_diperpanjang = '$masa_awal' WHERE id_masyarakat = '$idm' AND nomor_sktu = '$nomor'");
     }
     $_SESSION['pesan'] = "Data Perpanjangan SKTU Dihapus";
     echo "<script>window.location.replace('../');</script>";

@@ -7,17 +7,17 @@ $id    = encryptor('decrypt', $_GET['id']);
 $data  = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_array();
 $nomor = $data['nomor_sktu'];
 
-$ambilfile = $koneksi->query("SELECT * FROM lampiran_sktu_file WHERE nomor_sktu = '$nomor' AND keterangan = 'Baru'");
+$ambilfile = $koneksi->query("SELECT * FROM lampiran_sktu_file WHERE id_sktu = '$id' AND keterangan = 'Baru'");
 
 $hapus = $koneksi->query("DELETE FROM sktu_baru WHERE id_sktu = '$id'");
 
 if ($hapus) {
     foreach ($ambilfile as $row) {
         $file = $row['file'];
-        $koneksi->query("DELETE FROM lampiran_sktu_file WHERE nomor_sktu = '$nomor' AND keterangan = 'Baru'");
+        $koneksi->query("DELETE FROM lampiran_sktu_file WHERE id_sktu = '$id' AND keterangan = 'Baru'");
         unlink('../../../../assets/sktu/' . $file);
-        $koneksi->query("DELETE FROM riwayat_tgl_sktu WHERE nomor_sktu = '$nomor'");
     }
+    $koneksi->query("DELETE FROM riwayat_tgl_sktu WHERE id_sktu = '$id' AND nomor_sktu = '$nomor'");
     $_SESSION['pesan'] = "Data SKTU Dihapus";
     echo "<script>window.location.replace('../');</script>";
 }

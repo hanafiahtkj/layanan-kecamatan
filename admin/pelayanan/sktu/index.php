@@ -129,7 +129,7 @@ include_once "../../../template/head.php";
                                                                     <a href="baru/print-preview?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="blank"><i class="fa fa-print"></i></a>
                                                                     <a href="baru/detail?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-info btn-sm" title="Detail"><i class="fa fa-eye"></i></a>
                                                                     <a href="baru/edit?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
-                                                                    <a href="baru/hapus?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-danger btn-sm alert-hapus" data-id="<?= $row['nomor_sktu'] ?>" title="Hapus"><i class="fa fa-trash"></i></a>
+                                                                    <a href="baru/hapus?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-danger btn-sm alert-hapus" data-id="<?= $row['nama_pemohon'] ?>" title="Hapus"><i class="fa fa-trash"></i></a>
                                                                 </td>
                                                             </tr>
                                                         <?php } ?>
@@ -202,7 +202,7 @@ include_once "../../../template/head.php";
                                                                     <a href="perpanjangan/print-preview?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="blank"><i class="fa fa-print"></i></a>
                                                                     <a href="perpanjangan/detail?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-info btn-sm" title="Detail"><i class="fa fa-eye"></i></a>
                                                                     <a href="perpanjangan/edit?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
-                                                                    <a href="perpanjangan/hapus?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-danger btn-sm alert-hapus" data-id="<?= $row['nomor_sktu'] ?>" title="Hapus"><i class="fa fa-trash"></i></a>
+                                                                    <a href="perpanjangan/hapus?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-danger btn-sm alert-hapus" data-id="<?= $row['nama_pemohon'] ?>" title="Hapus"><i class="fa fa-trash"></i></a>
                                                                 </td>
                                                             </tr>
                                                         <?php } ?>

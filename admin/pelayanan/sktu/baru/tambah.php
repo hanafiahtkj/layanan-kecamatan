@@ -7,23 +7,6 @@ include_once "../../../../config/auth-admin.php";
 include_once "../../../../config/bulan.php";
 include_once "../../../../template/head.php";
 
-$ceksktu = $koneksi->query("SELECT * FROM sktu_baru");
-if (mysqli_num_rows($ceksktu) === 0) {
-    $query  = mysqli_query($koneksi, "SELECT max(nomor_urut) AS kode FROM nomor_urut_sktu");
-    $data   = mysqli_fetch_array($query);
-    $kode   = $data['kode'];
-    $nourut = $kode++;
-} else {
-    $query  = mysqli_query($koneksi, "SELECT max(nomor_sktu) AS kode FROM sktu_baru");
-    $data   = mysqli_fetch_array($query);
-    $kode   = $data['kode'];
-    $nourut = (int) substr($kode, 5, 3);
-    $nourut++;
-}
-
-$b_romawi = $bulan_romawi[date('m')];
-$kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
-
 ?>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -382,7 +365,6 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM
         // AMBIL DASAR HUKUM SKTU
         $dataperaturan = $koneksi->query("SELECT * FROM peraturan_sktu")->fetch_array();
 
-        $nomor_sktu               = $kodeotomatis;
         $id_masyarakat            = $_POST['id_masyarakat'];
         $nama_pemohon             = $_POST['nama_pemohon'];
         $no_telp                  = $_POST['no_telp'];
@@ -404,40 +386,35 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM
         $id_posisi                = $_POST['id_posisi'];
         $status                   = $_POST['status'];
         if ($status == "Selesai") {
-            $tgl_selesai = $_POST['tgl_selesai'];
-            $id_posisi   = 4;
+            $ceksktu = $koneksi->query("SELECT * FROM sktu_baru");
+            if (mysqli_num_rows($ceksktu) === 0) {
+                $query  = mysqli_query($koneksi, "SELECT max(nomor_urut) AS kode FROM nomor_urut_sktu");
+                $data   = mysqli_fetch_array($query);
+                $kode   = $data['kode'];
+                $nourut = $kode++;
+            } else {
+                $query  = mysqli_query($koneksi, "SELECT max(nomor_sktu) AS kode FROM sktu_baru");
+                $data   = mysqli_fetch_array($query);
+                $kode   = $data['kode'];
+                $nourut = (int) substr($kode, 5, 3);
+                $nourut++;
+            }
+            $b_romawi   = $bulan_romawi[date('m')];
+            $nomor_sktu = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
+
+            $kelengkapan        = "Lengkap";
+            $masa_berlaku_awal  = date('Y-m-d');
+            $masa_berlaku_akhir = date('Y-m-d', strtotime('+1 year'));
+            $tgl_selesai        = $_POST['tgl_selesai'];
+            $id_posisi          = 4;
         } else {
+            $nomor_sktu  = "-";
             $tgl_selesai = null;
+            $id_posisi   = 1;
         }
 
-        $gambar_arr    = array();
-        $idl           = $_POST['id_lampiran'];
-        $hitungidl     = count($idl);
 
-        $event = "";
-
-        for ($i = 0; $i < $hitungidl; $i++) {
-
-            $file          = $_FILES['file']['name'][$i];
-            $nama_lamp     = explode('.', $file);
-            $format_lamp   = end($nama_lamp);
-            $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
-            $allow_sizefile = 1024 * 1024 * 1;
-
-            // temporari file
-            $tmp_file  = $_FILES['file']['tmp_name'][$i];
-
-            $targer_dir = '../../../../assets/sktu/';
-            $target_file = $targer_dir . $nama_lampiran;
-
-            move_uploaded_file($tmp_file, $target_file);
-            $gambar_arr[] = $target_file;
-            $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$nomor_sktu', '$nama_lampiran', 'Baru', null)");
-            $event .= "upload berhasil";
-        }
-
-        if (!empty($event)) {
-            $submit = $koneksi->query("INSERT INTO sktu_baru VALUES (
+        $submit = $koneksi->query("INSERT INTO sktu_baru VALUES (
             null, 
             '$id_masyarakat', 
             '$nomor_sktu', 
@@ -463,8 +440,39 @@ $kodeotomatis = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM
             '$status'
             )");
 
-            if ($submit) {
-                $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$id_masyarakat', '$nomor_sktu', '$tgl', '$masa_berlaku_akhir', null)");
+        if ($submit) {
+
+            $ambilidsktu = $koneksi->query("SELECT * FROM sktu_baru ORDER BY id_sktu DESC LIMIT 1")->fetch_array();
+            $idsktu      = $ambilidsktu['id_sktu'];
+
+            $gambar_arr    = array();
+            $idl           = $_POST['id_lampiran'];
+            $hitungidl     = count($idl);
+
+            $event = "";
+
+            for ($i = 0; $i < $hitungidl; $i++) {
+                $file          = $_FILES['file']['name'][$i];
+                $nama_lamp     = explode('.', $file);
+                $format_lamp   = end($nama_lamp);
+                $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
+                $allow_sizefile = 1024 * 1024 * 1;
+
+                // temporari file
+                $tmp_file  = $_FILES['file']['tmp_name'][$i];
+
+                $targer_dir = '../../../../assets/sktu/';
+                $target_file = $targer_dir . $nama_lampiran;
+
+                move_uploaded_file($tmp_file, $target_file);
+                $gambar_arr[] = $target_file;
+                $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', '$nama_lampiran', 'Baru', null)");
+                $event .= "upload berhasil";
+            }
+
+            if (!empty($event)) {
+                $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$id_masyarakat', '$idsktu', '$nomor_sktu', '$tgl', '$masa_berlaku_akhir')");
+
                 $_SESSION['pesan'] = "Data SKTU Ditambahkan";
                 echo "<script>window.location.replace('../');</script>";
             }
