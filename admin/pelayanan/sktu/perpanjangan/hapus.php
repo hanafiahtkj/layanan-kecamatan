@@ -11,7 +11,7 @@ $masa_awal  = $data['masa_berlaku_awal'];
 $masa_akhir = $data['masa_berlaku_akhir'];
 $fc         = $data['file_count'];
 
-$ambilfile = $koneksi->query("SELECT * FROM lampiran_sktu_file WHERE nomor_sktu = '$nomor' AND keterangan = 'Perpanjangan' AND file_count = '$fc'");
+$ambilfile = $koneksi->query("SELECT * FROM lampiran_sktu_file WHERE id_sktu = '$id' AND keterangan = 'Perpanjangan'");
 
 // echo "<pre>";
 // var_dump($ambilfile);
@@ -23,9 +23,9 @@ if ($hapus) {
     foreach ($ambilfile as $row) {
         $idf  = $row['id_file'];
         $file = $row['file'];
-        $koneksi->query("DELETE FROM lampiran_sktu_file WHERE id_file = '$idf' AND nomor_sktu = '$nomor' AND keterangan = 'Perpanjangan' AND file_count = '$fc'");
+        $koneksi->query("DELETE FROM lampiran_sktu_file WHERE id_file = '$idf' AND id_sktu = '$id' AND keterangan = 'Perpanjangan'");
         unlink('../../../../assets/sktu/perpanjangan/' . $file);
-        $koneksi->query("UPDATE riwayat_tgl_sktu SET terakhir_diperpanjang = '$masa_awal' WHERE id_masyarakat = '$idm' AND nomor_sktu = '$nomor'");
+        $koneksi->query("UPDATE riwayat_tgl_sktu SET terakhir_diperpanjang = '$masa_awal' WHERE id_masyarakat = '$idm' AND id_sktu = '$id' AND nomor_sktu = '$nomor'");
     }
     $_SESSION['pesan'] = "Data Perpanjangan SKTU Dihapus";
     echo "<script>window.location.replace('../');</script>";
