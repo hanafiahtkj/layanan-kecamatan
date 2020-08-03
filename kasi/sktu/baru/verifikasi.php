@@ -40,7 +40,6 @@ if (isset($_POST['verif'])) {
 
 
     if ($submit) {
-        // $koneksi->query("UPDATE riwayat_tgl_sktu SET tgl_dibuat = '$tgl', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE nomor_sktu = '$nomor_sktu'");
         $_SESSION['pesan'] = "Data SKTU Diverifikasi";
         echo "<script>window.location.replace('" . base_url('kasi/sktu') . "');</script>";
     }

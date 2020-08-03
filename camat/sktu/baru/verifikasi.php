@@ -1,5 +1,6 @@
 <?php
 include_once "../../../config/config.php";
+include_once "../../../config/bulan.php";
 include_once "../../../config/auth-camat.php";
 
 if (isset($_POST['verif'])) {
@@ -43,8 +44,7 @@ if (isset($_POST['verif'])) {
 
     if ($submit) {
         if ($status == 1) {
-            $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nosktubaru', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE nomor_sktu = '$nomor_sktu'");
-            $koneksi->query("UPDATE lampiran_sktu_file SET nomor_sktu = '$nosktubaru' WHERE nomor_sktu = '$nomor_sktu' AND keterangan = 'Baru'");
+            $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nosktubaru', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE id_sktu = '$id_sktu' AND nomor_sktu = '$nomor_sktu'");
         }
         $_SESSION['pesan'] = "Data Permohonan SKTU BARU Telah Diverifikasi";
         echo "<script>window.location.replace('../');</script>";

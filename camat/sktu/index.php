@@ -89,7 +89,7 @@ include_once "../../template/head.php";
 
                                                     <tbody style="background-color: azure" title="Lihat Detail">
                                                         <?php
-                                                        $data = $koneksi->query("SELECT * FROM sktu_baru ORDER BY nomor_sktu DESC");
+                                                        $data = $koneksi->query("SELECT * FROM sktu_baru ORDER BY id_sktu DESC");
                                                         foreach ($data as $row) {
                                                             $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_posisi]'")->fetch_array();
                                                         ?>

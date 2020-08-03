@@ -3,6 +3,7 @@
 
 <?php
 include_once "../../../../config/config.php";
+include_once "../../../../config/bulan.php";
 include_once "../../../../config/auth-admin.php";
 include_once "../../../../template/head.php";
 
@@ -386,7 +387,7 @@ $row  = $data->fetch_array();
         $keterangan               = $_POST['keterangan'];
         $id_posisi                = $_POST['id_posisi'];
         $status                   = $_POST['status'];
-        if ($status == "Selesai") {
+        if ($status == "Selesai" and $row['nomor_sktu'] == '-') {
             $ceksktu = $koneksi->query("SELECT * FROM sktu_baru");
             if (mysqli_num_rows($ceksktu) === 0) {
                 $query  = mysqli_query($koneksi, "SELECT max(nomor_urut) AS kode FROM nomor_urut_sktu");
@@ -406,6 +407,13 @@ $row  = $data->fetch_array();
             $kelengkapan        = "Lengkap";
             $masa_berlaku_awal  = date('Y-m-d');
             $masa_berlaku_akhir = date('Y-m-d', strtotime('+1 year'));
+            $tgl_selesai        = $_POST['tgl_selesai'];
+            $id_posisi          = 4;
+        } elseif ($status == "Selesai") {
+            $nomor_sktu         = $row['nomor_sktu'];
+            $kelengkapan        = "Lengkap";
+            $masa_berlaku_awal  = $_POST['masa_berlaku_awal'];
+            $masa_berlaku_akhir = $_POST['masa_berlaku_akhir'];
             $tgl_selesai        = $_POST['tgl_selesai'];
             $id_posisi          = 4;
         } else {
