@@ -43,8 +43,8 @@ if (isset($_POST['verif'])) {
 
     if ($submit) {
         if ($status == 1) {
-            $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nosktuppj', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE nomor_sktu = '$nomor_sktu'");
-            $koneksi->query("UPDATE lampiran_sktu_file SET nomor_sktu = '$nosktuppj' WHERE nomor_sktu = '$nomor_sktu' AND keterangan = 'Perpanjangan'");
+            $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nosktuppj', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE     nomor_sktu = '$nomor_sktu'");
+            // $koneksi->query("UPDATE lampiran_sktu_file SET nomor_sktu = '$nosktuppj' WHERE nomor_sktu = '$nomor_sktu' AND keterangan = 'Perpanjangan'");
         }
         $_SESSION['pesan'] = "Data Permohonan Perpanjangan SKTU Telah Diverifikasi";
         echo "<script>window.location.replace('../');</script>";

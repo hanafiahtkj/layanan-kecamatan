@@ -182,7 +182,7 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <?php
-                                        $lampiran = $koneksi->query("SELECT * FROM lampiran_sktu_file as ls LEFT JOIN lampiran_sktu as l ON ls.id_lampiran = l.id_lampiran WHERE ls.nomor_sktu = '$row[nomor_sktu]' AND ls.keterangan = 'Perpanjangan' AND file_count = '$row[file_count]'");
+                                        $lampiran = $koneksi->query("SELECT * FROM lampiran_sktu_file as ls LEFT JOIN lampiran_sktu as l ON ls.id_lampiran = l.id_lampiran WHERE ls.id_sktu = '$id' AND ls.keterangan = 'Perpanjangan'");
                                         foreach ($lampiran as $file) {
                                         ?>
 
