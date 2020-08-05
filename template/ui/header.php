@@ -68,7 +68,7 @@
                         <div class="dropdown-menu" style="width: 300px;" aria-labelledby="dropdownMenuButton">
                             <div class="dropdown-header text-center my-2">Notifikasi</div>
 
-                            <!-- IUMK TIDAK DI SETUJUI -->
+                            <!-- NOTIF IUMK -->
                             <?php if (mysqli_num_rows($dataiumk) === 1) { ?>
                                 <div class="dropdown-divider"></div>
                                 <a href="<?= base_url('page/iumk') ?>" class="dropdown-item" style="word-wrap: break-word; white-space: normal;">
@@ -76,7 +76,17 @@
                                     <span class="float-right text-sm" style="color: red;"><?= $jmliumk; ?></span>
                                 </a>
                             <?php } ?>
-                            <!-- // IUMK TIDAK DI SETUJUI -->
+                            <!-- // NOTIF IUMK -->
+
+                            <!-- NOTIF SKTU BARU -->
+                            <?php if (mysqli_num_rows($datasktubaru) === 1) { ?>
+                                <div class="dropdown-divider"></div>
+                                <a href="<?= base_url('page/sktu') ?>" class="dropdown-item" style="word-wrap: break-word; white-space: normal;">
+                                    SKTU Baru
+                                    <span class="float-right text-sm" style="color: red;"><?= $jmlsktubaru; ?></span>
+                                </a>
+                            <?php } ?>
+                            <!-- // NOTIF SKTU BARU -->
 
                         </div>
                     </li>
