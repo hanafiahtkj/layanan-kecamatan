@@ -4,7 +4,7 @@
 
         <div class="logo mr-auto">
             <h1>
-                <a href="<?= base_url(); ?>"> <img src="<?= base_url() ?>/assets/img/logo-bjm.png" style="width: 35px; height: 40px; margin-top: -6px;"> E-Layanan Online Kecamatan</a>
+                <a href="<?= base_url(); ?>"> <img src="<?= base_url() ?>/assets/img/logo-bjm.png" style="width: 35px; height: 40px; margin-top: -6px;"> E-LOK</a>
             </h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -43,7 +43,44 @@
                             <li><a href="<?= base_url('logout') ?>" class="alert-logout">Logout</a></li>
                         </ul>
                     </li>
-                    <!-- <li><a href="#"><i class="fa fa-bell"></i></a></li> -->
+
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-bell"></i>
+                            <!-- HITUNG SEMUA JUMLAH NOTIF -->
+                            <?php
+                            $dataiumk = $koneksi->query("SELECT * FROM iumk WHERE id_masyarakat = '$_SESSION[id_masyarakat]' AND kelengkapan = 'Tidak Lengkap' ORDER BY id_iumk DESC");
+                            $jmliumk = mysqli_num_rows($dataiumk);
+
+                            $datasktubaru = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$_SESSION[id_masyarakat]' AND kelengkapan = 'Tidak Lengkap' ORDER BY id_sktu DESC");
+                            $jmlsktubaru = mysqli_num_rows($datasktubaru);
+
+                            $jmltotal = $jmliumk + $jmlsktubaru;
+                            ?>
+
+                            <?php if ($jmltotal != 0) { ?>
+                                <sup class="badge badge-danger" style="padding: 7%; height: auto; margin-left: -5px; padding-top: 4px; padding-bottom: 4px;">
+                                    <?= $jmltotal; ?>
+                                </sup>
+                            <?php } ?>
+                        </a>
+                        <div class="dropdown-menu" style="width: 300px;" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-header text-center my-2">Notifikasi</div>
+
+                            <!-- IUMK TIDAK DI SETUJUI -->
+                            <?php if (mysqli_num_rows($dataiumk) === 1) { ?>
+                                <div class="dropdown-divider"></div>
+                                <a href="<?= base_url('page/iumk') ?>" class="dropdown-item" style="word-wrap: break-word; white-space: normal;">
+                                    IUMK
+                                    <span class="float-right text-sm" style="color: red;"><?= $jmliumk; ?></span>
+                                </a>
+                            <?php } ?>
+                            <!-- // IUMK TIDAK DI SETUJUI -->
+
+                        </div>
+                    </li>
+
                 <?php } ?>
 
             </ul>
