@@ -329,7 +329,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
                 if (move_uploaded_file($tmp_file, $target_file)) {
                     $gambar_arr[] = $target_file;
-                    $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', '$nama_lampiran', 'Baru', null)");
+                    $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', '$nama_lampiran', 'Baru')");
                     $event .= "upload berhasil";
                 }
             }

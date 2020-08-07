@@ -64,7 +64,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                     <li class="nav-item">
                                         <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">
                                             Perpanjangan
-                                            <sup style="color: red;">*</sup>
+                                            <!-- <sup style="color: red;">*</sup> -->
                                         </a>
                                     </li>
                                 </ul>
@@ -181,7 +181,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                 $rcek = $ceknotif->fetch_array();
                                                 $ambilidsktu = $koneksi->query("SELECT * FROM sktu_baru WHERE nomor_sktu = '$r1[nomor_sktu]'")->fetch_array();
 
-                                                if (!empty($r1['terakhir_diperpanjang'])) {
+                                                if (!empty($r1['terakhir_diperpanjang']) and $r1['terakhir_diperpanjang'] != '0000-00-00') {
                                                     $masa_berlaku = $r1['terakhir_diperpanjang'];
                                                     $tgl_sekarang = date('Y-m-d');
                                                     $selisih      = strtotime($masa_berlaku) - strtotime($tgl_sekarang);

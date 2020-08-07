@@ -38,7 +38,7 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
         </section><!-- End Breadcrumbs -->
 
         <!-- ======= Services Section ======= -->
-        <section id="services" class="services section-bg">
+        <section id="services" class="services graform">
             <div class="container">
 
                 <div class="section-title">

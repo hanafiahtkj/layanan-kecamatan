@@ -56,7 +56,10 @@
                             $datasktubaru = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$_SESSION[id_masyarakat]' AND kelengkapan = 'Tidak Lengkap' ORDER BY id_sktu DESC");
                             $jmlsktubaru = mysqli_num_rows($datasktubaru);
 
-                            $jmltotal = $jmliumk + $jmlsktubaru;
+                            $datasktuppj = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_masyarakat = '$_SESSION[id_masyarakat]' AND kelengkapan = 'Tidak Lengkap' ORDER BY id_sktu DESC");
+                            $jmlsktuppj = mysqli_num_rows($datasktuppj);
+
+                            $jmltotal = $jmliumk + $jmlsktubaru + $jmlsktuppj;
                             ?>
 
                             <?php if ($jmltotal != 0) { ?>
@@ -65,15 +68,16 @@
                                 </sup>
                             <?php } ?>
                         </a>
-                        <div class="dropdown-menu" style="width: 300px;" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-menu" style="width: 300px; background-color: aliceblue;" aria-labelledby="dropdownMenuButton">
                             <div class="dropdown-header text-center my-2">Notifikasi</div>
 
                             <!-- NOTIF IUMK -->
                             <?php if (mysqli_num_rows($dataiumk) === 1) { ?>
                                 <div class="dropdown-divider"></div>
                                 <a href="<?= base_url('page/iumk') ?>" class="dropdown-item" style="word-wrap: break-word; white-space: normal;">
-                                    IUMK
-                                    <span class="float-right text-sm" style="color: red;"><?= $jmliumk; ?></span>
+                                    <?php $iumk = $dataiumk->fetch_array(); ?>
+                                    IUMK "<u><?= $iumk['nama_perusahaan']; ?></u>" Tidak Disetujui. Lihat Detail...
+                                    <span class="float-right text-sm" style="color: red;"><i class="fa fa-chevron-circle-right"></i></span>
                                 </a>
                             <?php } ?>
                             <!-- // NOTIF IUMK -->
@@ -82,11 +86,57 @@
                             <?php if (mysqli_num_rows($datasktubaru) === 1) { ?>
                                 <div class="dropdown-divider"></div>
                                 <a href="<?= base_url('page/sktu') ?>" class="dropdown-item" style="word-wrap: break-word; white-space: normal;">
-                                    SKTU Baru
-                                    <span class="float-right text-sm" style="color: red;"><?= $jmlsktubaru; ?></span>
+                                    <?php $sktubaru = $datasktubaru->fetch_array(); ?>
+                                    SKTU "<u><?= $sktubaru['nama_perusahaan']; ?></u>" Tidak Disetujui. Lihat Detail...
+                                    <span class="float-right text-sm" style="color: red;"><i class="fa fa-chevron-circle-right"></i></span>
                                 </a>
                             <?php } ?>
                             <!-- // NOTIF SKTU BARU -->
+
+                            <!-- NOTIF SKTU PERPANJANGAN -->
+                            <?php if (mysqli_num_rows($datasktuppj) === 1) { ?>
+                                <div class="dropdown-divider"></div>
+                                <a href="<?= base_url('page/sktu') ?>" class="dropdown-item" style="word-wrap: break-word; white-space: normal;">
+                                    <?php $sktuppj = $datasktuppj->fetch_array(); ?>
+                                    Perpanjangan SKTU "<u><?= $sktuppj['nama_perusahaan']; ?></u>" Tidak Disetujui. Lihat Detail...
+                                    <span class="float-right text-sm" style="color: red;"><i class="fa fa-chevron-circle-right"></i></span>
+                                </a>
+                            <?php } ?>
+                            <!-- // NOTIF SKTU PERPANJANGAN -->
+
+                            <!-- NOTIF MASA PERPAJANGAN -->
+                            <?php
+                            $data1 = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE id_masyarakat = '$_SESSION[id_masyarakat]'");
+                            foreach ($data1 as $r1) {
+                                $ceknotif = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE nomor_sktu = '$r1[nomor_sktu]' AND id_masyarakat = '$r1[id_masyarakat]'");
+                                if (mysqli_num_rows($ceknotif) === 0) {
+                                    $rcek = $ceknotif->fetch_array();
+                                    $ambilidsktu = $koneksi->query("SELECT * FROM sktu_baru WHERE nomor_sktu = '$r1[nomor_sktu]'")->fetch_array();
+
+                                    if (!empty($r1['terakhir_diperpanjang']) and $r1['terakhir_diperpanjang'] != '0000-00-00') {
+                                        $masa_berlaku = $r1['terakhir_diperpanjang'];
+                                        $tgl_sekarang = date('Y-m-d');
+                                        $selisih      = strtotime($masa_berlaku) - strtotime($tgl_sekarang);
+                                        $selisih_hari = $selisih / (60 * 60 * 24);
+                                        $batas_perpanjangan = date('Y-m-d', strtotime('+6 month', strtotime($masa_berlaku)));
+                                        // var_dump($batas_perpanjangan);
+                                        if (($selisih_hari <= 30 and $selisih_hari > 0) or ($tgl_sekarang >= $masa_berlaku and $tgl_sekarang <= $batas_perpanjangan) or ($tgl_sekarang >= $batas_perpanjangan)) {
+
+                            ?>
+
+                                            <div class="dropdown-divider"></div>
+                                            <a href="<?= base_url('page/sktu') ?>" class="dropdown-item" style="word-wrap: break-word; white-space: normal;">
+                                                Pemberitahuan Perpanjangan Masa Berlaku SKTU "<u><?= $ambilidsktu['nama_perusahaan']; ?></u>"
+                                                <span class="float-right text-sm" style="color: red;"><i class="fa fa-chevron-circle-right"></i></span>
+                                            </a>
+
+                            <?php
+                                        }
+                                    }
+                                }
+                            }
+                            ?>
+                            <!-- // NOTIF MASA PERPAJANGAN -->
 
                         </div>
                     </li>

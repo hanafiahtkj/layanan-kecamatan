@@ -351,6 +351,8 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
 
         $event_fotopemohon = "";
 
+        // 
+
         // CEK APAKAH FOTO DIGANTI
         if (!empty($_FILES['foto_pemohon']['name'])) {
             $fotolama = $row['foto_pemohon'];
@@ -364,6 +366,9 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
             $dir_fotopemohon  = '../../assets/iumk_foto_pemohon/';
 
             move_uploaded_file($tmp_fotopemohon, $dir_fotopemohon . $nama_fotopemohon);
+            if (file_exists($dir_fotopemohon . $fotolama)) {
+                unlink($dir_fotopemohon . $fotolama);
+            }
             $event_fotopemohon .= "Sukses Upload";
         } else {
             $nama_fotopemohon = $row['foto_pemohon'];
