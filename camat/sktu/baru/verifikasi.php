@@ -45,9 +45,9 @@ if (isset($_POST['verif'])) {
             }
             $submit = $koneksi->query("UPDATE nomor_urut_sktu SET nomor_urut = '$nourutbaru'");
             //-- no urut sktu++
-
-            $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nosktubaru', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE id_sktu = '$id_sktu' AND nomor_sktu = '$nomor_sktu'");
         }
+
+        $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nosktubaru', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE id_sktu = '$id_sktu' AND nomor_sktu = '$nomor_sktu'");
         $_SESSION['pesan'] = "Data Permohonan SKTU BARU Telah Diverifikasi";
         echo "<script>window.location.replace('../');</script>";
     }

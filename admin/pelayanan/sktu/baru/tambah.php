@@ -431,18 +431,20 @@ include_once "../../../../template/head.php";
 
         if ($submit) {
 
-            // no urut sktu++
-            $notambah = $nourut + 1;
+            if ($status == "Selesai") {
+                // no urut sktu++
+                $notambah = $nourut + 1;
 
-            if ($notambah < '009') {
-                $nourutbaru = '00' . $notambah;
-            } elseif ($nnotambaho < '099') {
-                $nourutbaru = '0' . $notambah;
-            } else {
-                $nourutbaru = $notambah;
+                if ($notambah < '009') {
+                    $nourutbaru = '00' . $notambah;
+                } elseif ($nnotambaho < '099') {
+                    $nourutbaru = '0' . $notambah;
+                } else {
+                    $nourutbaru = $notambah;
+                }
+                $submit = $koneksi->query("UPDATE nomor_urut_sktu SET nomor_urut = '$nourutbaru'");
+                //-- no urut sktu++
             }
-            $submit = $koneksi->query("UPDATE nomor_urut_sktu SET nomor_urut = '$nourutbaru'");
-            //-- no urut sktu++
 
             $ambilidsktu = $koneksi->query("SELECT * FROM sktu_baru ORDER BY id_sktu DESC LIMIT 1")->fetch_array();
             $idsktu      = $ambilidsktu['id_sktu'];
