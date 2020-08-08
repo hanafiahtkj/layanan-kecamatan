@@ -399,7 +399,7 @@ include_once "../../../../template/head.php";
         } else {
             $nomor_sktu  = "-";
             $tgl_selesai = null;
-            $id_posisi   = 1;
+            // $id_posisi   = 1;x   
         }
 
 

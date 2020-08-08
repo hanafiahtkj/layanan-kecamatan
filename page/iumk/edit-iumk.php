@@ -327,7 +327,6 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
         $camat = $koneksi->query("SELECT * FROM camat WHERE status = 'Aktif'")->fetch_array();
 
         $id_masyarakat      = $idm;
-        $nomor_iumk         = $row['nomor_iumk'];
         $peraturan          = $dataperaturan['peraturan'];
         $nama_pemohon       = $_POST['nama_pemohon'];
         $nomor_ktp          = $_POST['nomor_ktp'];
@@ -405,7 +404,7 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                     $gambar_arr[] = $target_file;
 
                     // REPLACE FILE LAMA
-                    $queryfilelama = $koneksi->query("SELECT * FROM lampiran_iumk_file WHERE nomor_iumk = '$nomor_iumk'");
+                    $queryfilelama = $koneksi->query("SELECT * FROM lampiran_iumk_file WHERE id_iumk = '$id'");
                     foreach ($queryfilelama as $fl) {
                         $filelama[] = $fl['file'];
                         if (file_exists($targer_dir . $filelama[$i])) {
@@ -413,7 +412,7 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                         }
                     }
 
-                    $koneksi->query("UPDATE lampiran_iumk_file SET file = '$nama_lampiran' WHERE id_lampiran = '$idl[$i]' AND nomor_iumk = '$nomor_iumk'");
+                    $koneksi->query("UPDATE lampiran_iumk_file SET file = '$nama_lampiran' WHERE id_lampiran = '$idl[$i]' AND id_iumk = '$id'");
 
                     $event .= "upload berhasil";
                 } else {

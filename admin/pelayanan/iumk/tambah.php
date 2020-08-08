@@ -6,21 +6,8 @@ include_once "../../../config/config.php";
 include_once "../../../config/auth-admin.php";
 include_once "../../../template/head.php";
 
-$cekiumk = $koneksi->query("SELECT * FROM iumk");
-if (mysqli_num_rows($cekiumk) === 0) {
-    $query  = mysqli_query($koneksi, "SELECT max(nomor_urut) AS kode FROM nomor_urut_iumk");
-    $data   = mysqli_fetch_array($query);
-    $kode   = $data['kode'];
-    $nourut = $kode++;
-} else {
-    $query  = mysqli_query($koneksi, "SELECT max(nomor_iumk) AS kode FROM iumk");
-    $data   = mysqli_fetch_array($query);
-    $kode   = $data['kode'];
-    $nourut = (int) substr($kode, 8, 3);
-    $nourut++;
-}
-
-$kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
+$ceknoiumk    = $koneksi->query("SELECT * FROM nomor_urut_iumk")->fetch_array();
+$nourut       = $ceknoiumk['nomor_urut'];
 
 ?>
 
@@ -410,7 +397,6 @@ $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
         // ambil dasar hukum IUMK
         $dataperaturan = $koneksi->query("SELECT * FROM peraturan_iumk")->fetch_array();
 
-        $nomor_iumk         = $kodeotomatis;
         $id_masyarakat      = $_POST['id_masyarakat'];
         $peraturan          = $dataperaturan['peraturan'];
         $nama_pemohon       = $_POST['nama_pemohon'];
@@ -435,11 +421,28 @@ $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
         $id_posisi          = $_POST['id_posisi'];
         $status             = $_POST['status'];
         if ($status == "Selesai") {
-            $tgl_selesai = $_POST['tgl_selesai'];
-            $id_posisi   = 4;
+
+            $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
+            $nomor_iumk   = $kodeotomatis;
+            // no urut iumk++
+            $notambah = $nourut + 1;
+
+            if ($notambah < '009') {
+                $nourutbaru = '00' . $notambah;
+            } elseif ($nnotambaho < '099') {
+                $nourutbaru = '0' . $notambah;
+            } else {
+                $nourutbaru = $notambah;
+            }
+            $submit = $koneksi->query("UPDATE nomor_urut_iumk SET nomor_urut = '$nourutbaru'");
+            //-- no urut iumk++
+            $tgl_selesai  = $_POST['tgl_selesai'];
+            $id_posisi    = 4;
         } else {
             $tgl_selesai = null;
+            $nomor_iumk  = '-';
         }
+
 
         $event_fotopemohon = "";
 
@@ -455,36 +458,7 @@ $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
         $event_fotopemohon .= "Sukses Upload";
 
 
-        if (!empty($event_fotopemohon)) {
-
-            // UPLOAD FILE LAMPIRAN
-            $gambar_arr    = array();
-            $idl           = $_POST['id_lampiran'];
-            $hitungidl     = count($idl);
-
-            $event = "";
-
-            for ($i = 0; $i < $hitungidl; $i++) {
-
-                $file           = $_FILES['file']['name'][$i];
-                $nama_lamp      = explode('.', $file);
-                $format_lamp    = end($nama_lamp);
-                $nama_lampiran  = rand(1, 99999) . '.' . $format_lamp;
-
-                // temporari file
-                $tmp_file  = $_FILES['file']['tmp_name'][$i];
-
-                $targer_dir = '../../../assets/iumk/';
-                $target_file = $targer_dir . $nama_lampiran;
-
-                move_uploaded_file($tmp_file, $target_file);
-                $koneksi->query("INSERT INTO lampiran_iumk_file VALUES (null, '$idl[$i]', '$nomor_iumk', '$nama_lampiran')");
-                $gambar_arr[] = $target_file;
-                $event .= "upload berhasil";
-            }
-
-            if (!empty($event)) {
-                $submit = $koneksi->query("INSERT INTO iumk VALUES (
+        $submit = $koneksi->query("INSERT INTO iumk VALUES (
             null, 
             '$id_masyarakat', 
             '$nomor_iumk', 
@@ -513,8 +487,43 @@ $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
             '$status'
             )");
 
-                $_SESSION['pesan'] = "Data IUMK Ditambahkan";
-                echo "<script>window.location.replace('../iumk/');</script>";
+        if ($submit) {
+
+            $ambilidiumk = $koneksi->query("SELECT * FROM iumk ORDER BY id_iumk DESC LIMIT 1")->fetch_array();
+            $idiumk      = $ambilidiumk['id_iumk'];
+
+            if (!empty($event_fotopemohon)) {
+
+                // UPLOAD FILE LAMPIRAN
+                $gambar_arr    = array();
+                $idl           = $_POST['id_lampiran'];
+                $hitungidl     = count($idl);
+
+                $event = "";
+
+                for ($i = 0; $i < $hitungidl; $i++) {
+
+                    $file           = $_FILES['file']['name'][$i];
+                    $nama_lamp      = explode('.', $file);
+                    $format_lamp    = end($nama_lamp);
+                    $nama_lampiran  = rand(1, 99999) . '.' . $format_lamp;
+
+                    // temporari file
+                    $tmp_file  = $_FILES['file']['tmp_name'][$i];
+
+                    $targer_dir = '../../../assets/iumk/';
+                    $target_file = $targer_dir . $nama_lampiran;
+
+                    move_uploaded_file($tmp_file, $target_file);
+                    $koneksi->query("INSERT INTO lampiran_iumk_file VALUES (null, '$idl[$i]', '$idiumk', '$nama_lampiran')");
+                    $gambar_arr[] = $target_file;
+                    $event .= "upload berhasil";
+                }
+
+                if (!empty($event)) {
+                    $_SESSION['pesan'] = "Data IUMK Ditambahkan";
+                    echo "<script>window.location.replace('../iumk/');</script>";
+                }
             }
         }
     }

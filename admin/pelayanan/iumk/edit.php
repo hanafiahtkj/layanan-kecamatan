@@ -408,7 +408,26 @@ $row  = $data->fetch_array();
         $keterangan         = $_POST['keterangan'];
         $id_posisi          = $_POST['id_posisi'];
         $status             = $_POST['status'];
-        if ($status == "Selesai") {
+        if ($status == "Selesai" and $nomor_iumk == '-') {
+            $ceknoiumk    = $koneksi->query("SELECT * FROM nomor_urut_iumk")->fetch_array();
+            $nourut       = $ceknoiumk['nomor_urut'];
+            $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
+            $nomor_iumk   = $kodeotomatis;
+            // no urut iumk++
+            $notambah = $nourut + 1;
+
+            if ($notambah < '009') {
+                $nourutbaru = '00' . $notambah;
+            } elseif ($nnotambaho < '099') {
+                $nourutbaru = '0' . $notambah;
+            } else {
+                $nourutbaru = $notambah;
+            }
+            $submit = $koneksi->query("UPDATE nomor_urut_iumk SET nomor_urut = '$nourutbaru'");
+            //-- no urut iumk++
+            $tgl_selesai = $_POST['tgl_selesai'];
+            $id_posisi   = 4;
+        } else if ($status == "Selesai") {
             $tgl_selesai = $_POST['tgl_selesai'];
             $id_posisi   = 4;
         } else {
@@ -471,7 +490,7 @@ $row  = $data->fetch_array();
                     $gambar_arr[] = $target_file;
 
                     // REPLACE FILE LAMA
-                    $queryfilelama = $koneksi->query("SELECT * FROM lampiran_iumk_file WHERE nomor_iumk = '$nomor_iumk'");
+                    $queryfilelama = $koneksi->query("SELECT * FROM lampiran_iumk_file WHERE id_iumk = '$id'");
                     foreach ($queryfilelama as $fl) {
                         $filelama[] = $fl['file'];
                         if (file_exists($targer_dir . $filelama[$i])) {
@@ -479,7 +498,7 @@ $row  = $data->fetch_array();
                         }
                     }
 
-                    $koneksi->query("UPDATE lampiran_iumk_file SET file = '$nama_lampiran' WHERE id_lampiran = '$idl[$i]' AND nomor_iumk = '$nomor_iumk'");
+                    $koneksi->query("UPDATE lampiran_iumk_file SET file = '$nama_lampiran' WHERE id_lampiran = '$idl[$i]' AND id_iumk = '$id'");
 
                     $event .= "upload berhasil";
                 } else {
@@ -491,6 +510,7 @@ $row  = $data->fetch_array();
 
         if (!empty($event)) {
             $submit = $koneksi->query("UPDATE iumk SET
+            nomor_iumk         = '$nomor_iumk', 
             peraturan          = '$peraturan', 
             nama_pemohon       = '$nama_pemohon', 
             nomor_ktp          = '$nomor_ktp', 

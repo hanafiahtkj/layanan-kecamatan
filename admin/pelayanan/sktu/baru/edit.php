@@ -222,7 +222,7 @@ $row  = $data->fetch_array();
                                             <div class="form-group row">
                                                 <label for="tgl_selesai" class="col-sm-2 col-form-label">Tanggal Selesai</label>
                                                 <div class="col-sm-10">
-                                                    <input type="date" class="form-control" name="tgl_selesai" value="<?= $row['tgl_selesai']; ?>" required>
+                                                    <input type="date" class="form-control" name="tgl_selesai" value="<?= $row['tgl_selesai']; ?>">
                                                 </div>
                                             </div>
                                         <?php } ?>
@@ -388,21 +388,23 @@ $row  = $data->fetch_array();
         $id_posisi                = $_POST['id_posisi'];
         $status                   = $_POST['status'];
         if ($status == "Selesai" and $row['nomor_sktu'] == '-') {
-            $ceksktu = $koneksi->query("SELECT * FROM sktu_baru");
-            if (mysqli_num_rows($ceksktu) === 0) {
-                $query  = mysqli_query($koneksi, "SELECT max(nomor_urut) AS kode FROM nomor_urut_sktu");
-                $data   = mysqli_fetch_array($query);
-                $kode   = $data['kode'];
-                $nourut = $kode++;
-            } else {
-                $query  = mysqli_query($koneksi, "SELECT max(nomor_sktu) AS kode FROM sktu_baru");
-                $data   = mysqli_fetch_array($query);
-                $kode   = $data['kode'];
-                $nourut = (int) substr($kode, 5, 3);
-                $nourut++;
-            }
+            $ceknosktu  = $koneksi->query("SELECT * FROM nomor_urut_sktu")->fetch_array();
+            $nourut     = $ceknosktu['nomor_urut'];
             $b_romawi   = $bulan_romawi[date('m')];
             $nomor_sktu = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
+
+            // no urut sktu++
+            $notambah = $nourut + 1;
+
+            if ($notambah < '009') {
+                $nourutbaru = '00' . $notambah;
+            } elseif ($nnotambaho < '099') {
+                $nourutbaru = '0' . $notambah;
+            } else {
+                $nourutbaru = $notambah;
+            }
+            $submit = $koneksi->query("UPDATE nomor_urut_sktu SET nomor_urut = '$nourutbaru'");
+            //-- no urut sktu++
 
             $kelengkapan        = "Lengkap";
             $masa_berlaku_awal  = date('Y-m-d');
@@ -419,7 +421,7 @@ $row  = $data->fetch_array();
         } else {
             $nomor_sktu  = $row['nomor_sktu'];
             $tgl_selesai = null;
-            $id_posisi   = 1;
+            // $id_posisi   = 1;
         }
 
 
