@@ -102,7 +102,7 @@ $row  = $data->fetch_array();
         $submit = $koneksi->query("UPDATE peraturan_iumk SET peraturan = '$peraturan' WHERE id_peraturan = '$id'");
         if ($submit) {
             $_SESSION['pesan'] = "Data Peraturan Diubah";
-            echo "<script>window.location.replace('../peraturan-iumk/');</script>";
+            echo "<script>window.location.replace('../dasar-hukum-iumk/');</script>";
         }
     }
     ?>

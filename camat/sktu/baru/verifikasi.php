@@ -15,20 +15,9 @@ if (isset($_POST['verif'])) {
         $masa_berlaku_awal  = date('Y-m-d');
         $masa_berlaku_akhir = date('Y-m-d', strtotime('+1 year'));
         $tgl_selesai        = date('Y-m-d');
-        $ceksktu = $koneksi->query("SELECT * FROM sktu_baru");
-        if (mysqli_num_rows($ceksktu) === 0) {
-            $query  = mysqli_query($koneksi, "SELECT max(nomor_urut) AS kode FROM nomor_urut_sktu");
-            $data   = mysqli_fetch_array($query);
-            $kode   = $data['kode'];
-            $nourut = $kode++;
-        } else {
-            $query  = mysqli_query($koneksi, "SELECT max(nomor_sktu) AS kode FROM sktu_baru");
-            $data   = mysqli_fetch_array($query);
-            $kode   = $data['kode'];
-            $nourut = (int) substr($kode, 5, 3);
-            $nourut++;
-        }
 
+        $ceknosktu  = $koneksi->query("SELECT * FROM nomor_urut_sktu")->fetch_array();
+        $nourut     = $ceknosktu['nomor_urut'];
         $b_romawi   = $bulan_romawi[date('m')];
         $nosktubaru = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
     } else {
@@ -44,6 +33,19 @@ if (isset($_POST['verif'])) {
 
     if ($submit) {
         if ($status == 1) {
+            // no urut sktu++
+            $notambah = $nourut + 1;
+
+            if ($notambah < '009') {
+                $nourutbaru = '00' . $notambah;
+            } elseif ($nnotambaho < '099') {
+                $nourutbaru = '0' . $notambah;
+            } else {
+                $nourutbaru = $notambah;
+            }
+            $submit = $koneksi->query("UPDATE nomor_urut_sktu SET nomor_urut = '$nourutbaru'");
+            //-- no urut sktu++
+
             $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nosktubaru', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE id_sktu = '$id_sktu' AND nomor_sktu = '$nomor_sktu'");
         }
         $_SESSION['pesan'] = "Data Permohonan SKTU BARU Telah Diverifikasi";
