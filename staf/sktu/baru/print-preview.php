@@ -1,7 +1,7 @@
 <?php
 ob_start();
 include_once "../../../config/config.php";
-include_once "../../../config/auth-admin.php";
+include_once "../../../config/auth-staf.php";
 include_once "../../../config/bulan.php";
 include_once "../../../config/terbilang.php";
 

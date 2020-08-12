@@ -60,31 +60,26 @@
                             $jmlsktuppj = mysqli_num_rows($datasktuppj);
 
 
-
                             $data1 = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE id_masyarakat = '$_SESSION[id_masyarakat]'");
                             foreach ($data1 as $r1) {
                                 $ceknotif = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE nomor_sktu = '$r1[nomor_sktu]' AND id_masyarakat = '$r1[id_masyarakat]'");
                                 if (mysqli_num_rows($ceknotif) === 0) {
-                                    $rcek = $ceknotif->fetch_array();
-                                    $ambilidsktu = $koneksi->query("SELECT * FROM sktu_baru WHERE nomor_sktu = '$r1[nomor_sktu]'")->fetch_array();
-
                                     if (!empty($r1['terakhir_diperpanjang']) and $r1['terakhir_diperpanjang'] != '0000-00-00') {
 
-
-                                        $datanotifsktuppj = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE ((terakhir_diperpanjang - CURRENT_DATE()) <= 30 AND (terakhir_diperpanjang - CURRENT_DATE()) > 0) OR ((CURRENT_DATE() >= terakhir_diperpanjang) AND (CURRENT_DATE() <= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))) OR (CURRENT_DATE() >= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))");
+                                        $datanotifsktuppj = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE nomor_sktu NOT IN (SELECT nomor_sktu FROM sktu_perpanjangan) AND ((terakhir_diperpanjang - CURRENT_DATE()) <= 30 AND (terakhir_diperpanjang - CURRENT_DATE()) > 0) OR ((CURRENT_DATE() >= terakhir_diperpanjang) AND (CURRENT_DATE() <= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))) OR (CURRENT_DATE() >= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))");
                                         $jmlnotifsktuppj = mysqli_num_rows($datanotifsktuppj);
                                     }
                                 }
                             }
                             // echo "<pre>";
-                            // var_dump($datanotifsktuppj);
+                            // var_dump($ceknotif);
 
 
                             $jmltotal = $jmliumk + $jmlsktubaru + $jmlsktuppj + $jmlnotifsktuppj;
                             ?>
 
                             <?php if ($jmltotal != 0) { ?>
-                                <sup class="badge badge-danger" style="padding: 7%; height: auto; margin-left: -5px; padding-top: 4px; padding-bottom: 4px;">
+                                <sup class="badge badge-danger" style="padding: 10%; height: auto; margin-left: -5px; padding-top: 3px; padding-bottom: 3px;">
                                     <?= $jmltotal; ?>
                                 </sup>
                             <?php } ?>

@@ -110,8 +110,8 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                             <th>Nama Pemohon</th>
                                                             <th>Nama Perusahaan</th>
                                                             <th>Posisi Berkas</th>
-                                                            <th>Keterangan</th>
                                                             <th>Status</th>
+                                                            <th>Keterangan</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -132,7 +132,6 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                                 <td><?= $r['nama_pemohon']; ?></td>
                                                                 <td><?= $r['nama_perusahaan']; ?></td>
                                                                 <td align="center"><?= $po['posisi']; ?></td>
-                                                                <td><?= $r['keterangan']; ?></td>
                                                                 <td align="center">
                                                                     <?php
                                                                     if ($r['status'] == "Belum Diproses") {
@@ -144,6 +143,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                                     }
                                                                     ?>
                                                                 </td>
+                                                                <td><?= $r['keterangan']; ?></td>
                                                                 <td align="center" width="10%">
                                                                     <button id="detail" data-id="<?= encryptor('encrypt', $r['id_sktu']) ?>" class="btn btn-primary btn-sm" title="Lihat Detail Berkas">
                                                                         <i class="fa fa-eye"></i>
@@ -179,9 +179,14 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                         $data1 = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE id_masyarakat = '$idm'");
                                         foreach ($data1 as $r1) {
                                             $ceknotif = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE nomor_sktu = '$r1[nomor_sktu]' AND id_masyarakat = '$r1[id_masyarakat]'");
+                                            $rcek = $ceknotif->fetch_array();
                                             if (mysqli_num_rows($ceknotif) === 0) {
-                                                $rcek = $ceknotif->fetch_array();
                                                 $ambilidsktu = $koneksi->query("SELECT * FROM sktu_baru WHERE nomor_sktu = '$r1[nomor_sktu]'")->fetch_array();
+                                            } else {
+                                                $ambilidsktu = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE nomor_sktu = '$r1[nomor_sktu]'")->fetch_array();
+                                            }
+
+                                            if (mysqli_num_rows($ceknotif) === 0) {
 
                                                 if (!empty($r1['terakhir_diperpanjang']) and $r1['terakhir_diperpanjang'] != '0000-00-00') {
                                                     $masa_berlaku = $r1['terakhir_diperpanjang'];

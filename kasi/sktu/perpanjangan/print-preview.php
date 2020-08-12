@@ -1,7 +1,7 @@
 <?php
 ob_start();
 include_once "../../../config/config.php";
-include_once "../../../config/auth-admin.php";
+include_once "../../../config/auth-kasi.php";
 include_once "../../../config/bulan.php";
 include_once "../../../config/terbilang.php";
 
@@ -68,7 +68,7 @@ $row  = $data->fetch_array();
                     <b><?= strtoupper($row['nama_pemohon']); ?></b> <br>
                     Tanggal : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <?=
-                        date('d', strtotime($row['masa_berlaku_awal'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_awal']))] . " " . date('Y', strtotime($row['masa_berlaku_awal']));
+                        tgl_indo(date('Y-m-d', strtotime($row['tgl'])));
                     ?>
                 </td>
             </tr>
@@ -144,8 +144,8 @@ $row  = $data->fetch_array();
             <td>:</td>
             <td width="60%">
                 <?=
-                    date('d', strtotime($row['masa_berlaku_awal'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_awal']))] . " " . date('Y', strtotime($row['masa_berlaku_awal'])) . " S/D " .
-                        date('d', strtotime($row['masa_berlaku_akhir'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_akhir']))] . " " . date('Y', strtotime($row['masa_berlaku_akhir']))
+                    tgl_indo($row['masa_berlaku_awal']) . " S/D " .
+                        tgl_indo($row['masa_berlaku_akhir']);
                 ?>
             </td>
         </tr>
@@ -179,14 +179,14 @@ $row  = $data->fetch_array();
             <td width="2%" align="center">:</td>
             <td width="30%">
                 <?=
-                    date('d', strtotime($row['masa_berlaku_awal'])) . " " . $bln[date('m', strtotime($row['masa_berlaku_awal']))] . " " . date('Y', strtotime($row['masa_berlaku_awal']));
+                    tgl_indo($row['tgl_selesai']);
                 ?>
             </td>
         </tr>
         <tr style="text-align: center;"">
             <td colspan=" 3">
             CAMAT,
-            <br><br><br><br>
+            <br><br><br><br><br><br>
             <?= $row['nama_camat']; ?> <br>
             <?= $row['jabatan']; ?> <br>
             <?= "NIP. " . $row['nip']; ?>

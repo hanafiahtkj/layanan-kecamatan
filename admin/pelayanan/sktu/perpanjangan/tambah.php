@@ -400,54 +400,28 @@ include_once "../../../../template/head.php";
         $id_posisi                = $_POST['id_posisi'];
         $status                   = $_POST['status'];
         if ($status == "Selesai") {
-            $tgl_selesai = $_POST['tgl_selesai'];
-            $id_posisi   = 4;
+            $tes = explode('/', $nomor_sktu);
+            $ambil = [
+                'kode' => $tes[0],
+                'no'   => $tes[1],
+                'cam'  => $tes[3]
+            ];
+            $nobulanromawi      = "SKTU-" . $bulan_romawi[date('m')];
+            $tahunsekarang      = date('Y');
+            $nomorsktubaru      = $ambil['kode'] . "/" . $ambil['no'] . "/" . $nobulanromawi . "/" . $ambil['cam'] . "/" . $tahunsekarang;
+            $masa_berlaku_awal  = date('Y-m-d');
+            $masa_berlaku_akhir = date('Y-m-d', strtotime('+1 year'));
+            $tgl_selesai        = $_POST['tgl_selesai'];
+            $id_posisi          = 4;
         } else {
-            $tgl_selesai = null;
+            $nomorsktubaru = $nomor_sktu;
+            $tgl_selesai   = null;
         }
 
-        // ANGKA URUT UNTUK MEMBEDAKAN FILE YG DI UPLOAD DI PERPANJANGAN, KARENA NOMOR SKTU SAMA
-        $au = $koneksi->query("SELECT max(file_count) as fc FROM lampiran_sktu_file WHERE keterangan = 'Perpanjangan'")->fetch_array();
-        $r   = $au['fc'];
-        $r++;
-        $fc = sprintf('%01s', $r);
-
-        // var_dump($fc);
-        // die();
-        // 
-
-        $gambar_arr    = array();
-        $idl           = $_POST['id_lampiran'];
-        $hitungidl     = count($idl);
-
-        $event = "";
-
-        for ($i = 0; $i < $hitungidl; $i++) {
-
-            $file          = $_FILES['file']['name'][$i];
-            $nama_lamp     = explode('.', $file);
-            $format_lamp   = end($nama_lamp);
-            $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
-            $allow_sizefile = 1024 * 1024 * 1;
-
-            // temporari file
-            $tmp_file  = $_FILES['file']['tmp_name'][$i];
-
-            $targer_dir = '../../../../assets/sktu/perpanjangan/';
-            $target_file = $targer_dir . $nama_lampiran;
-
-
-            move_uploaded_file($tmp_file, $target_file);
-            $gambar_arr[] = $target_file;
-            $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$nomor_sktu', '$nama_lampiran', 'Perpanjangan', '$fc')");
-            $event .= "upload berhasil";
-        }
-
-        if (!empty($event)) {
-            $submit = $koneksi->query("INSERT INTO sktu_perpanjangan VALUES (
+        $submit = $koneksi->query("INSERT INTO sktu_perpanjangan VALUES (
             null, 
             '$id_masyarakat', 
-            '$nomor_sktu', 
+            '$nomorsktubaru', 
             '$nama_pemohon', 
             '$no_telp', 
             '$tgl', 
@@ -467,12 +441,45 @@ include_once "../../../../template/head.php";
             '$keterangan',
             '$tgl_selesai',
             '$id_posisi',
-            '$status',
-            '$fc'
+            '$status'
             )");
 
-            if ($submit) {
-                $koneksi->query("UPDATE riwayat_tgl_sktu SET terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE nomor_sktu = '$nomor_sktu'");
+        if ($submit) {
+
+            $ambilidsktu = $koneksi->query("SELECT * FROM sktu_perpanjangan ORDER BY id_sktu DESC LIMIT 1")->fetch_array();
+            $idsktu      = $ambilidsktu['id_sktu'];
+
+            $gambar_arr    = array();
+            $idl           = $_POST['id_lampiran'];
+            $hitungidl     = count($idl);
+
+            $event = "";
+
+            for ($i = 0; $i < $hitungidl; $i++) {
+
+                $file          = $_FILES['file']['name'][$i];
+                $nama_lamp     = explode('.', $file);
+                $format_lamp   = end($nama_lamp);
+                $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
+                $allow_sizefile = 1024 * 1024 * 1;
+
+                // temporari file
+                $tmp_file  = $_FILES['file']['tmp_name'][$i];
+
+                $targer_dir = '../../../../assets/sktu/perpanjangan/';
+                $target_file = $targer_dir . $nama_lampiran;
+
+
+                move_uploaded_file($tmp_file, $target_file);
+                $gambar_arr[] = $target_file;
+                $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', '$nama_lampiran', 'Perpanjangan')");
+                $event .= "upload berhasil";
+            }
+
+            if (!empty($event)) {
+                if ($status == "Selesai") {
+                    $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nomorsktubaru', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE nomor_sktu = '$nomor_sktu'");
+                }
                 $_SESSION['pesan'] = "Data SKTU Diperpanjang";
                 echo "<script>window.location.replace('../');</script>";
             }

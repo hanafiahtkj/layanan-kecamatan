@@ -371,57 +371,26 @@ $row  = $data->fetch_array();
         $keterangan               = $_POST['keterangan'];
         $id_posisi                = $_POST['id_posisi'];
         $status                   = $_POST['status'];
-        $fc                       = $row['file_count'];
         if ($status == "Selesai") {
-            $tgl_selesai = $_POST['tgl_selesai'];
-            $id_posisi   = 4;
+            $tes = explode('/', $nomor_sktu);
+            $ambil = [
+                'kode' => $tes[0],
+                'no'   => $tes[1],
+                'cam'  => $tes[3]
+            ];
+            $nobulanromawi      = "SKTU-" . $bulan_romawi[date('m')];
+            $tahunsekarang      = date('Y');
+            $nomorsktubaru      = $ambil['kode'] . "/" . $ambil['no'] . "/" . $nobulanromawi . "/" . $ambil['cam'] . "/" . $tahunsekarang;
+
+            $tgl_selesai        = $_POST['tgl_selesai'];
+            $id_posisi          = 4;
         } else {
-            $tgl_selesai = null;
+            $nomorsktubaru = $nomor_sktu;
+            $tgl_selesai   = null;
         }
 
-        $gambar_arr    = array();
-        $filelama      = array();
-        $idl           = $_POST['id_lampiran'];
-        $hitungidl     = count($idl);
-
-        $event = "";
-
-        for ($i = 0; $i < $hitungidl; $i++) {
-
-            $file          = $_FILES['file']['name'][$i];
-
-            if (!empty($file)) {
-
-                $nama_lamp     = explode('.', $file);
-                $format_lamp   = end($nama_lamp);
-                $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
-
-                // temporari file
-                $tmp_file  = $_FILES['file']['tmp_name'][$i];
-
-                $targer_dir = '../../../../assets/sktu/perpanjangan/';
-                $target_file = $targer_dir . $nama_lampiran;
-
-                move_uploaded_file($tmp_file, $target_file);
-                $gambar_arr[] = $target_file;
-
-                // REPLACE FILE LAMA
-                $queryfilelama = $koneksi->query("SELECT * FROM lampiran_sktu_file WHERE nomor_sktu = '$nomor_sktu' AND keterangan = 'Perpanjangan' AND file_count = '$fc'");
-                foreach ($queryfilelama as $fl) {
-                    $filelama[] = $fl['file'];
-                    if (file_exists($targer_dir . $filelama[$i])) {
-                        unlink($targer_dir . $filelama[$i]);
-                    }
-                }
-                $koneksi->query("UPDATE lampiran_sktu_file SET file = '$nama_lampiran' WHERE id_lampiran = '$idl[$i]' AND nomor_sktu = '$nomor_sktu' AND keterangan = 'Perpanjangan' AND file_count = '$fc'");
-                $event .= "upload berhasil";
-            } else {
-                $event .= "Gambar Tidak Diubah";
-            }
-        }
-
-        if (!empty($event)) {
-            $submit = $koneksi->query("UPDATE sktu_perpanjangan SET
+        $submit = $koneksi->query("UPDATE sktu_perpanjangan SET
+            nomor_sktu               = '$nomorsktubaru', 
             nama_pemohon             = '$nama_pemohon', 
             no_telp                  = '$no_telp', 
             tgl                      = '$tgl', 
@@ -444,8 +413,53 @@ $row  = $data->fetch_array();
             WHERE id_sktu            = '$id'
             ");
 
-            if ($submit) {
-                $koneksi->query("UPDATE riwayat_tgl_sktu SET terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE nomor_sktu = '$nomor_sktu'");
+        if ($submit) {
+
+            $gambar_arr    = array();
+            $filelama      = array();
+            $idl           = $_POST['id_lampiran'];
+            $hitungidl     = count($idl);
+
+            $event = "";
+
+            for ($i = 0; $i < $hitungidl; $i++) {
+
+                $file          = $_FILES['file']['name'][$i];
+
+                if (!empty($file)) {
+
+                    $nama_lamp     = explode('.', $file);
+                    $format_lamp   = end($nama_lamp);
+                    $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
+
+                    // temporari file
+                    $tmp_file  = $_FILES['file']['tmp_name'][$i];
+
+                    $targer_dir = '../../../../assets/sktu/perpanjangan/';
+                    $target_file = $targer_dir . $nama_lampiran;
+
+                    move_uploaded_file($tmp_file, $target_file);
+                    $gambar_arr[] = $target_file;
+
+                    // REPLACE FILE LAMA
+                    $queryfilelama = $koneksi->query("SELECT * FROM lampiran_sktu_file WHERE id_sktu = '$id' AND keterangan = 'Perpanjangan'");
+                    foreach ($queryfilelama as $fl) {
+                        $filelama[] = $fl['file'];
+                        if (file_exists($targer_dir . $filelama[$i])) {
+                            unlink($targer_dir . $filelama[$i]);
+                        }
+                    }
+                    $koneksi->query("UPDATE lampiran_sktu_file SET file = '$nama_lampiran' WHERE id_lampiran = '$idl[$i]' AND id_sktu = '$id' AND keterangan = 'Perpanjangan'");
+                    $event .= "upload berhasil";
+                } else {
+                    $event .= "Gambar Tidak Diubah";
+                }
+            }
+
+            if (!empty($event)) {
+                if ($status == "Selesai") {
+                    $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nomorsktubaru', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE nomor_sktu = '$nomor_sktu'");
+                }
                 $_SESSION['pesan'] = "Data Perpanjangan SKTU Diubah";
                 echo "<script>window.location.replace('../');</script>";
             }

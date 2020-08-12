@@ -10,7 +10,13 @@ $idm      = $_SESSION['id_masyarakat'];
 $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$idm'")->fetch_array();
 
 $id_sktu = encryptor('decrypt', $_GET['id']);
-$row     = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm' AND id_sktu = '$id_sktu'")->fetch_array();
+$cekdata = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_masyarakat = '$idm' AND id_sktu = '$id_sktu'");
+if (mysqli_num_rows($cekdata) === 0) {
+    $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm' AND id_sktu = '$id_sktu'")->fetch_array();
+} else {
+    $row = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_masyarakat = '$idm' AND id_sktu = '$id_sktu'")->fetch_array();
+}
+
 
 ?>
 
@@ -66,7 +72,7 @@ $row     = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="nomor_sktu" class="col-sm-3 col-form-label">Nomor SKTU</label>
+                                        <label for="nomor_sktu" class="col-sm-3 col-form-label">Nomor SKTU Lama</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="nomor_sktu" name="nomor_sktu" value="<?= $row['nomor_sktu']; ?>" required readonly>
                                         </div>
@@ -301,18 +307,12 @@ $row     = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'
             null,
             null,
             1,
-            '$status',
-            '$fc'
+            '$status'
             )");
 
 
         if ($submit) {
 
-            // ANGKA URUT UNTUK MEMBEDAKAN FILE YG DI UPLOAD DI PERPANJANGAN, KARENA NOMOR SKTU SAMA
-            // $au = $koneksi->query("SELECT max(file_count) as fc FROM lampiran_sktu_file WHERE keterangan = 'Perpanjangan'")->fetch_array();
-            // $r   = $au['fc'];
-            // $r++;
-            // $fc = sprintf('%01s', $r);
             $ambilidsktu = $koneksi->query("SELECT * FROM sktu_perpanjangan ORDER BY id_sktu DESC LIMIT 1")->fetch_array();
             $idsktu      = $ambilidsktu['id_sktu'];
 
@@ -344,7 +344,6 @@ $row     = $koneksi->query("SELECT * FROM sktu_baru WHERE id_masyarakat = '$idm'
             }
 
             if (!empty($event)) {
-                // $koneksi->query("UPDATE riwayat_tgl_sktu SET log_status = 1 WHERE id_masyarakat = '$idm' AND nomor_sktu = '$nomor_sktu' AND terakhir_diperpanjang = '$row[masa_berlaku_akhir]'");
 
                 echo "
                 <script type='text/javascript'>
