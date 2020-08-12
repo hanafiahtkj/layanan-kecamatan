@@ -64,7 +64,9 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                     <li class="nav-item">
                                         <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">
                                             Perpanjangan
-                                            <!-- <sup style="color: red;">*</sup> -->
+                                            <?php if ($jmlnotifsktuppj != 0) : ?>
+                                                <sup class="badge badge-danger" style="color: white;"><?= $jmlnotifsktuppj; ?></sup>
+                                            <?php endif ?>
                                         </a>
                                     </li>
                                 </ul>

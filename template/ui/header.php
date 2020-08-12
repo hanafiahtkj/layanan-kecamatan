@@ -69,19 +69,15 @@
                                     $ambilidsktu = $koneksi->query("SELECT * FROM sktu_baru WHERE nomor_sktu = '$r1[nomor_sktu]'")->fetch_array();
 
                                     if (!empty($r1['terakhir_diperpanjang']) and $r1['terakhir_diperpanjang'] != '0000-00-00') {
-                                        $masa_berlaku = $r1['terakhir_diperpanjang'];
-                                        $tgl_sekarang = date('Y-m-d');
-                                        $selisih      = strtotime($masa_berlaku) - strtotime($tgl_sekarang);
-                                        $selisih_hari = $selisih / (60 * 60 * 24);
-                                        $batas_perpanjangan = date('Y-m-d', strtotime('+6 month', strtotime($masa_berlaku)));
 
-                                        $datanotifsktuppj = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE terakhir_diperpanjang = ($selisih_hari <= 30 and $selisih_hari > 0) or ($tgl_sekarang >= $masa_berlaku and $tgl_sekarang <= $batas_perpanjangan) or ($tgl_sekarang >= $batas_perpanjangan)");
+
+                                        $datanotifsktuppj = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE ((terakhir_diperpanjang - CURRENT_DATE()) <= 30 AND (terakhir_diperpanjang - CURRENT_DATE()) > 0) OR ((CURRENT_DATE() >= terakhir_diperpanjang) AND (CURRENT_DATE() <= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))) OR (CURRENT_DATE() >= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))");
                                         $jmlnotifsktuppj = mysqli_num_rows($datanotifsktuppj);
                                     }
                                 }
                             }
                             // echo "<pre>";
-                            // var_dump($jmlnotifsktuppj);
+                            // var_dump($datanotifsktuppj);
 
 
                             $jmltotal = $jmliumk + $jmlsktubaru + $jmlsktuppj + $jmlnotifsktuppj;
