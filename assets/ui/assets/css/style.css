@@ -362,8 +362,8 @@ h6 {
 #hero {
     width: 100%;
     height: 60vh;
-    background: url("../../../../assets/img/logo-bjm.png") center center no-repeat;
-    background-size: relative;
+    background: url("../../../../assets/bg-cover/kantor3.jpg") center center no-repeat;
+    background-size: cover;
     position: relative;
     margin-top: 70px;
     padding: 0;

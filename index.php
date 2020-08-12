@@ -140,7 +140,7 @@ include_once "config/config.php";
                                 APLIKASI E-LAYANAN ONLINE KECAMATAN
                             </div>
                             <div class="card-body">
-                                Aplikasi E-layanan online kecamatan adalah aplikasi yang difungsikan untuk mempermudah masyarakat dalam mengajukan pembuatan surat menyurat secara online
+                                Aplikasi E-layanan online kecamatan adalah aplikasi yang difungsikan untuk mempermudah masyarakat dalam mengajukan pembuatan surat menyurat secara online di wilayah kecamatan Banjarmasin Utara
                             </div>
                         </div>
 
