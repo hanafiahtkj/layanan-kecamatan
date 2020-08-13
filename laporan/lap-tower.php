@@ -101,10 +101,10 @@ if (isset($_POST['print'])) {
                     <td><?= $po['posisi'] ?></td>
                     <td>
                         <?php
-                        if ($row['tgl_selesai'] == "0000-00-00" or is_null($row['tgl_selesai'])) {
-                            echo "-";
+                        if ($row['tgl_selesai'] == '0000-00-00' or is_null($row['tgl_selesai'])) {
+                            echo '-';
                         } else {
-                            echo date('d', strtotime($row['tgl_selesai'])) . " " . $bln[date('m', strtotime($row['tgl_selesai']))] . " " . date('Y', strtotime($row['tgl_selesai']));
+                            echo tgl_indo($row['tgl_selesai']);
                         }
                         ?>
                     </td>

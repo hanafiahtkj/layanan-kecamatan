@@ -99,10 +99,10 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                                                 <td width="2%">:</td>
                                                 <td>
                                                     <?php
-                                                    if (!empty($row['tgl_selesai'])) {
-                                                        echo date('d', strtotime($row['tgl_selesai'])) . " " . $bln[date('m', strtotime($row['tgl_selesai']))] . " " . date('Y', strtotime($row['tgl_selesai']));
+                                                    if ($row['tgl_selesai'] == '0000-00-00' or is_null($row['tgl_selesai'])) {
+                                                        echo '-';
                                                     } else {
-                                                        echo "-";
+                                                        echo tgl_indo($row['tgl_selesai']);
                                                     }
                                                     ?>
                                                 </td>
