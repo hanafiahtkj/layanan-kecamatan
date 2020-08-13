@@ -4,7 +4,7 @@
 <?php include_once "config/config.php"; ?>
 
 <head>
-    <title>Login | Layanan Kecamatan</title>
+    <title>E-Lok | Layanan Kecamatan</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->

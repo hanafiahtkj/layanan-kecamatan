@@ -122,7 +122,15 @@ include_once "template/ui/head.php";
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Password</label>
                                         <div class="col-sm-9">
-                                            <input type="password" class="form-control" name="password" placeholder="Password" required maxlength="20">
+                                            <input type="password" class="form-control" name="password" id="pass" placeholder="Password" required maxlength="20">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Ulangi Password</label>
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control" name="ulangipassword" id="ulangpass" placeholder="Ulangi Password" required maxlength="20">
+                                            <span id="password_error" style="font-style: italic; font-size: 12px; color: red;"></span>
                                         </div>
                                     </div>
 
@@ -162,6 +170,26 @@ include_once "template/ui/head.php";
     <?php include_once "template/ui/script.php"; ?>
 
     <script>
+        // CONFIRM PASSWORD
+        $("#ulangpass").on('keyup', function() {
+            var password = $("#pass").val();
+            var confirmPassword = $("#ulangpass").val();
+            if (password != confirmPassword) {
+                $("#password_error").text('*Password Tidak Cocok !');
+            } else {
+                $("#password_error").text('');
+            }
+        });
+        $("#pass").on('keyup', function() {
+            var password = $("#pass").val();
+            var confirmPassword = $("#ulangpass").val();
+            if (password != confirmPassword) {
+                $("#password_error").text('*Password Tidak Cocok !');
+            } else {
+                $("#password_error").text('');
+            }
+        });
+
         // FORMAT ANGKA SAJA
         function Angkasaja(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
@@ -170,6 +198,8 @@ include_once "template/ui/head.php";
             return true;
         }
     </script>
+
+
 
     <?php
     if (isset($_POST['regis'])) {

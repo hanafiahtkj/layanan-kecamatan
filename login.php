@@ -6,7 +6,7 @@ include_once "config/config.php";
 <html lang="en">
 
 <head>
-    <title>Layanan Kecamatan | Banjarmasin Utara</title>
+    <title>E-Lok | Banjarmasin Utara</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
