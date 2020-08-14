@@ -60,7 +60,7 @@ include_once "template/ui/head.php";
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">NIK</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="nik" placeholder="Nomor NIK KTP" required onkeypress="return Angkasaja(event)">
+                                            <input type="text" class="form-control" name="nik" placeholder="Nomor NIK KTP" required maxlength="20" onkeypress="return Angkasaja(event)">
                                         </div>
                                     </div>
 
@@ -122,15 +122,28 @@ include_once "template/ui/head.php";
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Password</label>
                                         <div class="col-sm-10">
-                                            <input type="password" class="form-control" name="password" id="pass" placeholder="Password" required maxlength="20">
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" name="password" id="pass" placeholder="Password" required maxlength="20">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text" id="ikon">
+                                                        <span id="mybutton" onclick="lihatpass();" class="fas fa-eye-slash" title="Tampilkan Password"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Ulangi Password</label>
                                         <div class="col-sm-10">
-                                            <input type="password" class="form-control" name="ulangipassword" id="ulangpass" placeholder="Ulangi Password" required maxlength="20">
-                                            <span id="password_error" style="font-style: italic; font-size: 12px; color: red;"></span>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" name="ulangipassword" id="ulangpass" placeholder="Ulangi Password" required maxlength="20">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text" id="ikon1">
+                                                        <span id="mybutton1" onclick="ulanglihatpass();" class="fas fa-eye-slash" title="Tampilkan Password"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -268,7 +281,6 @@ include_once "template/ui/head.php";
         });
 
 
-
         // CONFIRM PASSWORD
         // $("#ulangpass").on('keyup', function() {
         //     var password = $("#pass").val();
@@ -288,6 +300,34 @@ include_once "template/ui/head.php";
         //         $("#password_error").text('');
         //     }
         // });
+
+
+        // TAMPILKAN PASSWORD
+        function lihatpass() {
+            var x = document.getElementById('pass').type;
+
+            if (x == 'password') {
+                document.getElementById('pass').type = 'text';
+                document.getElementById('ikon').innerHTML = '<span id="mybutton" onclick="lihatpass();" class="fas fa-eye" title="Tampilkan Password"></span>';
+            } else {
+                document.getElementById('pass').type = 'password';
+                document.getElementById('ikon').innerHTML = '<span id="mybutton" onclick="lihatpass();" class="fas fa-eye-slash" title="Tampilkan Password"></span>';
+            }
+        }
+
+        function ulanglihatpass() {
+            var x = document.getElementById('ulangpass').type;
+
+            if (x == 'password') {
+                document.getElementById('ulangpass').type = 'text';
+                document.getElementById('ikon1').innerHTML = '<span id="mybutton1" onclick="ulanglihatpass();" class="fas fa-eye" title="Tampilkan Password"></span>';
+            } else {
+                document.getElementById('ulangpass').type = 'password';
+                document.getElementById('ikon1').innerHTML = '<span id="mybutton1" onclick="ulanglihatpass();" class="fas fa-eye-slash" title="Tampilkan Password"></span>';
+            }
+        }
+
+
 
         // FORMAT ANGKA SAJA
         function Angkasaja(evt) {
@@ -357,14 +397,14 @@ include_once "template/ui/head.php";
                 },30);  
                 window.setTimeout(function(){ 
                     window.history.back();
-                } ,5000);  
+                } ,3000);  
             </script>";
-        }
+        } else {
 
-        // CEK NIK MASYARAKAT
-        $cek = $koneksi->query("SELECT * FROM masyarakat WHERE nik = '$nik'")->fetch_array();
-        if (!empty($cek)) {
-            echo "
+            // CEK NIK MASYARAKAT
+            $cek = $koneksi->query("SELECT * FROM masyarakat WHERE nik = '$nik'")->fetch_array();
+            if (!empty($cek)) {
+                echo "
             <script type='text/javascript'>
                 setTimeout(function () {    
                     toastr.error('Nomor NIK KTP Sudah Terdaftar Dalam Sistem');      
@@ -373,19 +413,20 @@ include_once "template/ui/head.php";
                     window.history.back();
                 } ,5000);  
             </script>";
-        } else {
-            $submit = $koneksi->query("INSERT INTO masyarakat VALUES (null, '$nama', '$nik', '$tempat_lahir', '$tgl_lahir', '$jk', '$agama', '$telpon', '$alamat', '$pass_hash')");
+            } else {
+                $submit = $koneksi->query("INSERT INTO masyarakat VALUES (null, '$nama', '$nik', '$tempat_lahir', '$tgl_lahir', '$jk', '$agama', '$telpon', '$alamat', '$pass_hash')");
 
-            if ($submit) {
-                echo "
+                if ($submit) {
+                    echo "
                     <script type='text/javascript'>
                     setTimeout(function () {    
-                        toastr.success('Registrasi Berhasil');     
+                        toastr.success('Registrasi Berhasil, Silahkan Login Dengan Akun Anda');     
                     },30);  
                     window.setTimeout(function(){ 
                         window.location.replace('login');
                     } ,5000);   
                     </script>";
+                }
             }
         }
     }
