@@ -8,6 +8,10 @@
 <script src="<?= base_url() ?>/assets/ui/assets/vendor/venobox/venobox.min.js"></script>
 <script src="<?= base_url() ?>/assets/ui/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
 
+<!-- jquery-validation -->
+<script src="<?= base_url() ?>/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/jquery-validation/additional-methods.min.js"></script>
+
 <!-- DataTables -->
 <script src="<?= base_url() ?>/assets/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?= base_url() ?>/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>

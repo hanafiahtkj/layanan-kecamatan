@@ -39,7 +39,7 @@ include_once "template/ui/head.php";
                     <p>Form Registrasi Untuk Masyarakat yang ingin mengajukan pembuatan surat</p>
                 </div>
 
-                <form action="" method="POST">
+                <form action="" method="POST" id="validasi_regis">
 
                     <!-- ROW -->
                     <div class="row">
@@ -51,36 +51,36 @@ include_once "template/ui/head.php";
                                 <div class="card-body">
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Nama Lengkap</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-2 col-form-label">Nama Lengkap</label>
+                                        <div class="col-sm-10">
                                             <input type="text" class="form-control" name="nama" placeholder="Nama Lengkap" required maxlength="50">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">NIK</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="nik" placeholder="Nomor NIK KTP" required maxlength="25" onkeypress="return Angkasaja(event)">
+                                        <label class="col-sm-2 col-form-label">NIK</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="nik" placeholder="Nomor NIK KTP" required onkeypress="return Angkasaja(event)">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Tempat Lahir</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-2 col-form-label">Tempat Lahir</label>
+                                        <div class="col-sm-10">
                                             <input type="text" class="form-control" name="tempat_lahir" placeholder="Tempat Lahir" required maxlength="50">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                                        <div class="col-sm-10">
                                             <input type="date" class="form-control" name="tgl_lahir" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                                        <div class="col-sm-10">
                                             <select name="jk" class="form-control" required>
                                                 <option value="">--Pilih--</option>
                                                 <option value="Laki-laki">Laki-laki</option>
@@ -91,8 +91,8 @@ include_once "template/ui/head.php";
 
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Agama</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-2 col-form-label">Agama</label>
+                                        <div class="col-sm-10">
                                             <select name="agama" class="form-control" required>
                                                 <option value="">--Pilih--</option>
                                                 <option value="Islam">Islam</option>
@@ -106,31 +106,38 @@ include_once "template/ui/head.php";
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Nomor Telpon</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-2 col-form-label">Nomor Telpon</label>
+                                        <div class="col-sm-10">
                                             <input type="text" class="form-control" name="telpon" placeholder="Nomor Telpon/HP" required maxlength="15" onkeypress="return Angkasaja(event)">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Alamat</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-2 col-form-label">Alamat</label>
+                                        <div class="col-sm-10">
                                             <textarea class="form-control" name="alamat" rows="2" required placeholder="Alamat Lengkap"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Password</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-10">
                                             <input type="password" class="form-control" name="password" id="pass" placeholder="Password" required maxlength="20">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Ulangi Password</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-2 col-form-label">Ulangi Password</label>
+                                        <div class="col-sm-10">
                                             <input type="password" class="form-control" name="ulangipassword" id="ulangpass" placeholder="Ulangi Password" required maxlength="20">
                                             <span id="password_error" style="font-style: italic; font-size: 12px; color: red;"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label"></label>
+                                        <div class="col-sm-10">
+                                            <div class="g-recaptcha" data-sitekey="6LeKrb4ZAAAAAC5zORPJNdM2kIRORQ8FiWMI-MzX"></div>
                                         </div>
                                     </div>
 
@@ -140,11 +147,11 @@ include_once "template/ui/head.php";
                         </div>
 
                         <!-- tombol -->
-                        <div class="col-md-12" style="margin-top: 2%; text-align: center;">
+                        <div class="col-md-12" style="margin-top: 2%; text-align: right;">
                             <div class="card">
                                 <div class="card-body">
-                                    <button type="submit" name="regis" class="btn btn-primary btn-lg btn-block mb-2">Registrasi</button>
-                                    <a href="<?= base_url('') ?>" class="btn btn-secondary btn-lg btn-block">Batal</a>
+                                    <button type="submit" name="regis" class="btn btn-primary">Registrasi</button>
+                                    <a href="<?= base_url('') ?>" class="btn btn-secondary">Batal</a>
                                 </div>
                             </div>
                         </div>
@@ -167,28 +174,120 @@ include_once "template/ui/head.php";
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
 
+    <!-- Link javascript untuk api reCAPTCHA -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <?php include_once "template/ui/script.php"; ?>
 
     <script>
+        $(document).ready(function() {
+            $('#validasi_regis').validate({
+                rules: {
+                    nama: {
+                        required: true
+                    },
+                    nik: {
+                        required: true,
+                        minlength: 16,
+                        maxlength: 20,
+                    },
+                    tempat_lahir: {
+                        required: true
+                    },
+                    tgl_lahir: {
+                        required: true
+                    },
+                    jk: {
+                        required: true
+                    },
+                    agama: {
+                        required: true
+                    },
+                    telpon: {
+                        required: true
+                    },
+                    alamat: {
+                        required: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    ulangipassword: {
+                        required: true,
+                        equalTo: "#pass"
+                    }
+                },
+                messages: {
+                    nama: {
+                        required: "Nama Lengkap Wajib Diisi"
+                    },
+                    nik: {
+                        required: "NIK Wajib Diisi",
+                        minlength: "NIK Tidak Kurang Dari 16 Digit",
+                        maxlength: "NIK Maksimal 20 Karakter"
+                    },
+                    tempat_lahir: {
+                        required: "Tempat Lahir Wajib Diisi"
+                    },
+                    tgl_lahir: {
+                        required: "Tanggal Lahir Wajib Diisi"
+                    },
+                    jk: {
+                        required: "Jenis Kelamin Wajib Diisi"
+                    },
+                    agama: {
+                        required: "Agama Wajib Diisi"
+                    },
+                    telpon: {
+                        required: "Nomor Telpon Wajib Diisi"
+                    },
+                    alamat: {
+                        required: "Alamat Wajib Diisi"
+                    },
+                    password: {
+                        required: "Password Wajib Diisi",
+                        minlength: "Password Minimal 8 Karakter"
+                    },
+                    ulangipassword: {
+                        required: "Ulangi Password Wajib Diisi",
+                        equalTo: "Password Tidak Sama"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.col-sm-10').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
+
+
         // CONFIRM PASSWORD
-        $("#ulangpass").on('keyup', function() {
-            var password = $("#pass").val();
-            var confirmPassword = $("#ulangpass").val();
-            if (password != confirmPassword) {
-                $("#password_error").text('*Password Tidak Cocok !');
-            } else {
-                $("#password_error").text('');
-            }
-        });
-        $("#pass").on('keyup', function() {
-            var password = $("#pass").val();
-            var confirmPassword = $("#ulangpass").val();
-            if (password != confirmPassword) {
-                $("#password_error").text('*Password Tidak Cocok !');
-            } else {
-                $("#password_error").text('');
-            }
-        });
+        // $("#ulangpass").on('keyup', function() {
+        //     var password = $("#pass").val();
+        //     var confirmPassword = $("#ulangpass").val();
+        //     if (password != confirmPassword) {
+        //         $("#password_error").text('*Password Tidak Cocok !');
+        //     } else {
+        //         $("#password_error").text('');
+        //     }
+        // });
+        // $("#pass").on('keyup', function() {
+        //     var password = $("#pass").val();
+        //     var confirmPassword = $("#ulangpass").val();
+        //     if (password != confirmPassword) {
+        //         $("#password_error").text('*Password Tidak Cocok !');
+        //     } else {
+        //         $("#password_error").text('');
+        //     }
+        // });
 
         // FORMAT ANGKA SAJA
         function Angkasaja(evt) {
@@ -203,15 +302,17 @@ include_once "template/ui/head.php";
 
     <?php
     if (isset($_POST['regis'])) {
-        $nama         = $_POST['nama'];
-        $nik          = $_POST['nik'];
-        $tempat_lahir = $_POST['tempat_lahir'];
-        $tgl_lahir    = $_POST['tgl_lahir'];
-        $jk           = $_POST['jk'];
-        $agama        = $_POST['agama'];
-        $telpon       = $_POST['telpon'];
-        $alamat       = $_POST['alamat'];
-        $pass         = $_POST['password'];
+        $nama           = $_POST['nama'];
+        $nik            = $_POST['nik'];
+        $tempat_lahir   = $_POST['tempat_lahir'];
+        $tgl_lahir      = $_POST['tgl_lahir'];
+        $jk             = $_POST['jk'];
+        $agama          = $_POST['agama'];
+        $telpon         = $_POST['telpon'];
+        $alamat         = $_POST['alamat'];
+        $pass           = $_POST['password'];
+        $ulangipassword = $_POST['ulangipassword'];
+        $captcha        = $_POST['g-recaptcha-response'];
 
         // hash password
         $options = [
@@ -219,17 +320,58 @@ include_once "template/ui/head.php";
         ];
         $pass_hash = password_hash($pass, PASSWORD_DEFAULT, $options);
 
+        // if (strlen($nik) < 23) {
+        //     echo "
+        //     <script type='text/javascript'>
+        //         setTimeout(function () {    
+        //             toastr.error('NIK Tidak Boleh Kurang Dari 23 Digit !');      
+        //         },10);  
+        //         window.setTimeout(function(){ 
+        //             window.history.back();
+        //         } ,3000);  
+        //     </script>";
+        // }
+
+        // if ($pass != $ulangipassword) {
+        //     echo "
+        //     <script type='text/javascript'>
+        //         setTimeout(function () {    
+        //             toastr.error('Password Tidak Cocok, Mohon Masukkan Password Dengan Benar !');      
+        //         },10);  
+        //         window.setTimeout(function(){ 
+        //             window.history.back();
+        //         } ,3000);  
+        //     </script>";
+        // }
+
+        $secretKey        = "6LeKrb4ZAAAAACxHcpT2kHPYxmVaNTTDbHaKud2b";
+        $ip             = $_SERVER['REMOTE_ADDR'];
+        $response        = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secretKey . "&response=" . $captcha . "&remoteip=" . $ip);
+        $responseKeys    = json_decode($response, true);
+
+        if (intval($responseKeys["success"]) != 1) {
+            echo "
+            <script type='text/javascript'>
+                setTimeout(function () {    
+                    toastr.error('Captcha Belum Dicentang !');      
+                },30);  
+                window.setTimeout(function(){ 
+                    window.history.back();
+                } ,5000);  
+            </script>";
+        }
+
         // CEK NIK MASYARAKAT
-        $cek = $koneksi->query("SELECT * FROM masyarakat WHERE nik = '$nik' OR nama = '$nama'")->fetch_array();
+        $cek = $koneksi->query("SELECT * FROM masyarakat WHERE nik = '$nik'")->fetch_array();
         if (!empty($cek)) {
             echo "
             <script type='text/javascript'>
                 setTimeout(function () {    
-                    toastr.error('Data Sudah Terdaftar Dalam Sistem');      
-                },10);  
+                    toastr.error('Nomor NIK KTP Sudah Terdaftar Dalam Sistem');      
+                },30);  
                 window.setTimeout(function(){ 
                     window.history.back();
-                } ,2000);  
+                } ,5000);  
             </script>";
         } else {
             $submit = $koneksi->query("INSERT INTO masyarakat VALUES (null, '$nama', '$nik', '$tempat_lahir', '$tgl_lahir', '$jk', '$agama', '$telpon', '$alamat', '$pass_hash')");
@@ -239,10 +381,10 @@ include_once "template/ui/head.php";
                     <script type='text/javascript'>
                     setTimeout(function () {    
                         toastr.success('Registrasi Berhasil');     
-                    },10);  
+                    },30);  
                     window.setTimeout(function(){ 
                         window.location.replace('login');
-                    } ,2000);   
+                    } ,5000);   
                     </script>";
             }
         }
