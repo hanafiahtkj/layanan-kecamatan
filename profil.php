@@ -40,8 +40,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
             <div class="container">
 
                 <div class="section-title">
-                    <h2>Data Profil Anda</h2>
-                    <p>Anda dapat merubah data profil anda</p>
+                    <h2>Data Profil</h2>
                 </div>
 
                 <!-- ROW -->
