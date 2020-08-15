@@ -67,14 +67,12 @@
                                 if (mysqli_num_rows($ceknotif) === 0) {
                                     if (!empty($r1['terakhir_diperpanjang']) and $r1['terakhir_diperpanjang'] != '0000-00-00') {
 
-                                        $datanotifsktuppj = $koneksi->query("SELECT ((terakhir_diperpanjang - CURRENT_DATE()) <= 30 AND (terakhir_diperpanjang - CURRENT_DATE()) > 0) OR ((CURRENT_DATE() >= terakhir_diperpanjang) AND (CURRENT_DATE() <= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))) OR (CURRENT_DATE() >= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH)) AS hasil FROM riwayat_tgl_sktu WHERE nomor_sktu NOT IN (SELECT nomor_sktu FROM sktu_perpanjangan)")->fetch_array();
+                                        $datanotifsktuppj = $koneksi->query("SELECT COUNT(nomor_sktu) AS hasil FROM `riwayat_tgl_sktu` WHERE nomor_sktu NOT IN (SELECT nomor_sktu FROM sktu_perpanjangan) AND ((terakhir_diperpanjang - CURRENT_DATE()) <= 30 AND (terakhir_diperpanjang - CURRENT_DATE()) > 0) OR ((CURRENT_DATE() >= terakhir_diperpanjang) AND (CURRENT_DATE() <= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))) OR (CURRENT_DATE() >= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))")->fetch_array();
                                         // $datanotifsktuppj = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE nomor_sktu NOT IN (SELECT nomor_sktu FROM sktu_perpanjangan) AND ((terakhir_diperpanjang - CURRENT_DATE()) <= 30 AND (terakhir_diperpanjang - CURRENT_DATE()) > 0) OR ((CURRENT_DATE() >= terakhir_diperpanjang) AND (CURRENT_DATE() <= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))) OR (CURRENT_DATE() >= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))");
                                         $jmlnotifsktuppj .= $datanotifsktuppj['hasil'];
                                     }
                                 }
                             }
-                            // echo "<pre>";
-                            // var_dump($ceknotif);
 
 
                             $jmltotal = $jmliumk + $jmlsktubaru + $jmlsktuppj + $jmlnotifsktuppj;
