@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2020 at 02:01 PM
+-- Generation Time: Aug 15, 2020 at 10:47 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.4
 
@@ -114,7 +114,8 @@ CREATE TABLE `iumk` (
 --
 
 INSERT INTO `iumk` (`id_iumk`, `id_masyarakat`, `nomor_iumk`, `peraturan`, `nama_pemohon`, `nomor_ktp`, `alamat`, `tanggal`, `no_telp`, `nama_perusahaan`, `bentuk_perusahaan`, `npwp`, `kegiatan_usaha`, `sarana_usaha`, `alamat_usaha`, `jumlah_modal_usaha`, `nomor_pendaftaran`, `nama_camat`, `jabatan`, `nip`, `foto_pemohon`, `kelengkapan`, `keterangan`, `tgl_selesai`, `id_posisi`, `status`) VALUES
-(1, 10, 'IUMK / 001 / BU / 2020', '<p>Berdasarkan Peraturan Presiden Nomor 98 Tahun 2014 tentang Perizinan Untuk Mikro dan Kecil (Lembar Negara Republik Indonesia Tahun 2014 nomor 222);Â  Peratura Menteri Dalam Negeri Republik Indonesia Nomor 83 Tahun 2014 tentang Pedoman Pemberian Izin Usaha Mikro dan Kecil; Surat Keputusan Walikota Banjarmasin Nomor 577 Tahun 2015 tentang Pendelegasian Kewenangan Pelaksanaan Izin Usaha Mikro dan Kecil (IUMK) Kepada Camat di Kota Banjarmasin, bersama ini menyatakan dan memberikan izin kepada :Â <br></p>', 'Gusti Fahrubi', '123', 'Jl. Berangas Rt. 06 Rw. 02', '2020-08-11 20:16:15', '081234567890', 'Pangkalan Gas LPG', 'Perseorangan', '12.121.212.1-212.121', 'Perdagangan Barang', 'Milik Sendiri', 'banjarmasin', '50000000', '001', 'APILUDDIN NOOR, S.Sos, M.AP', 'Pembina TK 1', '19661001 198902 1 001', '67297.png', 'Lengkap', 'berkas telah selesai di proses, silahkan ambil ke kantor kecamatan', '2020-08-11', 4, 'Selesai');
+(1, 10, 'IUMK / 001 / BU / 2020', '<p>Berdasarkan Peraturan Presiden Nomor 98 Tahun 2014 tentang Perizinan Untuk Mikro dan Kecil (Lembar Negara Republik Indonesia Tahun 2014 nomor 222);Â  Peratura Menteri Dalam Negeri Republik Indonesia Nomor 83 Tahun 2014 tentang Pedoman Pemberian Izin Usaha Mikro dan Kecil; Surat Keputusan Walikota Banjarmasin Nomor 577 Tahun 2015 tentang Pendelegasian Kewenangan Pelaksanaan Izin Usaha Mikro dan Kecil (IUMK) Kepada Camat di Kota Banjarmasin, bersama ini menyatakan dan memberikan izin kepada :Â <br></p>', 'Gusti Fahrubi', '123', 'Jl. Berangas Rt. 06 Rw. 02', '2020-08-11 20:16:15', '081234567890', 'Pangkalan Gas LPG', 'Perseorangan', '12.121.212.1-212.121', 'Perdagangan Barang', 'Milik Sendiri', 'banjarmasin', '50000000', '001', 'APILUDDIN NOOR, S.Sos, M.AP', 'Pembina TK 1', '19661001 198902 1 001', '67297.png', 'Lengkap', 'berkas telah selesai di proses, silahkan ambil ke kantor kecamatan', '2020-08-11', 4, 'Selesai'),
+(2, 15, 'IUMK / 002 / BU / 2020', '<p>Berdasarkan Peraturan Presiden Nomor 98 Tahun 2014 tentang Perizinan Untuk Mikro dan Kecil (Lembar Negara Republik Indonesia Tahun 2014 nomor 222);Â  Peratura Menteri Dalam Negeri Republik Indonesia Nomor 83 Tahun 2014 tentang Pedoman Pemberian Izin Usaha Mikro dan Kecil; Surat Keputusan Walikota Banjarmasin Nomor 577 Tahun 2015 tentang Pendelegasian Kewenangan Pelaksanaan Izin Usaha Mikro dan Kecil (IUMK) Kepada Camat di Kota Banjarmasin, bersama ini menyatakan dan memberikan izin kepada :Â <br></p>', 'Rizal', '1212121212121212', 'Banjarmasin', '2020-08-15 15:18:42', '0987654321', 'Manjura Techno', 'Perseorangan', '12.345.678.9-012.345', 'Jasa Konsultasi IT', 'Milik Sendiri', 'Handil Bakti', '15000000', '002', 'APILUDDIN NOOR, S.Sos, M.AP', 'Pembina TK 1', '19661001 198902 1 001', '45541.png', 'Lengkap', 'berkas selesai dan siap di ambil di kantor kecamatan', '2020-08-15', 4, 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -205,7 +206,10 @@ CREATE TABLE `lampiran_iumk_file` (
 INSERT INTO `lampiran_iumk_file` (`id_file`, `id_lampiran`, `id_iumk`, `file`) VALUES
 (1, 1, '1', '66836.png'),
 (2, 2, '1', '15046.png'),
-(3, 3, '1', '99472.jpg');
+(3, 3, '1', '99472.jpg'),
+(4, 1, '2', '37943.png'),
+(5, 2, '2', '22855.png'),
+(6, 3, '2', '89764.png');
 
 -- --------------------------------------------------------
 
@@ -269,7 +273,15 @@ INSERT INTO `lampiran_sktu_file` (`id_file`, `id_lampiran`, `id_sktu`, `file`, `
 (81, 1, '4', '36203.jpg', 'Perpanjangan'),
 (82, 4, '4', '85363.jpg', 'Perpanjangan'),
 (83, 5, '4', '86074.jpg', 'Perpanjangan'),
-(84, 6, '4', '62018.jpg', 'Perpanjangan');
+(84, 6, '4', '62018.jpg', 'Perpanjangan'),
+(85, 1, '16', '66223.png', 'Baru'),
+(86, 2, '16', '75262.jpg', 'Baru'),
+(87, 3, '16', '81906.jpg', 'Baru'),
+(88, 6, '16', '67004.jpg', 'Baru'),
+(89, 1, '5', '5899.jpg', 'Perpanjangan'),
+(90, 4, '5', '72857.jpg', 'Perpanjangan'),
+(91, 5, '5', '1035.jpg', 'Perpanjangan'),
+(92, 6, '5', '8252.jpg', 'Perpanjangan');
 
 -- --------------------------------------------------------
 
@@ -395,7 +407,7 @@ CREATE TABLE `nomor_urut_iumk` (
 --
 
 INSERT INTO `nomor_urut_iumk` (`id_no`, `nomor_urut`) VALUES
-(1, '002');
+(1, '003');
 
 -- --------------------------------------------------------
 
@@ -413,7 +425,7 @@ CREATE TABLE `nomor_urut_sktu` (
 --
 
 INSERT INTO `nomor_urut_sktu` (`id_no`, `nomor_urut`) VALUES
-(1, '004');
+(1, '005');
 
 -- --------------------------------------------------------
 
@@ -523,7 +535,8 @@ CREATE TABLE `riwayat_tgl_sktu` (
 INSERT INTO `riwayat_tgl_sktu` (`id_riwayat`, `id_masyarakat`, `id_sktu`, `nomor_sktu`, `tgl_dibuat`, `terakhir_diperpanjang`) VALUES
 (8, 10, 8, '513/001/SKTU-VIII/CAM-BU/2020', '2019-08-08', '2021-08-13'),
 (12, 10, 12, '513/002/SKTU-VIII/CAM-BU/2020', '2019-06-08', '2021-08-14'),
-(15, 10, 15, '513/003/SKTU-VIII/CAM-BU/2020', '2020-08-09', '2021-08-09');
+(15, 10, 15, '513/003/SKTU-VIII/CAM-BU/2020', '2019-08-25', '2020-08-25'),
+(16, 15, 16, '513/004/SKTU-VIII/CAM-BU/2020', '2019-08-20', '2021-08-15');
 
 -- --------------------------------------------------------
 
@@ -587,7 +600,8 @@ CREATE TABLE `sktu_baru` (
 INSERT INTO `sktu_baru` (`id_sktu`, `id_masyarakat`, `nomor_sktu`, `nama_pemohon`, `no_telp`, `tgl`, `peraturan`, `nama_perusahaan`, `alamat_perusahaan`, `nama_pimpinan_perusahaan`, `alamat_kediaman`, `kegiatan_usaha`, `masa_berlaku_awal`, `masa_berlaku_akhir`, `sifat`, `nama_camat`, `nip`, `jabatan`, `kelengkapan`, `keterangan`, `tgl_selesai`, `id_posisi`, `status`) VALUES
 (8, 10, '513/001/SKTU-VIII/CAM-BU/2019', 'Gusti Fahrubi', '081234567890', '2019-08-08 00:22:33', '<ol><li>Undang-undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah;</li><li>Peraturan Menteri Dalam Negeri Nomor 4 Tahun 2010 tentang Pedoman Penyelenggaraan Pelayanan Administrasi Terpadu Kecamatan;</li><li>Peraturan Walikota Banjarmasin Nomor 1 Tahun 2012 tentang Retribusi Pelayanan Persampahan/Kebersihan di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin No. 49 Tahun 2012 tentang Tugas Pokok dan Fungsi dan Tata Kerja Kecamatan Kota Banjarmasin;</li><li>Peratuaran Walikota Banjarmasin Nomor 35 Tahun 2013 tentang Pelimpahan Sebagian Kewenangan Walikota kepada Camat Dalam Rangka Pelayanan Administrasi Terpadu Kecamatan (PATEN) di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin Nomor 37 Tahun 2013 tentang Standar Pelayanan Perizinan dan Non Perizinan Dalam Rangka PATEN di Kota Banjarmasin;</li></ol>', 'Pangkalan Gas LPG', 'Banjarmasin', 'Gusti Fahrubi', 'Jl. Berangas Rt. 06 Rw. 02', 'Perdagangan Barang', '2019-08-15', '2020-08-15', 'Baru', 'APILUDDIN NOOR, S.Sos, M.AP', '19661001 198902 1 001', 'Pembina TK 1', 'Lengkap', 'berkas selsai', '2019-08-15', 4, 'Selesai'),
 (12, 10, '513/002/SKTU-VIII/CAM-BU/2019', 'Gusti Fahrubi', '081234567890', '2019-06-08 21:33:08', '<ol><li>Undang-undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah;</li><li>Peraturan Menteri Dalam Negeri Nomor 4 Tahun 2010 tentang Pedoman Penyelenggaraan Pelayanan Administrasi Terpadu Kecamatan;</li><li>Peraturan Walikota Banjarmasin Nomor 1 Tahun 2012 tentang Retribusi Pelayanan Persampahan/Kebersihan di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin No. 49 Tahun 2012 tentang Tugas Pokok dan Fungsi dan Tata Kerja Kecamatan Kota Banjarmasin;</li><li>Peratuaran Walikota Banjarmasin Nomor 35 Tahun 2013 tentang Pelimpahan Sebagian Kewenangan Walikota kepada Camat Dalam Rangka Pelayanan Administrasi Terpadu Kecamatan (PATEN) di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin Nomor 37 Tahun 2013 tentang Standar Pelayanan Perizinan dan Non Perizinan Dalam Rangka PATEN di Kota Banjarmasin;</li></ol>', 'Toko Komputer', 'banjarmasin', 'gusti fah', 'Jl. Berangas Rt. 06 Rw. 02', 'Perdagangan Barang', '2019-06-28', '2020-06-28', 'Baru', 'APILUDDIN NOOR, S.Sos, M.AP', '19661001 198902 1 001', 'Pembina TK 1', 'Lengkap', 'berkas selesai', '2019-06-08', 4, 'Selesai'),
-(15, 10, '513/003/SKTU-VIII/CAM-BU/2020', 'Gusti Fahrubi', '081234567890', '2020-08-09 17:35:43', '<ol><li>Undang-undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah;</li><li>Peraturan Menteri Dalam Negeri Nomor 4 Tahun 2010 tentang Pedoman Penyelenggaraan Pelayanan Administrasi Terpadu Kecamatan;</li><li>Peraturan Walikota Banjarmasin Nomor 1 Tahun 2012 tentang Retribusi Pelayanan Persampahan/Kebersihan di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin No. 49 Tahun 2012 tentang Tugas Pokok dan Fungsi dan Tata Kerja Kecamatan Kota Banjarmasin;</li><li>Peratuaran Walikota Banjarmasin Nomor 35 Tahun 2013 tentang Pelimpahan Sebagian Kewenangan Walikota kepada Camat Dalam Rangka Pelayanan Administrasi Terpadu Kecamatan (PATEN) di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin Nomor 37 Tahun 2013 tentang Standar Pelayanan Perizinan dan Non Perizinan Dalam Rangka PATEN di Kota Banjarmasin;</li></ol>', 'Warung Nasi Mama Unda', 'bjm', 'Gusti Fahrubi', 'Jl. Berangas Rt. 06 Rw. 02', 'Perdagangan Barang', '2020-08-09', '2021-08-09', 'Baru', 'APILUDDIN NOOR, S.Sos, M.AP', '19661001 198902 1 001', 'Pembina TK 1', 'Lengkap', 'berkas selesai, silahkan ambil di kantor kecamatan', '0000-00-00', 4, 'Selesai');
+(15, 10, '513/003/SKTU-VIII/CAM-BU/2020', 'Gusti Fahrubi', '081234567890', '2019-08-25 13:47:50', '<ol><li>Undang-undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah;</li><li>Peraturan Menteri Dalam Negeri Nomor 4 Tahun 2010 tentang Pedoman Penyelenggaraan Pelayanan Administrasi Terpadu Kecamatan;</li><li>Peraturan Walikota Banjarmasin Nomor 1 Tahun 2012 tentang Retribusi Pelayanan Persampahan/Kebersihan di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin No. 49 Tahun 2012 tentang Tugas Pokok dan Fungsi dan Tata Kerja Kecamatan Kota Banjarmasin;</li><li>Peratuaran Walikota Banjarmasin Nomor 35 Tahun 2013 tentang Pelimpahan Sebagian Kewenangan Walikota kepada Camat Dalam Rangka Pelayanan Administrasi Terpadu Kecamatan (PATEN) di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin Nomor 37 Tahun 2013 tentang Standar Pelayanan Perizinan dan Non Perizinan Dalam Rangka PATEN di Kota Banjarmasin;</li></ol>', 'Warung Nasi Mama Unda', 'bjm', 'Gusti Fahrubi', 'Jl. Berangas Rt. 06 Rw. 02', 'Perdagangan Barang', '2019-08-25', '2020-08-25', 'Baru', 'APILUDDIN NOOR, S.Sos, M.AP', '19661001 198902 1 001', 'Pembina TK 1', 'Lengkap', 'berkas selesai, silahkan ambil di kantor kecamatan', '2019-08-25', 4, 'Selesai'),
+(16, 15, '513/004/SKTU-VIII/CAM-BU/2020', 'Rizal', '0987654321', '2019-08-20 13:19:22', '<ol><li>Undang-undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah;</li><li>Peraturan Menteri Dalam Negeri Nomor 4 Tahun 2010 tentang Pedoman Penyelenggaraan Pelayanan Administrasi Terpadu Kecamatan;</li><li>Peraturan Walikota Banjarmasin Nomor 1 Tahun 2012 tentang Retribusi Pelayanan Persampahan/Kebersihan di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin No. 49 Tahun 2012 tentang Tugas Pokok dan Fungsi dan Tata Kerja Kecamatan Kota Banjarmasin;</li><li>Peratuaran Walikota Banjarmasin Nomor 35 Tahun 2013 tentang Pelimpahan Sebagian Kewenangan Walikota kepada Camat Dalam Rangka Pelayanan Administrasi Terpadu Kecamatan (PATEN) di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin Nomor 37 Tahun 2013 tentang Standar Pelayanan Perizinan dan Non Perizinan Dalam Rangka PATEN di Kota Banjarmasin;</li></ol>', 'Manjura Techno', 'Handil Bakti', 'Rizal', 'Banjarmasin', 'Jasa', '2019-08-20', '2020-08-20', 'Baru', 'APILUDDIN NOOR, S.Sos, M.AP', '19661001 198902 1 001', 'Pembina TK 1', 'Lengkap', 'berkas sktu telah selesai di proses, silahkan ambil di kantor kecamatan', '2019-08-20', 4, 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -627,7 +641,8 @@ CREATE TABLE `sktu_perpanjangan` (
 
 INSERT INTO `sktu_perpanjangan` (`id_sktu`, `id_masyarakat`, `nomor_sktu`, `nama_pemohon`, `no_telp`, `tgl`, `peraturan`, `nama_perusahaan`, `alamat_perusahaan`, `nama_pimpinan_perusahaan`, `alamat_kediaman`, `kegiatan_usaha`, `masa_berlaku_awal`, `masa_berlaku_akhir`, `sifat`, `nama_camat`, `nip`, `jabatan`, `kelengkapan`, `keterangan`, `tgl_selesai`, `id_posisi`, `status`) VALUES
 (2, 10, '513/001/SKTU-VIII/CAM-BU/2020', 'Gusti Fahrubi', '081234567890', '2020-08-13 00:32:18', '<ol><li>Undang-undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah;</li><li>Peraturan Menteri Dalam Negeri Nomor 4 Tahun 2010 tentang Pedoman Penyelenggaraan Pelayanan Administrasi Terpadu Kecamatan;</li><li>Peraturan Walikota Banjarmasin Nomor 1 Tahun 2012 tentang Retribusi Pelayanan Persampahan/Kebersihan di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin No. 49 Tahun 2012 tentang Tugas Pokok dan Fungsi dan Tata Kerja Kecamatan Kota Banjarmasin;</li><li>Peratuaran Walikota Banjarmasin Nomor 35 Tahun 2013 tentang Pelimpahan Sebagian Kewenangan Walikota kepada Camat Dalam Rangka Pelayanan Administrasi Terpadu Kecamatan (PATEN) di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin Nomor 37 Tahun 2013 tentang Standar Pelayanan Perizinan dan Non Perizinan Dalam Rangka PATEN di Kota Banjarmasin;</li></ol>', 'Pangkalan Gas LPG', 'Banjarmasin', 'Gusti Fahrubi', 'Jl. Berangas Rt. 06 Rw. 02', 'Perdagangan Barang', '2020-08-13', '2021-08-13', 'Perpanjangan', 'APILUDDIN NOOR, S.Sos, M.AP', '19661001 198902 1 001', 'Pembina TK 1', 'Lengkap', 'berkas selesai dan bisa di ambil', '2020-08-13', 4, 'Selesai'),
-(4, 10, '513/002/SKTU-VIII/CAM-BU/2020', 'Gusti Fahrubi', '081234567890', '2020-08-14 19:50:18', '<ol><li>Undang-undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah;</li><li>Peraturan Menteri Dalam Negeri Nomor 4 Tahun 2010 tentang Pedoman Penyelenggaraan Pelayanan Administrasi Terpadu Kecamatan;</li><li>Peraturan Walikota Banjarmasin Nomor 1 Tahun 2012 tentang Retribusi Pelayanan Persampahan/Kebersihan di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin No. 49 Tahun 2012 tentang Tugas Pokok dan Fungsi dan Tata Kerja Kecamatan Kota Banjarmasin;</li><li>Peratuaran Walikota Banjarmasin Nomor 35 Tahun 2013 tentang Pelimpahan Sebagian Kewenangan Walikota kepada Camat Dalam Rangka Pelayanan Administrasi Terpadu Kecamatan (PATEN) di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin Nomor 37 Tahun 2013 tentang Standar Pelayanan Perizinan dan Non Perizinan Dalam Rangka PATEN di Kota Banjarmasin;</li></ol>', 'Toko Komputer', 'banjarmasin', 'gusti fah', 'Jl. Berangas Rt. 06 Rw. 02', 'Perdagangan Barang', '2020-08-14', '2021-08-14', 'Perpanjangan', 'APILUDDIN NOOR, S.Sos, M.AP', '19661001 198902 1 001', 'Pembina TK 1', 'Lengkap', 'berkas selesai siap di ambil di kantor kecamatan', '2020-08-14', 4, 'Selesai');
+(4, 10, '513/002/SKTU-VIII/CAM-BU/2020', 'Gusti Fahrubi', '081234567890', '2020-08-14 19:50:18', '<ol><li>Undang-undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah;</li><li>Peraturan Menteri Dalam Negeri Nomor 4 Tahun 2010 tentang Pedoman Penyelenggaraan Pelayanan Administrasi Terpadu Kecamatan;</li><li>Peraturan Walikota Banjarmasin Nomor 1 Tahun 2012 tentang Retribusi Pelayanan Persampahan/Kebersihan di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin No. 49 Tahun 2012 tentang Tugas Pokok dan Fungsi dan Tata Kerja Kecamatan Kota Banjarmasin;</li><li>Peratuaran Walikota Banjarmasin Nomor 35 Tahun 2013 tentang Pelimpahan Sebagian Kewenangan Walikota kepada Camat Dalam Rangka Pelayanan Administrasi Terpadu Kecamatan (PATEN) di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin Nomor 37 Tahun 2013 tentang Standar Pelayanan Perizinan dan Non Perizinan Dalam Rangka PATEN di Kota Banjarmasin;</li></ol>', 'Toko Komputer', 'banjarmasin', 'gusti fah', 'Jl. Berangas Rt. 06 Rw. 02', 'Perdagangan Barang', '2020-08-14', '2021-08-14', 'Perpanjangan', 'APILUDDIN NOOR, S.Sos, M.AP', '19661001 198902 1 001', 'Pembina TK 1', 'Lengkap', 'berkas selesai siap di ambil di kantor kecamatan', '2020-08-14', 4, 'Selesai'),
+(5, 15, '513/004/SKTU-VIII/CAM-BU/2020', 'Rizal', '0987654321', '2020-08-15 13:57:48', '<ol><li>Undang-undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah;</li><li>Peraturan Menteri Dalam Negeri Nomor 4 Tahun 2010 tentang Pedoman Penyelenggaraan Pelayanan Administrasi Terpadu Kecamatan;</li><li>Peraturan Walikota Banjarmasin Nomor 1 Tahun 2012 tentang Retribusi Pelayanan Persampahan/Kebersihan di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin No. 49 Tahun 2012 tentang Tugas Pokok dan Fungsi dan Tata Kerja Kecamatan Kota Banjarmasin;</li><li>Peratuaran Walikota Banjarmasin Nomor 35 Tahun 2013 tentang Pelimpahan Sebagian Kewenangan Walikota kepada Camat Dalam Rangka Pelayanan Administrasi Terpadu Kecamatan (PATEN) di Kota Banjarmasin;</li><li>Peraturan Walikota Banjarmasin Nomor 37 Tahun 2013 tentang Standar Pelayanan Perizinan dan Non Perizinan Dalam Rangka PATEN di Kota Banjarmasin;</li></ol>', 'Manjura Techno', 'Handil Bakti', 'Rizal', 'Banjarmasin', 'Jasa', '2020-08-15', '2021-08-15', 'Perpanjangan', 'APILUDDIN NOOR, S.Sos, M.AP', '19661001 198902 1 001', 'Pembina TK 1', 'Lengkap', 'berkas selesai di proses', '2020-08-15', 4, 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -824,7 +839,7 @@ ALTER TABLE `camat`
 -- AUTO_INCREMENT for table `iumk`
 --
 ALTER TABLE `iumk`
-  MODIFY `id_iumk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_iumk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `kegiatan_usaha`
 --
@@ -844,7 +859,7 @@ ALTER TABLE `lampiran_iumk`
 -- AUTO_INCREMENT for table `lampiran_iumk_file`
 --
 ALTER TABLE `lampiran_iumk_file`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `lampiran_sktu`
 --
@@ -854,7 +869,7 @@ ALTER TABLE `lampiran_sktu`
 -- AUTO_INCREMENT for table `lampiran_sktu_file`
 --
 ALTER TABLE `lampiran_sktu_file`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT for table `legalisasi_imb`
 --
@@ -909,7 +924,7 @@ ALTER TABLE `rekomendasi_pendirian_paud`
 -- AUTO_INCREMENT for table `riwayat_tgl_sktu`
 --
 ALTER TABLE `riwayat_tgl_sktu`
-  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `role_user`
 --
@@ -919,12 +934,12 @@ ALTER TABLE `role_user`
 -- AUTO_INCREMENT for table `sktu_baru`
 --
 ALTER TABLE `sktu_baru`
-  MODIFY `id_sktu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_sktu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `sktu_perpanjangan`
 --
 ALTER TABLE `sktu_perpanjangan`
-  MODIFY `id_sktu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_sktu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user`
 --
