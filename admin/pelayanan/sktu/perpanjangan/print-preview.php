@@ -32,7 +32,7 @@ $row  = $data->fetch_array();
 <body>
 
     <div class="kop">
-        <img src="../../../../assets/img/logo-bjm.png" style="width: 90px; height: 130px; margin-top: -25px; margin-bottom: -10px;">
+        <img src="../../../../assets/img/logo-bjm.png" style="width: 90px; height: 130px; margin-bottom: -10px;">
 
         <p>
             <label style="font-weight: bold; font-size: 20;">
@@ -100,48 +100,48 @@ $row  = $data->fetch_array();
         <tr style="vertical-align: top;">
             <td width="13%">Memberikan</td>
             <td width="3%">:</td>
-            <td style="padding-bottom: 5;" colspan="3"><b>SURAT KETERANGAN TEMPAT USAHA</b></td>
+            <td style="padding-bottom: 5; font-weight: bold;" colspan="3"><b>SURAT KETERANGAN TEMPAT USAHA</b></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>
             <td width="3%"></td>
-            <td width="30%">1. Nama Perusahaan</td>
-            <td>:</td>
+            <td width="40%">1. Nama Perusahaan</td>
+            <td style="text-align: center;">:</td>
             <td width="60%"><b><?= strtoupper($row['nama_perusahaan']); ?></b></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>
             <td width="3%"></td>
-            <td width="30%">2. Alamat Perusahaan</td>
-            <td>:</td>
+            <td width="40%">2. Alamat Perusahaan</td>
+            <td style="text-align: center;">:</td>
             <td width="60%"><?= strtoupper($row['alamat_perusahaan']); ?></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>
             <td width="3%"></td>
-            <td width="30%">3. Nama Pimpinan Perusahaan</td>
-            <td>:</td>
+            <td width="40%">3. Nama Pimpinan Perusahaan</td>
+            <td style="text-align: center;">:</td>
             <td width="60%"><b><?= strtoupper($row['nama_pimpinan_perusahaan']); ?></b></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>
             <td width="3%"></td>
-            <td width="30%">4. Alamat Kediaman</td>
-            <td>:</td>
+            <td width="40%">4. Alamat Kediaman</td>
+            <td style="text-align: center;">:</td>
             <td width="60%"><?= strtoupper($row['alamat_kediaman']); ?></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>
             <td width="3%"></td>
-            <td width="30%">5. Kegiatan Usaha</td>
-            <td>:</td>
+            <td width="40%">5. Kegiatan Usaha</td>
+            <td style="text-align: center;">:</td>
             <td width="60%"><b><?= strtoupper($row['kegiatan_usaha']); ?></b></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>
             <td width="3%"></td>
-            <td width="30%">6. Masa Berlaku</td>
-            <td>:</td>
+            <td width="40%">6. Masa Berlaku</td>
+            <td style="text-align: center;">:</td>
             <td width="60%">
                 <?=
                     tgl_indo($row['masa_berlaku_awal']) . " S/D " .
@@ -152,8 +152,8 @@ $row  = $data->fetch_array();
         <tr style="vertical-align: top;">
             <td width="13%"></td>
             <td width="3%"></td>
-            <td width="30%">7. Sifat</td>
-            <td>:</td>
+            <td width="40%">7. Sifat</td>
+            <td style="text-align: center;">:</td>
             <td width="60%"><b><?= strtoupper($row['sifat']); ?></b></td>
         </tr>
 
@@ -186,7 +186,7 @@ $row  = $data->fetch_array();
         <tr style="text-align: center;"">
             <td colspan=" 3">
             CAMAT,
-            <br><br><br><br><br><br>
+            <br><br><br><br><br>
             <?= $row['nama_camat']; ?> <br>
             <?= $row['jabatan']; ?> <br>
             <?= "NIP. " . $row['nip']; ?>
