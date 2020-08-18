@@ -83,4 +83,7 @@
   'font awesome 5 free' => array(
     'normal' => $fontDir . '\6a7241b46ecbd9b8e42125cd7cc6e0e0',
   ),
+  'times new roman' => array(
+    'bold' => $fontDir . '\bf11512877ef2223afd06e89358ef2fc',
+  ),
 ) ?>

@@ -20,11 +20,21 @@ $row  = $data->fetch_array();
     <title>Surat Keterangan Tempat Usaha</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../../../../assets/img/logo-bjm.png">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 
-    <style>
+    <style type="text/css">
         .kop {
             text-align: center;
+        }
+
+        @font-face {
+            font-family: 'font';
+            font-style: normal;
+            font-weight: normal;
+            src: url(../../../../assets/dompdf/lib/fonts/Times-Roman.afm);
+        }
+
+        body {
+            font-family: 'font';
         }
     </style>
 </head>
@@ -34,14 +44,14 @@ $row  = $data->fetch_array();
     <div class="kop">
         <img src="../../../../assets/img/logo-bjm.png" style="width: 90px; height: 130px; margin-bottom: -10px;">
 
-        <p>
-            <label style="font-weight: bold; font-size: 20;">
+        <p style="margin-top: -20px;">
+            <label style="font-weight: bold; font-size: 18;">
                 PEMERINTAH KOTA BANJARMASIN <br>
             </label>
-            <label style="font-weight: bold; font-size: 25; line-height: 28px;">
+            <label style="font-weight: bold; font-size: 22; line-height: 23px;">
                 KECAMATAN BANJARMASIN UTARA <br>
             </label>
-            <label style="line-height: 1.2; font-size: 13;">
+            <label style="line-height: 1.2; font-size: 11;">
                 Jalan HKSN RT. 10 Alalak Utara Banjarmasin 70125<br>
                 <img src="../../../../assets/img/phone.png" style="margin-top: 2px; width: 15px; height: 15px;"> (0511) 3306828
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -55,11 +65,11 @@ $row  = $data->fetch_array();
 
     <p style="text-align: center; margin-top: 2%;">
         <label>
-            <b style="font-size: 18;"><u>SURAT KETERANGAN TEMPAT USAHA</u></b> <br>
-            <b style="font-size: 12;">Nomor</b> : <?= $row['nomor_sktu']; ?>
+            <b style="font-size: 16;"><u>SURAT KETERANGAN TEMPAT USAHA</u></b> <br>
+            <b style="font-size: 10;">Nomor</b> : <?= $row['nomor_sktu']; ?>
         </label>
 
-        <table border="0" width="100%" style="text-align: left; font-size: 12;" cellpadding=" 1">
+        <table border="0" width="100%" style="text-align: left; font-size: 10;" cellpadding=" 1">
             <tr style="vertical-align: top;">
                 <td width="13%">Membaca</td>
                 <td width="3%">:</td>
@@ -90,13 +100,13 @@ $row  = $data->fetch_array();
 
     </p>
 
-    <div style="text-align: center; font-size: 14;">
+    <div style="text-align: center; font-size: 12;">
         <u>MEMUTUSKAN</u>
     </div>
 
     <br>
 
-    <table border="0" width="100%" style="text-align: left; font-size: 12;" cellpadding=" 1">
+    <table border="0" width="100%" style="text-align: left; font-size: 10;" cellpadding=" 1">
         <tr style="vertical-align: top;">
             <td width="13%">Memberikan</td>
             <td width="3%">:</td>
@@ -161,14 +171,14 @@ $row  = $data->fetch_array();
             <td width="13%"></td>
             <td width="3%"></td>
             <td colspan="3" align="justify">
-                <p style="margin-top: 25;">
+                <p style="margin-top: 20;">
                     Surat Keterangan Tempat Usaha ini bukan merupakan Izin Usaha Perdagangan/Jasa, tetapi keterangan tentang Tempat Usaha/Kegiatan dari Perorangan / Badan Hukum sebagai dasar untuk pembuatan perizinan berikutnya
                 </p>
             </td>
         </tr>
     </table>
 
-    <table border="0" style="width: 100%; font-size: 12;">
+    <table border="0" style="width: 100%; font-size: 10;">
         <tr>
             <td width="30%" align="right"> Dikeluarkan di</td>
             <td width="2%" align="center">:</td>
@@ -183,13 +193,13 @@ $row  = $data->fetch_array();
                 ?>
             </td>
         </tr>
-        <tr style="text-align: center;"">
-            <td colspan=" 3">
-            CAMAT,
-            <br><br><br><br><br>
-            <?= $row['nama_camat']; ?> <br>
-            <?= $row['jabatan']; ?> <br>
-            <?= "NIP. " . $row['nip']; ?>
+        <tr style="text-align: center;">
+            <td colspan="3">
+                CAMAT,
+                <br><br><br><br><br>
+                <?= $row['nama_camat']; ?> <br>
+                <?= $row['jabatan']; ?> <br>
+                <?= "NIP. " . $row['nip']; ?>
             </td>
         </tr>
     </table>
@@ -209,5 +219,5 @@ $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
 $dompdf->setPaper('Legal', 'Portrait');
 $dompdf->render();
-$dompdf->stream("sktu-baru.pdf", array("Attachment" => false));
+$dompdf->stream("sktu-perpanjangan.pdf", array("Attachment" => false));
 ?>
