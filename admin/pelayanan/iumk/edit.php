@@ -3,6 +3,7 @@
 
 <?php
 include_once "../../../config/config.php";
+include_once "../../../config/bulan.php";
 include_once "../../../config/auth-admin.php";
 include_once "../../../template/head.php";
 
@@ -408,31 +409,6 @@ $row  = $data->fetch_array();
         $keterangan         = $_POST['keterangan'];
         $id_posisi          = $_POST['id_posisi'];
         $status             = $_POST['status'];
-        if ($status == "Selesai" and $nomor_iumk == '-') {
-            $ceknoiumk    = $koneksi->query("SELECT * FROM nomor_urut_iumk")->fetch_array();
-            $nourut       = $ceknoiumk['nomor_urut'];
-            $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
-            $nomor_iumk   = $kodeotomatis;
-            // no urut iumk++
-            $notambah = $nourut + 1;
-
-            if ($notambah < '009') {
-                $nourutbaru = '00' . $notambah;
-            } elseif ($nnotambaho < '099') {
-                $nourutbaru = '0' . $notambah;
-            } else {
-                $nourutbaru = $notambah;
-            }
-            $submit = $koneksi->query("UPDATE nomor_urut_iumk SET nomor_urut = '$nourutbaru'");
-            //-- no urut iumk++
-            $tgl_selesai = $_POST['tgl_selesai'];
-            $id_posisi   = 4;
-        } else if ($status == "Selesai") {
-            $tgl_selesai = $_POST['tgl_selesai'];
-            $id_posisi   = 4;
-        } else {
-            $tgl_selesai = null;
-        }
 
         $event_fotopemohon = "";
 
@@ -460,55 +436,26 @@ $row  = $data->fetch_array();
             $event_fotopemohon .= "Foto Tidak Diubah";
         }
 
-        if (!empty($event_fotopemohon)) {
+        if ($status == "Selesai" and $nomor_iumk == '-') {
+            $ceknoiumk    = $koneksi->query("SELECT * FROM nomor_urut_iumk")->fetch_array();
+            $nourut       = $ceknoiumk['nomor_urut'];
+            $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
+            $nomor_iumk   = $kodeotomatis;
+            // no urut iumk++
+            $notambah = $nourut + 1;
 
-            // UPLOAD FILE LAMPIRAN
-            $gambar_arr    = array();
-            $filelama      = array();
-            $idl           = $_POST['id_lampiran'];
-            $hitungidl     = count($idl);
-
-            $event = "";
-
-            for ($i = 0; $i < $hitungidl; $i++) {
-
-                $file           = $_FILES['file']['name'][$i];
-
-                if (!empty($file)) {
-
-                    $nama_lamp      = explode('.', $file);
-                    $format_lamp    = end($nama_lamp);
-                    $nama_lampiran  = rand(1, 99999) . '.' . $format_lamp;
-
-                    // temporari file
-                    $tmp_file  = $_FILES['file']['tmp_name'][$i];
-
-                    $targer_dir = '../../../assets/iumk/';
-                    $target_file = $targer_dir . $nama_lampiran;
-
-                    move_uploaded_file($tmp_file, $target_file);
-                    $gambar_arr[] = $target_file;
-
-                    // REPLACE FILE LAMA
-                    $queryfilelama = $koneksi->query("SELECT * FROM lampiran_iumk_file WHERE id_iumk = '$id'");
-                    foreach ($queryfilelama as $fl) {
-                        $filelama[] = $fl['file'];
-                        if (file_exists($targer_dir . $filelama[$i])) {
-                            unlink($targer_dir . $filelama[$i]);
-                        }
-                    }
-
-                    $koneksi->query("UPDATE lampiran_iumk_file SET file = '$nama_lampiran' WHERE id_lampiran = '$idl[$i]' AND id_iumk = '$id'");
-
-                    $event .= "upload berhasil";
-                } else {
-                    $event .= "File Tidak Diubah";
-                }
+            if ($notambah < '009') {
+                $nourutbaru = '00' . $notambah;
+            } elseif ($nnotambaho < '099') {
+                $nourutbaru = '0' . $notambah;
+            } else {
+                $nourutbaru = $notambah;
             }
-        }
+            $submit = $koneksi->query("UPDATE nomor_urut_iumk SET nomor_urut = '$nourutbaru'");
+            //-- no urut iumk++
+            $tgl_selesai = $_POST['tgl_selesai'];
+            $id_posisi   = 4;
 
-
-        if (!empty($event)) {
             $submit = $koneksi->query("UPDATE iumk SET
             nomor_iumk         = '$nomor_iumk', 
             peraturan          = '$peraturan', 
@@ -535,9 +482,119 @@ $row  = $data->fetch_array();
             status             = '$status'
             WHERE id_iumk      = '$id'
             ");
+        } else if ($status == "Selesai") {
+            $tgl_selesai = $_POST['tgl_selesai'];
+            $id_posisi   = 4;
 
-            $_SESSION['pesan'] = "Data IUMK Diubah";
-            echo "<script>window.location.replace('../iumk/');</script>";
+            $submit = $koneksi->query("UPDATE iumk SET
+            nomor_iumk         = '$nomor_iumk', 
+            peraturan          = '$peraturan', 
+            nama_pemohon       = '$nama_pemohon', 
+            nomor_ktp          = '$nomor_ktp', 
+            alamat             = '$alamat', 
+            tanggal            = '$tanggal', 
+            no_telp            = '$no_telp', 
+            nama_perusahaan    = '$nama_perusahaan',
+            bentuk_perusahaan  = '$bentuk_perusahaan',
+            npwp               = '$npwp',
+            kegiatan_usaha     = '$kegiatan_usaha',
+            sarana_usaha       = '$sarana_usaha',
+            alamat_usaha       = '$alamat_usaha',
+            jumlah_modal_usaha = '$jumlah_modal_usaha',
+            nama_camat         = '$nama_camat',
+            jabatan            = '$jabatan',
+            nip                = '$nip',
+            foto_pemohon       = '$nama_fotopemohon',
+            kelengkapan        = '$kelengkapan',
+            keterangan         = '$keterangan',
+            tgl_selesai        = '$tgl_selesai',
+            id_posisi          = '$id_posisi', 
+            status             = '$status'
+            WHERE id_iumk      = '$id'
+            ");
+        } else {
+            $submit = $koneksi->query("UPDATE iumk SET 
+            peraturan          = '$peraturan', 
+            nama_pemohon       = '$nama_pemohon', 
+            nomor_ktp          = '$nomor_ktp', 
+            alamat             = '$alamat', 
+            tanggal            = '$tanggal', 
+            no_telp            = '$no_telp', 
+            nama_perusahaan    = '$nama_perusahaan',
+            bentuk_perusahaan  = '$bentuk_perusahaan',
+            npwp               = '$npwp',
+            kegiatan_usaha     = '$kegiatan_usaha',
+            sarana_usaha       = '$sarana_usaha',
+            alamat_usaha       = '$alamat_usaha',
+            jumlah_modal_usaha = '$jumlah_modal_usaha',
+            nama_camat         = '$nama_camat',
+            jabatan            = '$jabatan',
+            nip                = '$nip',
+            foto_pemohon       = '$nama_fotopemohon',
+            kelengkapan        = '$kelengkapan',
+            keterangan         = '$keterangan',
+            tgl_selesai        = null,
+            id_posisi          = '$id_posisi', 
+            status             = '$status'
+            WHERE id_iumk      = '$id'
+            ");
+        }
+
+
+        if ($submit) {
+
+            if (!empty($event_fotopemohon)) {
+
+                // UPLOAD FILE LAMPIRAN
+                $gambar_arr    = array();
+                $filelama      = array();
+                $idl           = $_POST['id_lampiran'];
+                $hitungidl     = count($idl);
+
+                $event = "";
+
+                for ($i = 0; $i < $hitungidl; $i++) {
+
+                    $file           = $_FILES['file']['name'][$i];
+
+                    if (!empty($file)) {
+
+                        $nama_lamp      = explode('.', $file);
+                        $format_lamp    = end($nama_lamp);
+                        $nama_lampiran  = rand(1, 99999) . '.' . $format_lamp;
+
+                        // temporari file
+                        $tmp_file  = $_FILES['file']['tmp_name'][$i];
+
+                        $targer_dir = '../../../assets/iumk/';
+                        $target_file = $targer_dir . $nama_lampiran;
+
+                        move_uploaded_file($tmp_file, $target_file);
+                        $gambar_arr[] = $target_file;
+
+                        // REPLACE FILE LAMA
+                        $queryfilelama = $koneksi->query("SELECT * FROM lampiran_iumk_file WHERE id_iumk = '$id'");
+                        foreach ($queryfilelama as $fl) {
+                            $filelama[] = $fl['file'];
+                            if (file_exists($targer_dir . $filelama[$i])) {
+                                unlink($targer_dir . $filelama[$i]);
+                            }
+                        }
+
+                        $koneksi->query("UPDATE lampiran_iumk_file SET file = '$nama_lampiran' WHERE id_lampiran = '$idl[$i]' AND id_iumk = '$id'");
+
+                        $event .= "upload berhasil";
+                    } else {
+                        $event .= "File Tidak Diubah";
+                    }
+                }
+            }
+
+
+            if (!empty($event)) {
+                $_SESSION['pesan'] = "Data IUMK Diubah";
+                echo "<script>window.location.replace('../iumk/');</script>";
+            }
         }
     }
     ?>

@@ -3,6 +3,7 @@
 
 <?php
 include_once "../../../config/config.php";
+include_once "../../../config/bulan.php";
 include_once "../../../config/auth-admin.php";
 include_once "../../../template/head.php";
 
@@ -420,6 +421,19 @@ $nourut       = $ceknoiumk['nomor_urut'];
         $keterangan         = $_POST['keterangan'];
         $id_posisi          = $_POST['id_posisi'];
         $status             = $_POST['status'];
+
+
+        $event_fotopemohon = "";
+
+        // UPLOAD FOTO PEMOHON
+        $fotopemohon      = $_FILES['foto_pemohon']['name'];
+        $x_fotopemohon    = explode('.', $fotopemohon);
+        $ext_fotopemohon  = end($x_fotopemohon);
+        $nama_fotopemohon = rand(1, 99999) . '.' . $ext_fotopemohon;
+        $tmp_fotopemohon  = $_FILES['foto_pemohon']['tmp_name'];
+        $dir_fotopemohon  = '../../../assets/iumk_foto_pemohon/';
+
+
         if ($status == "Selesai") {
 
             $kodeotomatis = "IUMK / " . sprintf('%03s', $nourut) . " / BU / " . date('Y');
@@ -438,59 +452,75 @@ $nourut       = $ceknoiumk['nomor_urut'];
             //-- no urut iumk++
             $tgl_selesai  = $_POST['tgl_selesai'];
             $id_posisi    = 4;
+
+            $submit = $koneksi->query("INSERT INTO iumk VALUES (
+                null, 
+                '$id_masyarakat', 
+                '$nomor_iumk', 
+                '$peraturan', 
+                '$nama_pemohon', 
+                '$nomor_ktp', 
+                '$alamat', 
+                '$tanggal', 
+                '$no_telp', 
+                '$nama_perusahaan',
+                '$bentuk_perusahaan',
+                '$npwp',
+                '$kegiatan_usaha',
+                '$sarana_usaha',
+                '$alamat_usaha',
+                '$jumlah_modal_usaha',
+                '$nomor_pendaftaran',
+                '$nama_camat',
+                '$jabatan',
+                '$nip',
+                '$nama_fotopemohon',
+                '$kelengkapan',
+                '$keterangan',
+                '$tgl_selesai',
+                '$id_posisi',
+                '$status'
+                )");
         } else {
-            $tgl_selesai = null;
+
             $nomor_iumk  = '-';
+            $submit = $koneksi->query("INSERT INTO iumk VALUES (
+                null, 
+                '$id_masyarakat', 
+                '$nomor_iumk', 
+                '$peraturan', 
+                '$nama_pemohon', 
+                '$nomor_ktp', 
+                '$alamat', 
+                '$tanggal', 
+                '$no_telp', 
+                '$nama_perusahaan',
+                '$bentuk_perusahaan',
+                '$npwp',
+                '$kegiatan_usaha',
+                '$sarana_usaha',
+                '$alamat_usaha',
+                '$jumlah_modal_usaha',
+                '$nomor_pendaftaran',
+                '$nama_camat',
+                '$jabatan',
+                '$nip',
+                '$nama_fotopemohon',
+                '$kelengkapan',
+                '$keterangan',
+                null,
+                '$id_posisi',
+                '$status'
+                )");
         }
-
-
-        $event_fotopemohon = "";
-
-        // UPLOAD FOTO PEMOHON
-        $fotopemohon      = $_FILES['foto_pemohon']['name'];
-        $x_fotopemohon    = explode('.', $fotopemohon);
-        $ext_fotopemohon  = end($x_fotopemohon);
-        $nama_fotopemohon = rand(1, 99999) . '.' . $ext_fotopemohon;
-        $tmp_fotopemohon  = $_FILES['foto_pemohon']['tmp_name'];
-        $dir_fotopemohon  = '../../../assets/iumk_foto_pemohon/';
-
-        move_uploaded_file($tmp_fotopemohon, $dir_fotopemohon . $nama_fotopemohon);
-        $event_fotopemohon .= "Sukses Upload";
-
-
-        $submit = $koneksi->query("INSERT INTO iumk VALUES (
-            null, 
-            '$id_masyarakat', 
-            '$nomor_iumk', 
-            '$peraturan', 
-            '$nama_pemohon', 
-            '$nomor_ktp', 
-            '$alamat', 
-            '$tanggal', 
-            '$no_telp', 
-            '$nama_perusahaan',
-            '$bentuk_perusahaan',
-            '$npwp',
-            '$kegiatan_usaha',
-            '$sarana_usaha',
-            '$alamat_usaha',
-            '$jumlah_modal_usaha',
-            '$nomor_pendaftaran',
-            '$nama_camat',
-            '$jabatan',
-            '$nip',
-            '$nama_fotopemohon',
-            '$kelengkapan',
-            '$keterangan',
-            '$tgl_selesai',
-            '$id_posisi',
-            '$status'
-            )");
 
         if ($submit) {
 
             $ambilidiumk = $koneksi->query("SELECT * FROM iumk ORDER BY id_iumk DESC LIMIT 1")->fetch_array();
             $idiumk      = $ambilidiumk['id_iumk'];
+
+            move_uploaded_file($tmp_fotopemohon, $dir_fotopemohon . $nama_fotopemohon);
+            $event_fotopemohon .= "Sukses Upload";
 
             if (!empty($event_fotopemohon)) {
 

@@ -20,16 +20,16 @@ if (isset($_POST['verif'])) {
         $nourut     = $ceknosktu['nomor_urut'];
         $b_romawi   = $bulan_romawi[date('m')];
         $nosktubaru = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
+
+        $submit = $koneksi->query("UPDATE sktu_baru SET nomor_sktu = '$nosktubaru', masa_berlaku_awal = '$masa_berlaku_awal', masa_berlaku_akhir = '$masa_berlaku_akhir', kelengkapan = '$kelengkapan', keterangan = '$keterangan', tgl_selesai = '$tgl_selesai', id_posisi = '$posisi' WHERE id_sktu = '$id_sktu'");
     } else {
         $posisi             = 1;
         $kelengkapan        = 'Tidak Lengkap';
-        $masa_berlaku_awal  = null;
-        $masa_berlaku_akhir = null;
-        $tgl_selesai        = null;
         $nosktubaru         = $nomor_sktu;
+
+        $submit = $koneksi->query("UPDATE sktu_baru SET nomor_sktu = '$nosktubaru', masa_berlaku_awal = null, masa_berlaku_akhir = null, kelengkapan = '$kelengkapan', keterangan = '$keterangan', tgl_selesai = null, id_posisi = '$posisi' WHERE id_sktu = '$id_sktu'");
     }
 
-    $submit = $koneksi->query("UPDATE sktu_baru SET nomor_sktu = '$nosktubaru', masa_berlaku_awal = '$masa_berlaku_awal', masa_berlaku_akhir = '$masa_berlaku_akhir', kelengkapan = '$kelengkapan', keterangan = '$keterangan', tgl_selesai = '$tgl_selesai', id_posisi = '$posisi' WHERE id_sktu = '$id_sktu'");
 
     if ($submit) {
         if ($status == 1) {
@@ -45,9 +45,9 @@ if (isset($_POST['verif'])) {
             }
             $submit = $koneksi->query("UPDATE nomor_urut_sktu SET nomor_urut = '$nourutbaru'");
             //-- no urut sktu++
+            $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nosktubaru', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE id_sktu = '$id_sktu'");
         }
 
-        $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nosktubaru', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE id_sktu = '$id_sktu' AND nomor_sktu = '$nomor_sktu'");
         $_SESSION['pesan'] = "Data Permohonan SKTU BARU Telah Diverifikasi";
         echo "<script>window.location.replace('../');</script>";
     }

@@ -62,7 +62,7 @@ $row  = $data->fetch_array();
 </div>
 
 <?php if ($row['tgl_selesai'] == "0000-00-00" or is_null($row['tgl_selesai'])) { ?>
-    <div class="form-group" id="tglselesai" style="display: none;">
+    <div class="form-group tglselesai" id="tglselesai" style="display: none;">
     </div>
 <?php } else { ?>
     <div class="form-group">
