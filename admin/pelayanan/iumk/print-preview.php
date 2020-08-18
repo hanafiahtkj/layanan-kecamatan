@@ -29,20 +29,31 @@ $row  = $data->fetch_array();
             border-top: 1px solid #000;
             margin-top: 12px;
         }
+
+        @font-face {
+            font-family: 'font';
+            font-style: normal;
+            font-weight: normal;
+            src: url(../../../assets/dompdf/lib/fonts/Times-Roman.afm);
+        }
+
+        body {
+            font-family: 'font';
+        }
     </style>
 </head>
 
 <body>
 
-    <img src="../../../assets/img/logo-bjm.png" style="position: absolute; width: 75px; height: 95px; margin-top: 5px;">
+    <img src="../../../assets/img/logo-bjm.png" style="position: absolute; width: 75px; height: 95px;">
 
     <table style="width: 100%;" border="0" cellspacing="2">
         <tr>
             <td align="center">
-                <span style="font-weight: bold; font-size: 28px; letter-spacing: 1px;">
+                <span style="font-weight: bold; font-size: 24px; letter-spacing: 1px;">
                     KECAMATAN BANJARMASIN UTARA <br>
                 </span>
-                <span style="line-height: 1.2; font-size: 12;">
+                <span style="line-height: 1.2; font-size: 10;">
                     Jalan HKSN RT. 10 Kelurahan Alalak Utara Kecamatan Banjarmasin Utara <br>
                     Kota Banjarmasin 70125, Telpon (0511) 3306828 <br>
                     Email : <u style="color: blue;">kecamatan.bu@gmail.com</u>
@@ -61,12 +72,12 @@ $row  = $data->fetch_array();
                 Nomor : <?= $row['nomor_iumk']; ?></b>
         </label>
 
-        <span style="text-align: justify; font-size: 13;">
+        <span style="text-align: justify; font-size: 11;">
             <?= $row['peraturan']; ?>
         </span>
 
         <span>
-            <table border="0" width="100%" style="text-align: left; font-size: 13; margin-left: 5px;" cellpadding=" 1">
+            <table border="0" width="100%" style="text-align: left; font-size: 11; margin-left: 5px;" cellpadding=" 1">
                 <tr>
                     <td width="40%">Nama</td>
                     <td width="3%">:</td>
@@ -92,7 +103,7 @@ $row  = $data->fetch_array();
 
     </p>
 
-    <div style="text-align: justify; font-size: 13; word-spacing: 8.1px;">
+    <div style="text-align: justify; font-size: 11; word-spacing: 5px;">
         <p>
             Untuk mendirikan Usaha Mikro dan Kecil yang mencakup perizinan dasar yang berupa : <br>
             menempati lokasi/domisili, melakukan kegiatan usaha baik produksi maupun penjualan barang dan jasa, dengan identitas :
@@ -100,7 +111,7 @@ $row  = $data->fetch_array();
     </div>
 
 
-    <table border=" 0" width="100%" style="text-align: left; font-size: 13; margin-left: 5px;" cellpadding=" 1">
+    <table border=" 0" width="100%" style="text-align: left; font-size: 11; margin-left: 5px;" cellpadding=" 1">
         <tr>
             <td width="40%">Nama Perusahaan</td>
             <td width="3%">:</td>
@@ -149,7 +160,7 @@ $row  = $data->fetch_array();
         </tr>
     </table>
 
-    <table border="0" style="width: 100%; font-size: 13; margin-top: 7%;">
+    <table border="0" style="width: 100%; font-size: 11; margin-top: 7%;">
         <tr>
             <td width="60%">
                 <?php if ($f == 0) : ?>
