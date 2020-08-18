@@ -271,12 +271,16 @@ $row  = $data->fetch_array();
                                         alamat         = '$alamat', 
                                         tgl_meninggal  = '$tgl_meninggal', 
                                         keterangan     = '$keterangan',
-                                        tgl_selesai    = '0000-00-00',
+                                        tgl_selesai    = null,
                                         id_posisi      = '$id_posisi', 
                                         status         = '$status'
                                         WHERE id_ahli_waris = '$id';
                                         ");
         }
+
+        // var_dump($submit, $koneksi->error);
+        // die();
+
         if ($submit) {
             $_SESSION['pesan'] = "Data Surat Pernyataan Ahli Waris Diubah";
             echo "<script>window.location.replace('../ahli-waris/');</script>";

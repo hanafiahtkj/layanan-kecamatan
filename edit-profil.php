@@ -145,7 +145,7 @@ $row  = $data->fetch_array();
                                         <label for="password" class="col-sm-2 col-form-label">Password</label>
                                         <div class="col-sm-10">
                                             <div class="input-group">
-                                                <input type="password" class="form-control" name="password" id="pass" placeholder="Kosongkan Password jika tidak diubah" autocomplete="off">
+                                                <input type="password" class="form-control" name="password" id="pass" placeholder="Kosongkan Password jika tidak diubah" autocomplete="off" minlength="8">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text" id="ikon">
                                                         <span id="mybutton" onclick="lihatpass();" class="fas fa-eye" title="Lihat Password"></span>

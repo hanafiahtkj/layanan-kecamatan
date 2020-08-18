@@ -36,7 +36,7 @@ if ($hapus) {
         $koneksi->query("DELETE FROM lampiran_sktu_file WHERE id_sktu = '$id' AND keterangan = 'Baru'");
         unlink('../../../../assets/sktu/' . $file);
     }
-    $koneksi->query("DELETE FROM riwayat_tgl_sktu WHERE id_sktu = '$id' AND nomor_sktu = '$nomor'");
+    $koneksi->query("DELETE FROM riwayat_tgl_sktu WHERE id_sktu = '$id'");
     $_SESSION['pesan'] = "Data SKTU Dihapus";
     echo "<script>window.location.replace('../');</script>";
 }

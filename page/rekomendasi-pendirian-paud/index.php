@@ -58,7 +58,7 @@ include_once "../../template/ui/head.php";
                                                 <th>No</th>
                                                 <th>Tanggal Permohonan</th>
                                                 <th>Kelurahan</th>
-                                                <th>Nama Pendiri/Ketua Yayasan</th>
+                                                <th>Nama Sekolah</th>
                                                 <th>Tanggal Selesai</th>
                                                 <th>Posisi</th>
                                                 <th>Status</th>
@@ -81,7 +81,7 @@ include_once "../../template/ui/head.php";
                                                         ?>
                                                     </td>
                                                     <td><?= $row['kelurahan'] ?></td>
-                                                    <td align="left"><?= $row['nama_pendiri'] ?></td>
+                                                    <td align="left"><?= $row['nama_sekolah'] ?></td>
                                                     <td width="15%">
                                                         <?php
                                                         if ($row['tgl_selesai']) {

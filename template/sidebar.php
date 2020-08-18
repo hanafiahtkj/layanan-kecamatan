@@ -67,7 +67,7 @@ if ($_SESSION['role'] == "Admin") {
     <!-- Brand Logo -->
     <a href="<?= $logo_link; ?>" class="brand-link" style="background-color: deepskyblue;">
         <img src="<?= base_url() ?>/assets/img/logo-bjm.png" alt="Logo Pemko BJM" class="brand-image ml-3 mr-2" style="text-align: center; width: 25px;">
-        <span class="brand-text font-weight-light"><strong>Layanan Kecamatan</strong></span>
+        <span class="brand-text font-weight-light"><strong>E-LOK</strong></span>
     </a>
 
     <!-- Sidebar -->
@@ -75,7 +75,7 @@ if ($_SESSION['role'] == "Admin") {
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= base_url() ?>/assets/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+                <img src="<?= base_url() ?>/assets/img/user.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block"><?= $_SESSION['nama_user']; ?></a>

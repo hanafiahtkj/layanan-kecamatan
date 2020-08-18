@@ -153,7 +153,7 @@ include_once "../../../../template/head.php";
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Masa Berlaku</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control datepicker" id="masa_berlaku_awal" name="masa_berlaku_awal">
+                                                <input type="date" class="form-control" id="masa_berlaku_awal" name="masa_berlaku_awal">
                                             </div>
                                             <label class="col-form-label">S/D</label>
                                             <div class="col-sm-4">
@@ -385,6 +385,8 @@ include_once "../../../../template/head.php";
         $keterangan               = $_POST['keterangan'];
         $id_posisi                = $_POST['id_posisi'];
         $status                   = $_POST['status'];
+
+
         if ($status == "Selesai") {
             $ceknosktu  = $koneksi->query("SELECT * FROM nomor_urut_sktu")->fetch_array();
             $nourut     = $ceknosktu['nomor_urut'];
@@ -396,38 +398,63 @@ include_once "../../../../template/head.php";
             $masa_berlaku_akhir = date('Y-m-d', strtotime('+1 year'));
             $tgl_selesai        = $_POST['tgl_selesai'];
             $id_posisi          = 4;
+
+
+            $submit = $koneksi->query("INSERT INTO sktu_baru VALUES (
+                null, 
+                '$id_masyarakat', 
+                '$nomor_sktu', 
+                '$nama_pemohon', 
+                '$no_telp', 
+                '$tgl', 
+                '$peraturan', 
+                '$nama_perusahaan', 
+                '$alamat_perusahaan', 
+                '$nama_pimpinan_perusahaan',
+                '$alamat_kediaman',
+                '$kegiatan_usaha',
+                '$masa_berlaku_awal',
+                '$masa_berlaku_akhir',
+                '$sifat',
+                '$nama_camat',
+                '$nip',
+                '$jabatan',
+                '$kelengkapan',
+                '$keterangan',
+                '$tgl_selesai',
+                '$id_posisi',
+                '$status'
+                )");
         } else {
-            $nomor_sktu  = "-";
-            $tgl_selesai = null;
-            // $id_posisi   = 1;x   
+
+            $nomor_sktu = '-';
+
+            $submit = $koneksi->query("INSERT INTO sktu_baru VALUES (
+                null, 
+                '$id_masyarakat', 
+                '-', 
+                '$nama_pemohon', 
+                '$no_telp', 
+                '$tgl', 
+                '$peraturan', 
+                '$nama_perusahaan', 
+                '$alamat_perusahaan', 
+                '$nama_pimpinan_perusahaan',
+                '$alamat_kediaman',
+                '$kegiatan_usaha',
+                null,
+                null,
+                '$sifat',
+                '$nama_camat',
+                '$nip',
+                '$jabatan',
+                null,
+                '$keterangan',
+                null,
+                '$id_posisi',
+                '$status'
+                )");
         }
-
-
-        $submit = $koneksi->query("INSERT INTO sktu_baru VALUES (
-            null, 
-            '$id_masyarakat', 
-            '$nomor_sktu', 
-            '$nama_pemohon', 
-            '$no_telp', 
-            '$tgl', 
-            '$peraturan', 
-            '$nama_perusahaan', 
-            '$alamat_perusahaan', 
-            '$nama_pimpinan_perusahaan',
-            '$alamat_kediaman',
-            '$kegiatan_usaha',
-            '$masa_berlaku_awal',
-            '$masa_berlaku_akhir',
-            '$sifat',
-            '$nama_camat',
-            '$nip',
-            '$jabatan',
-            '$kelengkapan',
-            '$keterangan',
-            '$tgl_selesai',
-            '$id_posisi',
-            '$status'
-            )");
 
         if ($submit) {
 
@@ -475,7 +502,11 @@ include_once "../../../../template/head.php";
             }
 
             if (!empty($event)) {
-                $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$id_masyarakat', '$idsktu', '$nomor_sktu', '$tgl', '$masa_berlaku_akhir')");
+                if ($status == "Selesai") {
+                    $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$id_masyarakat', '$idsktu', '$nomor_sktu', '$tgl', '$masa_berlaku_akhir')");
+                } else {
+                    $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$id_masyarakat', '$idsktu', '$nomor_sktu', '$tgl', null)");
+                }
 
                 $_SESSION['pesan'] = "Data SKTU Ditambahkan";
                 echo "<script>window.location.replace('../');</script>";
