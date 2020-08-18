@@ -172,7 +172,7 @@ $row  = $data->fetch_array();
             <td width="13%"></td>
             <td width="3%"></td>
             <td colspan="3" align="justify">
-                <p style="margin-top: 20;">
+                <p>
                     Surat Keterangan Tempat Usaha ini bukan merupakan Izin Usaha Perdagangan/Jasa, tetapi keterangan tentang Tempat Usaha/Kegiatan dari Perorangan / Badan Hukum sebagai dasar untuk pembuatan perizinan berikutnya
                 </p>
             </td>
