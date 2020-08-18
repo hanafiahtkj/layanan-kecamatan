@@ -411,21 +411,8 @@ $row  = $data->fetch_array();
             $masa_berlaku_akhir = date('Y-m-d', strtotime('+1 year'));
             $tgl_selesai        = $_POST['tgl_selesai'];
             $id_posisi          = 4;
-        } elseif ($status == "Selesai") {
-            $nomor_sktu         = $row['nomor_sktu'];
-            $kelengkapan        = "Lengkap";
-            $masa_berlaku_awal  = $_POST['masa_berlaku_awal'];
-            $masa_berlaku_akhir = $_POST['masa_berlaku_akhir'];
-            $tgl_selesai        = $_POST['tgl_selesai'];
-            $id_posisi          = 4;
-        } else {
-            $nomor_sktu  = $row['nomor_sktu'];
-            $tgl_selesai = null;
-            // $id_posisi   = 1;
-        }
 
-
-        $submit = $koneksi->query("UPDATE sktu_baru SET
+            $submit = $koneksi->query("UPDATE sktu_baru SET
             nomor_sktu               = '$nomor_sktu', 
             nama_pemohon             = '$nama_pemohon', 
             no_telp                  = '$no_telp', 
@@ -448,9 +435,68 @@ $row  = $data->fetch_array();
             status                   = '$status'
             WHERE id_sktu            = '$id'
             ");
+        } elseif ($status == "Selesai") {
+            $nomor_sktu         = $row['nomor_sktu'];
+            $kelengkapan        = "Lengkap";
+            $masa_berlaku_awal  = $_POST['masa_berlaku_awal'];
+            $masa_berlaku_akhir = $_POST['masa_berlaku_akhir'];
+            $tgl_selesai        = $_POST['tgl_selesai'];
+            $id_posisi          = 4;
+
+            $submit = $koneksi->query("UPDATE sktu_baru SET
+            nomor_sktu               = '$nomor_sktu', 
+            nama_pemohon             = '$nama_pemohon', 
+            no_telp                  = '$no_telp', 
+            tgl                      = '$tgl', 
+            peraturan                = '$peraturan', 
+            nama_perusahaan          = '$nama_perusahaan', 
+            alamat_perusahaan        = '$alamat_perusahaan', 
+            nama_pimpinan_perusahaan = '$nama_pimpinan_perusahaan',
+            alamat_kediaman          = '$alamat_kediaman',
+            kegiatan_usaha           = '$kegiatan_usaha',
+            masa_berlaku_awal        = '$masa_berlaku_awal',
+            masa_berlaku_akhir       = '$masa_berlaku_akhir',
+            nama_camat               = '$nama_camat',
+            nip                      = '$nip',
+            jabatan                  = '$jabatan',
+            kelengkapan              = '$kelengkapan',
+            keterangan               = '$keterangan',
+            tgl_selesai              = '$tgl_selesai',
+            id_posisi                = '$id_posisi',
+            status                   = '$status'
+            WHERE id_sktu            = '$id'
+            ");
+        } else {
+            $nomor_sktu  = $row['nomor_sktu'];
+            $tgl_selesai = null;
+
+            $submit = $koneksi->query("UPDATE sktu_baru SET
+            nomor_sktu               = '$nomor_sktu', 
+            nama_pemohon             = '$nama_pemohon', 
+            no_telp                  = '$no_telp', 
+            tgl                      = '$tgl', 
+            peraturan                = '$peraturan', 
+            nama_perusahaan          = '$nama_perusahaan', 
+            alamat_perusahaan        = '$alamat_perusahaan', 
+            nama_pimpinan_perusahaan = '$nama_pimpinan_perusahaan',
+            alamat_kediaman          = '$alamat_kediaman',
+            kegiatan_usaha           = '$kegiatan_usaha',
+            masa_berlaku_awal        = null,
+            masa_berlaku_akhir       = null,
+            nama_camat               = '$nama_camat',
+            nip                      = '$nip',
+            jabatan                  = '$jabatan',
+            kelengkapan              = '$kelengkapan',
+            keterangan               = '$keterangan',
+            tgl_selesai              = null,
+            id_posisi                = '$id_posisi',
+            status                   = '$status'
+            WHERE id_sktu            = '$id'
+            ");
+        }
+
 
         if ($submit) {
-
 
             $gambar_arr    = array();
             $filelama      = array();
@@ -499,7 +545,11 @@ $row  = $data->fetch_array();
             }
 
             if (!empty($event)) {
-                $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nomor_sktu', tgl_dibuat = '$tgl', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE id_sktu = '$id' AND nomor_sktu = '$row[nomor_sktu]'");
+                if ($status == "Selesai") {
+                    $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nomor_sktu', tgl_dibuat = '$tgl', terakhir_diperpanjang = '$masa_berlaku_akhir' WHERE id_sktu = '$id'");
+                } else {
+                    $koneksi->query("UPDATE riwayat_tgl_sktu SET nomor_sktu = '$nomor_sktu', tgl_dibuat = '$tgl' WHERE id_sktu = '$id'");
+                }
                 $_SESSION['pesan'] = "Data SKTU Diubah";
                 echo "<script>window.location.replace('../');</script>";
             }

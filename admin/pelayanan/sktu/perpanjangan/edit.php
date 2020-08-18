@@ -3,6 +3,7 @@
 
 <?php
 include_once "../../../../config/config.php";
+include_once "../../../../config/bulan.php";
 include_once "../../../../config/auth-admin.php";
 include_once "../../../../template/head.php";
 
@@ -371,6 +372,7 @@ $row  = $data->fetch_array();
         $keterangan               = $_POST['keterangan'];
         $id_posisi                = $_POST['id_posisi'];
         $status                   = $_POST['status'];
+
         if ($status == "Selesai") {
             $tes = explode('/', $nomor_sktu);
             $ambil = [
@@ -384,12 +386,8 @@ $row  = $data->fetch_array();
 
             $tgl_selesai        = $_POST['tgl_selesai'];
             $id_posisi          = 4;
-        } else {
-            $nomorsktubaru = $nomor_sktu;
-            $tgl_selesai   = null;
-        }
 
-        $submit = $koneksi->query("UPDATE sktu_perpanjangan SET
+            $submit = $koneksi->query("UPDATE sktu_perpanjangan SET
             nomor_sktu               = '$nomorsktubaru', 
             nama_pemohon             = '$nama_pemohon', 
             no_telp                  = '$no_telp', 
@@ -412,6 +410,34 @@ $row  = $data->fetch_array();
             status                   = '$status'
             WHERE id_sktu            = '$id'
             ");
+        } else {
+            $nomorsktubaru = $nomor_sktu;
+
+            $submit = $koneksi->query("UPDATE sktu_perpanjangan SET
+            nomor_sktu               = '$nomorsktubaru', 
+            nama_pemohon             = '$nama_pemohon', 
+            no_telp                  = '$no_telp', 
+            tgl                      = '$tgl', 
+            peraturan                = '$peraturan', 
+            nama_perusahaan          = '$nama_perusahaan', 
+            alamat_perusahaan        = '$alamat_perusahaan', 
+            nama_pimpinan_perusahaan = '$nama_pimpinan_perusahaan',
+            alamat_kediaman          = '$alamat_kediaman',
+            kegiatan_usaha           = '$kegiatan_usaha',
+            masa_berlaku_awal        = null,
+            masa_berlaku_akhir       = null,
+            nama_camat               = '$nama_camat',
+            nip                      = '$nip',
+            jabatan                  = '$jabatan',
+            kelengkapan              = '$kelengkapan',
+            keterangan               = '$keterangan',
+            tgl_selesai              = null,
+            id_posisi                = '$id_posisi',
+            status                   = '$status'
+            WHERE id_sktu            = '$id'
+            ");
+        }
+
 
         if ($submit) {
 

@@ -27,7 +27,7 @@ if ($hapus) {
         unlink('../../../../assets/sktu/perpanjangan/' . $file);
     }
     if ($status == "Selesai") {
-        $koneksi->query("UPDATE riwayat_tgl_sktu SET terakhir_diperpanjang = '$masa_awal' WHERE id_masyarakat = '$idm' AND nomor_sktu = '$nomor");
+        $koneksi->query("UPDATE riwayat_tgl_sktu SET terakhir_diperpanjang = '$masa_awal' WHERE id_masyarakat = '$idm' AND nomor_sktu = '$nomor'");
     }
     $_SESSION['pesan'] = "Data Perpanjangan SKTU Dihapus";
     echo "<script>window.location.replace('../');</script>";

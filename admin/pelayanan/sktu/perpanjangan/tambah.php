@@ -3,6 +3,7 @@
 
 <?php
 include_once "../../../../config/config.php";
+include_once "../../../../config/bulan.php";
 include_once "../../../../config/auth-admin.php";
 include_once "../../../../template/head.php";
 
@@ -148,11 +149,11 @@ include_once "../../../../template/head.php";
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Masa Berlaku</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control datepicker" id="masa_berlaku_awal" name="masa_berlaku_awal" required>
+                                                <input type="date" class="form-control datepicker" id="masa_berlaku_awal" name="masa_berlaku_awal">
                                             </div>
                                             <label class="col-form-label">S/D</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control" id="masa_berlaku_akhir" name="masa_berlaku_akhir" required>
+                                                <input type="date" class="form-control" id="masa_berlaku_akhir" name="masa_berlaku_akhir">
                                             </div>
                                         </div>
 
@@ -413,36 +414,62 @@ include_once "../../../../template/head.php";
             $masa_berlaku_akhir = date('Y-m-d', strtotime('+1 year'));
             $tgl_selesai        = $_POST['tgl_selesai'];
             $id_posisi          = 4;
+
+            $submit = $koneksi->query("INSERT INTO sktu_perpanjangan VALUES (
+                null, 
+                '$id_masyarakat', 
+                '$nomorsktubaru', 
+                '$nama_pemohon', 
+                '$no_telp', 
+                '$tgl', 
+                '$peraturan', 
+                '$nama_perusahaan', 
+                '$alamat_perusahaan', 
+                '$nama_pimpinan_perusahaan',
+                '$alamat_kediaman',
+                '$kegiatan_usaha',
+                '$masa_berlaku_awal',
+                '$masa_berlaku_akhir',
+                '$sifat',
+                '$nama_camat',
+                '$nip',
+                '$jabatan',
+                '$kelengkapan',
+                '$keterangan',
+                '$tgl_selesai',
+                '$id_posisi',
+                '$status'
+                )");
         } else {
             $nomorsktubaru = $nomor_sktu;
-            $tgl_selesai   = null;
+
+            $submit = $koneksi->query("INSERT INTO sktu_perpanjangan VALUES (
+                null, 
+                '$id_masyarakat', 
+                '$nomorsktubaru', 
+                '$nama_pemohon', 
+                '$no_telp', 
+                '$tgl', 
+                '$peraturan', 
+                '$nama_perusahaan', 
+                '$alamat_perusahaan', 
+                '$nama_pimpinan_perusahaan',
+                '$alamat_kediaman',
+                '$kegiatan_usaha',
+                null,
+                null,
+                '$sifat',
+                '$nama_camat',
+                '$nip',
+                '$jabatan',
+                '$kelengkapan',
+                '$keterangan',
+                null,
+                '$id_posisi',
+                '$status'
+                )");
         }
 
-        $submit = $koneksi->query("INSERT INTO sktu_perpanjangan VALUES (
-            null, 
-            '$id_masyarakat', 
-            '$nomorsktubaru', 
-            '$nama_pemohon', 
-            '$no_telp', 
-            '$tgl', 
-            '$peraturan', 
-            '$nama_perusahaan', 
-            '$alamat_perusahaan', 
-            '$nama_pimpinan_perusahaan',
-            '$alamat_kediaman',
-            '$kegiatan_usaha',
-            '$masa_berlaku_awal',
-            '$masa_berlaku_akhir',
-            '$sifat',
-            '$nama_camat',
-            '$nip',
-            '$jabatan',
-            '$kelengkapan',
-            '$keterangan',
-            '$tgl_selesai',
-            '$id_posisi',
-            '$status'
-            )");
 
         if ($submit) {
 
