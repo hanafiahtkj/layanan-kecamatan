@@ -69,11 +69,11 @@
 
                                         $datanotifsktuppj = $koneksi->query("SELECT COUNT(nomor_sktu) AS hasil FROM riwayat_tgl_sktu WHERE nomor_sktu NOT IN (SELECT nomor_sktu FROM sktu_perpanjangan) AND ((terakhir_diperpanjang - CURRENT_DATE()) <= 30 AND (terakhir_diperpanjang - CURRENT_DATE()) > 0) OR ((CURRENT_DATE() >= terakhir_diperpanjang) AND (CURRENT_DATE() <= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))) OR (CURRENT_DATE() >= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH)) AND id_masyarakat = '$r1[id_masyarakat]'")->fetch_array();
                                         // $datanotifsktuppj = $koneksi->query("SELECT * FROM riwayat_tgl_sktu WHERE nomor_sktu NOT IN (SELECT nomor_sktu FROM sktu_perpanjangan) AND ((terakhir_diperpanjang - CURRENT_DATE()) <= 30 AND (terakhir_diperpanjang - CURRENT_DATE()) > 0) OR ((CURRENT_DATE() >= terakhir_diperpanjang) AND (CURRENT_DATE() <= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))) OR (CURRENT_DATE() >= (SELECT terakhir_diperpanjang + INTERVAL 6 MONTH))");
-                                        // $jmlnotifsktuppj .= $datanotifsktuppj['hasil'];
+                                        $jmlnotifsktuppj .= $datanotifsktuppj['hasil'];
                                     }
                                 }
                             }
-                            $jmlnotifsktuppj .= $datanotifsktuppj['hasil'];
+                            // $jmlnotifsktuppj .= $datanotifsktuppj['hasil'];
 
 
                             $jmltotal = $jmliumk + $jmlsktubaru + $jmlsktuppj + $jmlnotifsktuppj;

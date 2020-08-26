@@ -78,7 +78,7 @@ include_once "../../../../template/head.php";
                                         <div class="form-group row">
                                             <label for="nama_pemohon" class="col-sm-2 col-form-label">Nama Pemohon</label>
                                             <div class="col-sm-10">
-                                                <select name="nama_pemohon" id="nama_pemohon" class="form-control select2" data-placeholder="Pilih Nama Pemohon" onchange="changeValue(this.value)" required>
+                                                <select name="nama_pemohon" id="nama_pemohon" style="width: 100%;" class="form-control select2" data-placeholder="Pilih Nama Pemohon" required>
                                                     <option value=""></option>
                                                     <?php
                                                     $masyarakat = $koneksi->query("SELECT * FROM masyarakat ORDER BY nama ASC");
@@ -302,7 +302,27 @@ include_once "../../../../template/head.php";
     <!-- jQuery -->
     <?php include_once "../../../../template/script.php"; ?>
 
-    <script>
+    <script type="text/javascript">
+        $(document).on('change', '#nama_pemohon', function() {
+            <?php echo $jsArray; ?>
+            $("#id_masyarakat").val(mas[this.value].id_masyarakat);
+            $("#no_telp").val(mas[this.value].no_telp);
+            $("#alamat_kediaman").val(mas[this.value].alamat_kediaman);
+            // var tes = mas[this.value].alamat_kediaman;
+            // console.log(tes);
+            // document.getElementById('id_masyarakat').value = mas[this.value].id_masyarakat;
+            // document.getElementById('no_telp').value = mas[this.value].no_telp;
+            // document.getElementById('alamat_kediaman').value = mas[this.value].alamat_kediaman;
+        });
+
+        // function changevalue(id) {
+        //     document.getElementById('id_masyarakat').value = mas[id].id_masyarakat;
+        //     document.getElementById('no_telp').value = mas[id].no_telp;
+        //     document.getElementById('alamat_kediaman').value = mas[id].alamat_kediaman;
+        // }
+
+
+
         // APPEND KOLOM INPUT TANGGAL SELESAI
         $('#status').on('change', function() {
             if (this.value == "Selesai") {
@@ -347,16 +367,6 @@ include_once "../../../../template/head.php";
                 this.value = "";
             }
         });
-
-
-        // TAMPILKAN DATA DARI TABLE MASYARAKAT
-        <?php echo $jsArray; ?>
-
-        function changeValue(id) {
-            document.getElementById('id_masyarakat').value = mas[id].id_masyarakat;
-            document.getElementById('no_telp').value = mas[id].no_telp;
-            document.getElementById('alamat_kediaman').value = mas[id].alamat_kediaman;
-        }
     </script>
 
     <?php
