@@ -95,7 +95,7 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                                             <div class="form-group row">
                                                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" name="alamat" id="alamat" rows="3" required readonly><?= $row['alamat'] ?></textarea>
+                                                    <textarea class="form-control alamat" name="alamat" id="alamat" rows="2" maxlength="110" required readonly><?= $row['alamat'] ?></textarea>
                                                 </div>
                                             </div>
 
@@ -163,7 +163,7 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                                     <div class="form-group row">
                                         <label for="alamat_usaha" class="col-sm-3 col-form-label">Alamat Usaha</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_usaha" id="alamat_usaha" rows="3" required><?= $row['alamat_usaha'] ?></textarea>
+                                            <textarea class="form-control alamat" name="alamat_usaha" id="alamat_usaha" rows="2" maxlength="110" required><?= $row['alamat_usaha'] ?></textarea>
                                         </div>
                                     </div>
 
@@ -312,6 +312,14 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                     toastr.error('Format File ' + nf + ' Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');
                 }, 20);
                 this.value = "";
+            }
+        });
+
+        // EVENT ON ENTER IN TEXT AREA
+        $('.alamat').on('keydown', function(e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                return false;
             }
         });
     </script>

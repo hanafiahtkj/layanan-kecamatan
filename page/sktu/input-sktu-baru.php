@@ -75,7 +75,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                             <div class="form-group row">
                                                 <label for="no_telp" class="col-sm-3 col-form-label">Nomor Telpon</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $data_mas['telpon']; ?>" required readonly>
+                                                    <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $data_mas['telpon']; ?>" required readonly maxlength="13">
                                                 </div>
                                             </div>
 
@@ -96,14 +96,14 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                     <div class="form-group row">
                                         <label for="nama_perusahaan" class="col-sm-3 col-form-label">Nama Perusahaan</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan" required>
+                                            <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan" required="WAJIB DI ISI">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="alamat_perusahaan" class="col-sm-3 col-form-label">Alamat Perusahaan</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_perusahaan" id="alamat_perusahaan" rows="3" required></textarea>
+                                            <textarea class="form-control" name="alamat_perusahaan" id="alamat_perusahaan" rows="2" required maxlength="110"></textarea>
                                         </div>
                                     </div>
 
@@ -148,7 +148,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                     <!-- LAMPIRAN -->
                     <div class="section-title" style="margin-top: 5%;">
                         <h2>Lampiran SKTU</h2>
-                        <p>*Upload File Dalam Format JPG / PNG / PDF dengan Ukuran Maksimal 1 Mb</p>
+                        <p style="color: red; font-style: italic;">*Upload File Dalam Format JPG / PNG / PDF dengan Ukuran Maksimal 1 Mb</p>
                     </div>
                     <!-- ROW -->
                     <div class="row">
@@ -166,6 +166,8 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                             </label>
                                         </div>
                                     </div>
+
+                                    <hr>
 
                                     <?php
                                     $datalampiran = $koneksi->query("SELECT * FROM lampiran_sktu WHERE keterangan LIKE '%Baru%' ORDER BY id_lampiran ASC");
@@ -271,12 +273,22 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                 this.value = "";
             }
         });
+
+
+        // EVENT ON ENTER IN TEXT AREA
+        $('#alamat_perusahaan').on('keydown', function(e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                return false;
+            }
+        });
     </script>
 
 
     <!-- SIMPAN -->
     <?php
     if (isset($_POST['submit'])) {
+
 
         // ambil data dasar hukum sktu
         $dasarhukum = $koneksi->query("SELECT * FROM peraturan_sktu")->fetch_array();

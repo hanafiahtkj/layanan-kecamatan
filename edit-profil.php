@@ -136,7 +136,7 @@ $row  = $data->fetch_array();
                                     <div class="form-group row">
                                         <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                                         <div class="col-sm-10">
-                                            <textarea name="alamat" id="alamat" rows="3" class="form-control" required><?= $row['alamat']; ?></textarea>
+                                            <textarea name="alamat" id="alamat" rows="2" class="form-control alamat" required maxlength="110"><?= $row['alamat']; ?></textarea>
                                         </div>
                                     </div>
 
@@ -207,6 +207,14 @@ $row  = $data->fetch_array();
                 document.getElementById('ikon').innerHTML = '<span id="mybutton" onclick="lihatpass();" class="fas fa-eye" title="Lihat Password"></span>';
             }
         }
+
+        // EVENT ON ENTER IN TEXT AREA
+        $('.alamat').on('keydown', function(e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                return false;
+            }
+        });
     </script>
 
 
@@ -221,7 +229,7 @@ $row  = $data->fetch_array();
         $agama        = $_POST['agama'];
         $telpon       = $_POST['telpon'];
         $alamat       = $_POST['alamat'];
-        $password     = $_POST['password'];
+        $pass         = $_POST['password'];
 
         if (empty($pass)) {
             $password  = $row['password'];

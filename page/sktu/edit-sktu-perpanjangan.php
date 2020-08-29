@@ -79,7 +79,7 @@ $row = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_sktu = '$id'")-
                                     <div class="form-group row">
                                         <label for="no_telp" class="col-sm-3 col-form-label">Nomor Telpon</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $row['no_telp']; ?>" required>
+                                            <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $row['no_telp']; ?>" required maxlength="13">
                                         </div>
                                     </div>
 
@@ -93,7 +93,7 @@ $row = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_sktu = '$id'")-
                                     <div class="form-group row">
                                         <label for="alamat_perusahaan" class="col-sm-3 col-form-label">Alamat Perusahaan</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_perusahaan" id="alamat_perusahaan" rows="3" required><?= $row['alamat_perusahaan']; ?></textarea>
+                                            <textarea class="form-control alamat" name="alamat_perusahaan" id="alamat_perusahaan" rows="2" required maxlength="110"><?= $row['alamat_perusahaan']; ?></textarea>
                                         </div>
                                     </div>
 
@@ -107,7 +107,7 @@ $row = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_sktu = '$id'")-
                                     <div class="form-group row">
                                         <label for="alamat_kediaman" class="col-sm-3 col-form-label">Alamat Kediaman</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required><?= $row['alamat_kediaman']; ?></textarea>
+                                            <textarea class="form-control alamat" name="alamat_kediaman" id="alamat_kediaman" rows="2" required maxlength="110"><?= $row['alamat_kediaman']; ?></textarea>
                                         </div>
                                     </div>
 
@@ -247,6 +247,14 @@ $row = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_sktu = '$id'")-
                     toastr.error('Format File ' + nf + ' Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');
                 }, 20);
                 this.value = "";
+            }
+        });
+
+        // EVENT ON ENTER IN TEXT AREA
+        $('.alamat').on('keydown', function(e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                return false;
             }
         });
     </script>

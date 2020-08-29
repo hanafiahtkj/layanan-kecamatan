@@ -88,7 +88,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                             <div class="form-group row">
                                                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" name="alamat" id="alamat" rows="3" required readonly><?= $data_mas['alamat'] ?></textarea>
+                                                    <textarea class="form-control alamat" name="alamat" id="alamat" rows="2" maxlength="110" required readonly><?= $data_mas['alamat'] ?></textarea>
                                                 </div>
                                             </div>
 
@@ -151,7 +151,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                     <div class="form-group row">
                                         <label for="alamat_usaha" class="col-sm-3 col-form-label">Alamat Usaha</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_usaha" id="alamat_usaha" rows="3" required></textarea>
+                                            <textarea class="form-control alamat" name="alamat_usaha" id="alamat_usaha" rows="2" maxlength="110" required></textarea>
                                         </div>
                                     </div>
 
@@ -194,7 +194,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                     <!-- LAMPIRAN -->
                     <div class="section-title" style="margin-top: 5%;">
                         <h2>Lampiran</h2>
-                        <p>*Upload File Dalam Format JPG / PNG / PDF dengan Ukuran Maksimal 1 Mb</p>
+                        <p style="color: red; font-style: italic;">*Upload File Dalam Format JPG / PNG / PDF dengan Ukuran Maksimal 1 Mb</p>
                     </div>
                     <!-- ROW -->
                     <div class="row">
@@ -202,6 +202,19 @@ $nourut       = $ceknoiumk['nomor_urut'];
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input cekfile" type="checkbox" value="">
+                                            <label class="form-check-label" for="defaultCheck1" style="color: red; font-style: italic; font-weight: bold;">
+                                                Centang jika file tidak diupload <br>
+                                                <small>*Catatan : Jika file tidak diupload, masyarakat diharuskan membawa berkas fisik ke Kantor Kecamatan Banjarmasin Utara</small>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
                                     <?php
                                     $datalampiran = $koneksi->query("SELECT * FROM lampiran_iumk ORDER BY id_lampiran ASC");
                                     foreach ($datalampiran as $lampiran) {
@@ -259,6 +272,17 @@ $nourut       = $ceknoiumk['nomor_urut'];
 
             $("#npwp").mask("99.999.999.9-999.999");
 
+            // FILE CENTANG UNTUK MENGABAIKAN JIKA FILE TIDAK DI UPLOAD
+            $('.cekfile').click(function() {
+                if ($(this).is(':checked')) {
+                    $('.val_file').attr('disabled', true);
+                    $('.val_file').removeAttr('required');
+                } else {
+                    $('.val_file').removeAttr('disabled');
+                    $('.val_file').attr('required', true);
+                }
+            });
+
             // VALIDASI SUBMIT
             $('#submit').click(function() {
                 swal({
@@ -298,6 +322,14 @@ $nourut       = $ceknoiumk['nomor_urut'];
                     toastr.error('Format File ' + nf + ' Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');
                 }, 20);
                 this.value = "";
+            }
+        });
+
+        // EVENT ON ENTER IN TEXT AREA
+        $('.alamat').on('keydown', function(e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                return false;
             }
         });
     </script>

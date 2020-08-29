@@ -109,7 +109,7 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
                                     <div class="form-group row">
                                         <label for="alamat_perusahaan" class="col-sm-3 col-form-label">Alamat Perusahaan</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_perusahaan" id="alamat_perusahaan" rows="3" required><?= $row['alamat_perusahaan'] ?></textarea>
+                                            <textarea class="form-control alamat" name="alamat_perusahaan" id="alamat_perusahaan" rows="2" maxlength="110" required><?= $row['alamat_perusahaan'] ?></textarea>
                                         </div>
                                     </div>
 
@@ -257,6 +257,15 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
                     toastr.error('Format File ' + nf + ' Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');
                 }, 20);
                 this.value = "";
+            }
+        });
+
+
+        // EVENT ON ENTER IN TEXT AREA
+        $('.alamat').on('keydown', function(e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                return false;
             }
         });
     </script>

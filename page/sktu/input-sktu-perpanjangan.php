@@ -88,7 +88,7 @@ if (mysqli_num_rows($cekdata) === 0) {
                                     <div class="form-group row">
                                         <label for="no_telp" class="col-sm-3 col-form-label">Nomor Telpon</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $row['no_telp']; ?>" required>
+                                            <input type="text" class="form-control" id="no_telp" name="no_telp" onkeypress="return Angkasaja(event)" value="<?= $row['no_telp']; ?>" required maxlength="13">
                                         </div>
                                     </div>
 
@@ -102,7 +102,7 @@ if (mysqli_num_rows($cekdata) === 0) {
                                     <div class="form-group row">
                                         <label for="alamat_perusahaan" class="col-sm-3 col-form-label">Alamat Perusahaan</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_perusahaan" id="alamat_perusahaan" rows="3" required><?= $row['alamat_perusahaan']; ?></textarea>
+                                            <textarea class="form-control alamat" name="alamat_perusahaan" id="alamat_perusahaan" rows="2" required maxlength="110"><?= $row['alamat_perusahaan']; ?></textarea>
                                         </div>
                                     </div>
 
@@ -116,7 +116,7 @@ if (mysqli_num_rows($cekdata) === 0) {
                                     <div class="form-group row">
                                         <label for="alamat_kediaman" class="col-sm-3 col-form-label">Alamat Kediaman</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required><?= $row['alamat_kediaman']; ?></textarea>
+                                            <textarea class="form-control alamat" name="alamat_kediaman" id="alamat_kediaman" rows="2" required maxlength="110"><?= $row['alamat_kediaman']; ?></textarea>
                                         </div>
                                     </div>
 
@@ -163,6 +163,20 @@ if (mysqli_num_rows($cekdata) === 0) {
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
+
+
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input cekfile" type="checkbox" value="">
+                                            <label class="form-check-label" for="defaultCheck1" style="color: red; font-style: italic; font-weight: bold;">
+                                                Centang jika file tidak diupload <br>
+                                                <small>*Catatan : Jika file tidak diupload, masyarakat diharuskan membawa berkas fisik ke Kantor Kecamatan Banjarmasin Utara</small>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
                                     <?php
                                     $datalampiran = $koneksi->query("SELECT * FROM lampiran_sktu WHERE keterangan LIKE '%Perpanjangan%' ORDER BY id_lampiran ASC");
                                     foreach ($datalampiran as $lampiran) {
@@ -216,6 +230,17 @@ if (mysqli_num_rows($cekdata) === 0) {
 
     <script>
         $(document).ready(function() {
+
+            $('.cekfile').click(function() {
+                if ($(this).is(':checked')) {
+                    $('.val_file').attr('disabled', true);
+                    $('.val_file').removeAttr('required');
+                } else {
+                    $('.val_file').removeAttr('disabled');
+                    $('.val_file').attr('required', true);
+                }
+            });
+
             // VALIDASI SUBMIT
             $('#submit').click(function() {
                 swal({
@@ -254,6 +279,15 @@ if (mysqli_num_rows($cekdata) === 0) {
                     toastr.error('Format File ' + nf + ' Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');
                 }, 20);
                 this.value = "";
+            }
+        });
+
+
+        // EVENT ON ENTER IN TEXT AREA
+        $('.alamat').on('keydown', function(e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                return false;
             }
         });
     </script>
