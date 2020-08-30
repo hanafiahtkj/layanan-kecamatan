@@ -172,9 +172,18 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
                                     ?>
 
                                         <div class="form-group">
-                                            <label><?= $lampiran['nama_lampiran'] ?></label>
+                                            <label>
+                                                <?= $lampiran['nama_lampiran'] ?> <span style="font-size: 12px; font-style: italic; font-weight: bold;">(<?= $lampiran['ketentuan'] ?>)</span>
+                                                <?php if ($lampiran['ketentuan'] == "Tidak Wajib") { ?>
+                                                    <br>
+                                                    <span style="color: red; font-size: 12px; font-style: italic;">*<?= $lampiran['deskripsi']; ?></span>
+                                                <?php } ?>
+                                            </label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input val_file" name="file[]">
+                                                <input type="file" class="custom-file-input val_file" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
+                                                                                                                        echo "required";
+                                                                                                                    } else {
+                                                                                                                    } ?>>
                                                 <input type="hidden" name="id_lampiran[]" value="<?= $lampiran['id_lampiran'] ?>">
                                                 <label class="custom-file-label">Choose File</label>
                                             </div>
@@ -189,7 +198,7 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
                         <div class="col-md-12" style="margin-top: 2%; text-align: right;">
                             <div class="card">
                                 <div class="card-body">
-                                    <button type="button" id="submit" class="btn btn-primary" style="width: 10%;">Edit</button>
+                                    <button type="button" id="submit" class="btn btn-primary">Edit</button>
                                     <button type="submit" name="submit" id="tombol-submit" style="display: none;">Edit SKTU</button>
                                     <a href="<?= base_url('page/sktu') ?>" class="btn btn-secondary">Batal</a>
                                 </div>

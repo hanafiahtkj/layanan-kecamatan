@@ -74,6 +74,8 @@ include_once "../../template/head.php";
                                                     <th>No</th>
                                                     <th>Nama Lampiran</th>
                                                     <th>Keterangan</th>
+                                                    <th>Ketentuan</th>
+                                                    <th>Deskripsi</th>
                                                     <th>Opsi</th>
                                                 </tr>
                                             </thead>
@@ -87,6 +89,8 @@ include_once "../../template/head.php";
                                                         <td width="5%"><?= $no++; ?></td>
                                                         <td align="left"><?= $row['nama_lampiran'] ?></td>
                                                         <td width="15%"><?= $row['keterangan'] ?></td>
+                                                        <td><?= $row['ketentuan'] ?></td>
+                                                        <td align="justify"><?= $row['deskripsi'] ?></td>
                                                         <td width="15%">
                                                             <button id="edit" data-id="<?= encryptor('encrypt', $row['id_lampiran']); ?>" class="btn bg-gradient-success btn-sm" title="Edit"><i class="fa fa-edit"></i></button>
                                                             <a href="hapus?id=<?= encryptor('encrypt', $row['id_lampiran']); ?>" class="btn bg-gradient-danger btn-sm alert-hapus" data-id="<?= $row['nama_lampiran'] ?>" title="Hapus"><i class="fa fa-trash"></i></a>
@@ -156,6 +160,23 @@ include_once "../../template/head.php";
                                     <option value="Perpanjangan">Perpanjangan</option>
                                     <option value="Baru dan Perpanjangan">Baru dan Perpanjangan</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ketentuan" class="col-sm-4 col-form-label">Ketentuan</label>
+                            <div class="col-sm-12">
+                                <select name="ketentuan" id="ketentuan" class="form-control" required>
+                                    <option value="Wajib">Wajib</option>
+                                    <option value="Tidak Wajib">Tidak Wajib</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deskripsi" class="col-sm-4 col-form-label">Deskripsi</label>
+                            <div class="col-sm-12">
+                                <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3" placeholder="Boleh Dikosongkan"></textarea>
                             </div>
                         </div>
 

@@ -183,9 +183,18 @@ if (mysqli_num_rows($cekdata) === 0) {
                                     ?>
 
                                         <div class="form-group">
-                                            <label><?= $lampiran['nama_lampiran'] ?></label>
+                                            <label>
+                                                <?= $lampiran['nama_lampiran'] ?> <span style="font-size: 12px; font-style: italic; font-weight: bold;">(<?= $lampiran['ketentuan'] ?>)</span>
+                                                <?php if ($lampiran['ketentuan'] == "Tidak Wajib") { ?>
+                                                    <br>
+                                                    <span style="color: red; font-size: 12px; font-style: italic;">*<?= $lampiran['deskripsi']; ?></span>
+                                                <?php } ?>
+                                            </label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input val_file" name="file[]" required>
+                                                <input type="file" class="custom-file-input val_file" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
+                                                                                                                        echo "required";
+                                                                                                                    } else {
+                                                                                                                    } ?>>
                                                 <input type="hidden" name="id_lampiran[]" value="<?= $lampiran['id_lampiran'] ?>">
                                                 <label class="custom-file-label">Choose File</label>
                                             </div>
