@@ -13,24 +13,20 @@
         <nav class="nav-menu d-none d-lg-block">
             <ul>
                 <li class="active"><a href="<?= base_url(); ?>">Home</a></li>
-                <!-- <li class="drop-down"><a href="">About</a>
-                        <ul>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#team">Team</a></li>
-                            <li class="drop-down"><a href="#">Deep Drop Dow</a>
-                                <ul>
-                                    <li><a href="#">Deep Drop Down 1</a></li>
-                                    <li><a href="#">Deep Drop Down 2</a></li>
-                                    <li><a href="#">Deep Drop Down 3</a></li>
-                                    <li><a href="#">Deep Drop Down 4</a></li>
-                                    <li><a href="#">Deep Drop Down 5</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li> -->
-                <li><a href="#pelayanan">Pelayanan</a></li>
-                <li><a href="#tentang">Tentang</a></li>
-                <li><a href="#contact">Kontak</a></li>
+
+                <?php
+                $namaHalaman = $_SERVER['PHP_SELF'];
+                $namaArray   = explode('/', $namaHalaman);
+                $jumlah      = count($namaArray);
+                $namaHalaman = $namaArray[$jumlah - 3];
+                if ($namaHalaman != "page") {
+                ?>
+
+                    <li><a href="#pelayanan">Pelayanan</a></li>
+                    <li><a href="#tentang">Tentang</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+
+                <?php } ?>
 
                 <?php if (!isset($_SESSION['id_masyarakat'])) { ?>
                     <li>

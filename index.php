@@ -225,6 +225,46 @@ include_once "config/config.php";
                             </div>
                         </div>
 
+
+                        <div class="card my-4">
+                            <div class="card-header" style="background-color: #386dff; color: white;">
+                                BLANKO
+                            </div>
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" width="100%">
+                                        <thead>
+                                            <tr align="center">
+                                                <th width="5%">No</th>
+                                                <th style="text-align: left;">Blanko</th>
+                                                <th style="text-align: left;">Keterangan</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $blanko = $koneksi->query("SELECT * FROM blanko ORDER BY nama_blanko ASC");
+                                            foreach ($blanko as $blk) {
+                                            ?>
+                                                <tr align="center">
+                                                    <td width="5%"><?= $no++; ?></td>
+                                                    <td width="30%" align="left"><?= $blk['nama_blanko']; ?></td>
+                                                    <td align="justify"><?= $blk['keterangan']; ?></td>
+                                                    <td width="10%">
+                                                        <!-- <a href="<?= base_url('assets/blanko/' . $blk['file']); ?>" download=""><u>Download</u></a> -->
+                                                        <a href="<?= base_url('assets/blanko/' . $blk['file']); ?>" class="btn btn-success btn-sm" download=""><i class="fa fa-download"> Download</i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 

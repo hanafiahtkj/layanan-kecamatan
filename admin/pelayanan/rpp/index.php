@@ -69,7 +69,7 @@ include_once "../../../template/head.php";
                                                     <th>No</th>
                                                     <th>Tanggal</th>
                                                     <th>Kelurahan</th>
-                                                    <th>Nama Pendiri/Ketua Yayasan</th>
+                                                    <th>Nama Sekolah</th>
                                                     <th>Keterangan</th>
                                                     <th>Tanggal Selesai</th>
                                                     <th>Posisi</th>
@@ -94,7 +94,7 @@ include_once "../../../template/head.php";
                                                             ?>
                                                         </td>
                                                         <td><?= $row['kelurahan'] ?></td>
-                                                        <td align="left"><?= $row['nama_pendiri'] ?></td>
+                                                        <td align="left"><?= $row['nama_sekolah'] ?></td>
                                                         <td align="left"><?= $row['keterangan'] ?></td>
                                                         <td width="15%">
                                                             <?php
