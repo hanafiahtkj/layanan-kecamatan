@@ -151,7 +151,7 @@ include_once "../../../template/head.php";
                                     </div>
                                     <!-- /.card-body -->
                                     <div class="card-footer" style="background-color: white;">
-                                        <a href="<?= base_url('admin/pelayanan/legalisasi-imb') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
+                                        <a href="<?= base_url('admin/pelayanan/legalisasi-izin-tower') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
                                         <button type="submit" name="submit" class="btn bg-gradient-primary float-right mr-2"><i class="fa fa-save"> Simpan</i></button>
                                     </div>
                                     <!-- /.card-footer -->

@@ -64,6 +64,12 @@
                         </button>
                     </div>
 
+                    <br>
+
+                    <div class="container-login100-form-btn">
+                        <a href="Manual Book Aplikasi e-LOK.pdf" class="badge badge-warning" download="">Download Buku Petunjuk Penggunaan Aplikasi</a>
+                    </div>
+
                 </form>
             </div>
         </div>
