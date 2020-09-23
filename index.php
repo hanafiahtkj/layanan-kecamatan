@@ -272,6 +272,116 @@ include_once "config/config.php";
                 <hr size="30" style="background-color: white; margin-top: 3%; margin-bottom: 3%;">
 
                 <div class="section-title" id="contact" style="font-weight: bold; color: black; margin-top: 3%;">
+                    <h2>Survey Kepuasan Masyarakat</h2>
+                    <!-- <p>Informasi Kontak Kecamatan Banjarmasin Utara</p> -->
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-4" align="center">
+                        <div class="card">
+                            <div class="card-header" style="font-weight: bold; background-color: white;">
+                                Bagaimana pendapat anda tentang pelayanan aplikasi e-LOK ?
+                            </div>
+                            <div class="card-body" align="left" style="margin-bottom: -4rem;">
+                                <?php if (isset($_COOKIE['notif'])) { ?>
+                                    <h5 style="text-align: center;"><?= $_COOKIE['notif']; ?></h5>
+                                <?php } ?>
+                                <form action="polling" method="POST" style="<?php if (isset($_COOKIE['polling'])) {
+                                                                                echo $_COOKIE['polling'];
+                                                                            } ?>">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios1" value="1">
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Sangat Baik
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios2" value="2">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Baik
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios2" value="3">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Cukup
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios2" value="4">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Kurang
+                                        </label>
+                                    </div>
+
+                                    <div align="center" class="mt-3">
+                                        <button class="btn btn-primary" name="vote">Vote</button>
+                                    </div>
+                                </form>
+                                <hr>
+                                <!-- ======= Skills Section ======= -->
+                                <section id="skills" class="skills" style="margin-top: -4rem;">
+
+                                    <div class="row skills-content">
+
+                                        <div class="col-lg-12">
+
+                                            <?php
+                                            $polling    = $koneksi->query("SELECT * FROM polling")->fetch_array();
+                                            $sangatbaik = $polling['sangatbaik'];
+                                            $baik       = $polling['baik'];
+                                            $cukup      = $polling['cukup'];
+                                            $kurang     = $polling['kurang'];
+
+                                            $jumlah       = $sangatbaik + $baik + $cukup + $kurang;
+                                            $p_sangatbaik = round(($sangatbaik / $jumlah) * 100);
+                                            $p_baik       = round(($baik / $jumlah) * 100);
+                                            $p_cukup      = round(($cukup / $jumlah) * 100);
+                                            $p_kurang     = round(($kurang / $jumlah) * 100);
+                                            ?>
+
+                                            <div class="progress">
+                                                <span class="skill">Sangat Baik <i class="val"><?= $p_sangatbaik . " %"; ?></i></span>
+                                                <div class="progress-bar-wrap">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_sangatbaik; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="progress">
+                                                <span class="skill">Baik <i class="val"><?= $p_baik . " %"; ?></i></span>
+                                                <div class="progress-bar-wrap">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_baik; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="progress">
+                                                <span class="skill">Cukup <i class="val"><?= $p_cukup . " %"; ?></i></span>
+                                                <div class="progress-bar-wrap">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_cukup; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="progress">
+                                                <span class="skill">Kurang <i class="val"><?= $p_kurang . " %"; ?></i></span>
+                                                <div class="progress-bar-wrap">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_kurang; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </section>
+                                <!-- End Skills Section -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr size="30" style="background-color: white; margin-top: 3%; margin-bottom: 3%;">
+
+                <div class="section-title" id="contact" style="font-weight: bold; color: black; margin-top: 3%;">
                     <h2>Kontak Kami</h2>
                     <p>Informasi Kontak Kecamatan Banjarmasin Utara</p>
                 </div>

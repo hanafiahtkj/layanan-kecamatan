@@ -122,6 +122,13 @@
                 $_SESSION['nama_user']  = $nama_user;
                 $_SESSION['role']       = $role;
 
+
+                // log
+                $ket  = "Login User " . $nama_user . " -> " . $role;
+                $user = $nama_user . " -> " . $role;
+                $koneksi->query("INSERT INTO log VALUES(null, '$ket', CURRENT_TIME(), '$user', null, null)");
+                // --Log
+
                 if ($role == "Admin") {
                     echo "
                     <script type='text/javascript'>
