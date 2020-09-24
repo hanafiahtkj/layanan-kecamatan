@@ -116,6 +116,11 @@ include_once "config/config.php";
                 $_SESSION['id_masyarakat'] = $id_masyarakat;
                 $_SESSION['nama']          = $nama;
 
+                // log
+                $ket  = "Login Masyarakat -> NIK = " . $data['nik'];
+                $koneksi->query("INSERT INTO log VALUES(null, '$ket', CURRENT_TIME(), '$nama', null, null)");
+                // --Log
+
                 echo "
                     <script type='text/javascript'>
                     setTimeout(function () {    

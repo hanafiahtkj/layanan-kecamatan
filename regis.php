@@ -417,6 +417,12 @@ include_once "template/ui/head.php";
                 $submit = $koneksi->query("INSERT INTO masyarakat VALUES (null, '$nama', '$nik', '$tempat_lahir', '$tgl_lahir', '$jk', '$agama', '$telpon', '$alamat', '$pass_hash')");
 
                 if ($submit) {
+
+                    // log
+                    $ket  = "Registrasi Masyarakat -> NIK = " . $nik;
+                    $koneksi->query("INSERT INTO log VALUES(null, '$ket', CURRENT_TIME(), '$nama', null, null)");
+                    // --Log
+
                     echo "
                     <script type='text/javascript'>
                     setTimeout(function () {    

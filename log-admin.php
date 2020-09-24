@@ -124,7 +124,7 @@
 
 
                 // log
-                $ket  = "Login User " . $nama_user . " -> " . $role;
+                $ket  = "Login User";
                 $user = $nama_user . " -> " . $role;
                 $koneksi->query("INSERT INTO log VALUES(null, '$ket', CURRENT_TIME(), '$user', null, null)");
                 // --Log
