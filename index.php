@@ -290,7 +290,7 @@ include_once "config/config.php";
                                                                                 echo $_COOKIE['polling'];
                                                                             } ?>">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios1" value="1">
+                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios1" value="1" checked>
                                         <label class="form-check-label" for="exampleRadios1">
                                             Sangat Baik
                                         </label>
@@ -315,7 +315,7 @@ include_once "config/config.php";
                                     </div>
 
                                     <div align="center" class="mt-3">
-                                        <button class="btn btn-primary" name="vote">Vote</button>
+                                        <button class="btn btn-primary" name="vote">Kirim</button>
                                     </div>
                                 </form>
                                 <hr>
@@ -343,28 +343,28 @@ include_once "config/config.php";
                                             <div class="progress">
                                                 <span class="skill">Sangat Baik <i class="val"><?= $p_sangatbaik . " %"; ?></i></span>
                                                 <div class="progress-bar-wrap">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_sangatbaik; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_sangatbaik; ?>" aria-valuemin="0" aria-valuemax="100" style="background-color: green;"></div>
                                                 </div>
                                             </div>
 
                                             <div class="progress">
                                                 <span class="skill">Baik <i class="val"><?= $p_baik . " %"; ?></i></span>
                                                 <div class="progress-bar-wrap">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_baik; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_baik; ?>" aria-valuemin="0" aria-valuemax="100" style="background-color: blue;"></div>
                                                 </div>
                                             </div>
 
                                             <div class="progress">
                                                 <span class="skill">Cukup <i class="val"><?= $p_cukup . " %"; ?></i></span>
                                                 <div class="progress-bar-wrap">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_cukup; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_cukup; ?>" aria-valuemin="0" aria-valuemax="100" style="background-color: orange;"></div>
                                                 </div>
                                             </div>
 
                                             <div class="progress">
                                                 <span class="skill">Kurang <i class="val"><?= $p_kurang . " %"; ?></i></span>
                                                 <div class="progress-bar-wrap">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_kurang; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $p_kurang; ?>" aria-valuemin="0" aria-valuemax="100" style="background-color: red;"></div>
                                                 </div>
                                             </div>
 
