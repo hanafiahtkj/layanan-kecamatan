@@ -229,10 +229,10 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                                 <?php } ?>
                                             </label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input val_file" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
-                                                                                                                        echo "required";
-                                                                                                                    } else {
-                                                                                                                    } ?>>
+                                                <input type="file" class="custom-file-input val_file req_file" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
+                                                                                                                                    echo "required";
+                                                                                                                                } else {
+                                                                                                                                } ?>>
                                                 <input type="hidden" name="id_lampiran[]" value="<?= $lampiran['id_lampiran'] ?>">
                                                 <label class="custom-file-label">Choose File</label>
                                             </div>
@@ -284,11 +284,11 @@ $nourut       = $ceknoiumk['nomor_urut'];
             // FILE CENTANG UNTUK MENGABAIKAN JIKA FILE TIDAK DI UPLOAD
             $('.cekfile').click(function() {
                 if ($(this).is(':checked')) {
-                    $('.val_file').attr('disabled', true);
-                    $('.val_file').removeAttr('required');
+                    $('.req_file').attr('disabled', true);
+                    $('.req_file').removeAttr('required');
                 } else {
-                    $('.val_file').removeAttr('disabled');
-                    $('.val_file').attr('required', true);
+                    $('.req_file').removeAttr('disabled');
+                    $('.req_file').attr('required', true);
                 }
             });
 
@@ -348,9 +348,6 @@ $nourut       = $ceknoiumk['nomor_urut'];
     <?php
     if (isset($_POST['submit'])) {
 
-        var_dump($_POST['submit']);
-        die();
-
         // ambil dasar hukum IUMK
         $dataperaturan = $koneksi->query("SELECT * FROM peraturan_iumk")->fetch_array();
         // ambil data camat aktif
@@ -378,8 +375,6 @@ $nourut       = $ceknoiumk['nomor_urut'];
         $jabatan            = $camat['jabatan'];
         $status             = "Belum Diproses";
 
-        $event_fotopemohon = "";
-
         // UPLOAD FOTO PEMOHON
         $fotopemohon      = $_FILES['foto_pemohon']['name'];
         $x_fotopemohon    = explode('.', $fotopemohon);
@@ -389,8 +384,6 @@ $nourut       = $ceknoiumk['nomor_urut'];
         $dir_fotopemohon  = '../../assets/iumk_foto_pemohon/';
 
         move_uploaded_file($tmp_fotopemohon, $dir_fotopemohon . $nama_fotopemohon);
-        $event_fotopemohon .= "Sukses Upload";
-
 
         $submit = $koneksi->query("INSERT INTO iumk VALUES (
             null, 
@@ -426,17 +419,16 @@ $nourut       = $ceknoiumk['nomor_urut'];
             $ambilidiumk = $koneksi->query("SELECT * FROM iumk ORDER BY id_iumk DESC LIMIT 1")->fetch_array();
             $idiumk      = $ambilidiumk['id_iumk'];
 
+            // UPLOAD FILE LAMPIRAN
+            $gambar_arr    = array();
+            $idl           = $_POST['id_lampiran'];
+            $hitungidl     = count($idl);
 
-            if (!empty($event_fotopemohon)) {
+            $event = "";
 
-                // UPLOAD FILE LAMPIRAN
-                $gambar_arr    = array();
-                $idl           = $_POST['id_lampiran'];
-                $hitungidl     = count($idl);
+            for ($i = 0; $i < $hitungidl; $i++) {
 
-                $event = "";
-
-                for ($i = 0; $i < $hitungidl; $i++) {
+                if (!empty($_FILES['file']['name'][$i])) {
 
                     $file           = $_FILES['file']['name'][$i];
                     $nama_lamp      = explode('.', $file);
@@ -453,10 +445,14 @@ $nourut       = $ceknoiumk['nomor_urut'];
                     $koneksi->query("INSERT INTO lampiran_iumk_file VALUES (null, '$idl[$i]', '$idiumk', '$nama_lampiran')");
                     $gambar_arr[] = $target_file;
                     $event .= "upload berhasil";
+                } else {
+                    $koneksi->query("INSERT INTO lampiran_iumk_file VALUES (null, '$idl[$i]', '$idiumk', 'Belum Ada Lampiran')");
+                    $event .= "upload berhasil";
                 }
+            }
 
-                if (!empty($event)) {
-                    echo "
+            if (!empty($event)) {
+                echo "
                         <script type='text/javascript'>
                         setTimeout(function () {    
                             toastr.success('Permohonan IUMK Berhasil Dibuat');     
@@ -465,7 +461,6 @@ $nourut       = $ceknoiumk['nomor_urut'];
                             window.location.replace('" . base_url('page/iumk') . "');
                         } ,1500);   
                         </script>";
-                }
             }
         }
     }

@@ -149,7 +149,7 @@ $po  = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_p
                                 <embed src="<?= base_url('assets/sktu/' . $file['file']) ?>#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" width="100%" height="600px" />
 
                             <?php else : ?>
-                                <img class="profile-user-img img-fluid" style="width: auto; height: auto;" src="<?= base_url() ?>/assets/sktu/<?= $file['file'] ?>" alt="File">
+                                <img class="profile-user-img img-fluid" style="width: auto; height: auto;" src="<?= base_url() ?>/assets/sktu/<?= $file['file'] ?>" alt="File Belum Dilampirkan">
                             <?php endif ?>
                         </td>
                     </tr>

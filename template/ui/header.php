@@ -19,7 +19,7 @@
                 $namaArray   = explode('/', $namaHalaman);
                 $jumlah      = count($namaArray);
                 $namaHalaman = $namaArray[$jumlah - 3];
-                if ($namaHalaman != "page") {
+                if ($namaHalaman != "page" and $namaArray[2] != "profil.php" and $namaArray[2] != "edit-profil.php") {
                 ?>
 
                     <li><a href="#pelayanan">Pelayanan</a></li>

@@ -353,26 +353,31 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
             $gambar_arr    = array();
             $idl           = $_POST['id_lampiran'];
             $hitungidl     = count($idl);
-
             $event = "";
 
             for ($i = 0; $i < $hitungidl; $i++) {
 
-                $file          = $_FILES['file']['name'][$i];
-                $nama_lamp     = explode('.', $file);
-                $format_lamp   = end($nama_lamp);
-                $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
-                $allow_sizefile = 1024 * 1024 * 1;
+                if (!empty($_FILES['file']['name'][$i])) {
 
-                // temporari file
-                $tmp_file  = $_FILES['file']['tmp_name'][$i];
+                    $file      = $_FILES['file']['name'][$i];
+                    $nama_lamp     = explode('.', $file);
+                    $format_lamp   = end($nama_lamp);
+                    $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
+                    $allow_sizefile = 1024 * 1024 * 1;
 
-                $targer_dir = '../../assets/sktu/';
-                $target_file = $targer_dir . $nama_lampiran;
+                    // temporari file
+                    $tmp_file  = $_FILES['file']['tmp_name'][$i];
 
-                if (move_uploaded_file($tmp_file, $target_file)) {
-                    $gambar_arr[] = $target_file;
-                    $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', '$nama_lampiran', 'Baru')");
+                    $targer_dir = '../../assets/sktu/';
+                    $target_file = $targer_dir . $nama_lampiran;
+
+                    if (move_uploaded_file($tmp_file, $target_file)) {
+                        $gambar_arr[] = $target_file;
+                        $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', '$nama_lampiran', 'Baru')");
+                        $event .= "upload berhasil";
+                    }
+                } else {
+                    $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', 'Belum Ada Lampiran', 'Baru')");
                     $event .= "upload berhasil";
                 }
             }
