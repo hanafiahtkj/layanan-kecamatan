@@ -302,14 +302,14 @@ include_once "config/config.php";
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios2" value="3">
-                                        <label class="form-check-label" for="exampleRadios2">
+                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios3" value="3">
+                                        <label class="form-check-label" for="exampleRadios3">
                                             Cukup
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios2" value="4">
-                                        <label class="form-check-label" for="exampleRadios2">
+                                        <input class="form-check-input" type="radio" name="polling" id="exampleRadios4" value="4">
+                                        <label class="form-check-label" for="exampleRadios4">
                                             Kurang
                                         </label>
                                     </div>
@@ -333,11 +333,20 @@ include_once "config/config.php";
                                             $cukup      = $polling['cukup'];
                                             $kurang     = $polling['kurang'];
 
-                                            $jumlah       = $sangatbaik + $baik + $cukup + $kurang;
-                                            $p_sangatbaik = round(($sangatbaik / $jumlah) * 100);
-                                            $p_baik       = round(($baik / $jumlah) * 100);
-                                            $p_cukup      = round(($cukup / $jumlah) * 100);
-                                            $p_kurang     = round(($kurang / $jumlah) * 100);
+                                            $jumlah     = $sangatbaik + $baik + $cukup + $kurang;
+
+                                            if ($sangatbaik > 0 || $baik > 0 || $cukup > 0 || $kurang > 0) {
+                                                $p_sangatbaik = round(($sangatbaik / $jumlah) * 100);
+                                                $p_baik       = round(($baik / $jumlah) * 100);
+                                                $p_cukup      = round(($cukup / $jumlah) * 100);
+                                                $p_kurang     = round(($kurang / $jumlah) * 100);
+                                            } else {
+                                                $p_sangatbaik = 0;
+                                                $p_baik       = 0;
+                                                $p_cukup      = 0;
+                                                $p_kurang     = 0;
+                                            }
+
                                             ?>
 
                                             <div class="progress">

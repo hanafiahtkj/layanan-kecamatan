@@ -15,7 +15,7 @@ if (isset($_POST['vote'])) {
     }
 
     setcookie('polling', 'display: none;', time() + 31556926, '/');
-    setcookie('notif', 'Terimakasih telah melakukan vote', time() + 31556926, '/');
+    setcookie('notif', 'Terimakasih atas masukan anda', time() + 31556926, '/');
 
     echo "<meta http-equiv='refresh' content='0; url=" . base_url('') . "'>";
 }
