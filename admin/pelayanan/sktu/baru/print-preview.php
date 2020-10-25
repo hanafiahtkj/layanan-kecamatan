@@ -111,7 +111,7 @@ $row  = $data->fetch_array();
         <tr style="vertical-align: top;">
             <td width="13%">Memberikan</td>
             <td width="3%">:</td>
-            <td style="padding-bottom: 5; font-weight: bold;" colspan="3"><b>SURAT KETERANGAN TEMPAT USAHA</b></td>
+            <td style="padding-bottom: 5; font-weight: bold;" colspan="3"><b>SURAT KETERANGAN TEMPAT USAHA KEPADA :</b></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>
@@ -178,16 +178,14 @@ $row  = $data->fetch_array();
             </td>
         </tr>
     </table>
-
-    <table border="0" style="width: 100%; font-size: 9;">
+    <br>
+    <table border="0" style="width: 100%; font-size: 9;" align="center">
         <tr>
-            <td width="110%"></td>
             <td width="30%" align="right"> Dikeluarkan di</td>
             <td width="2%" align="center">:</td>
             <td width="30%">Banjarmasin</td>
         </tr>
         <tr>
-            <td width="110%"></td>
             <td width="30%" align="right">Pada Tanggal</td>
             <td width="2%" align="center">:</td>
             <td width="30%">
@@ -195,7 +193,6 @@ $row  = $data->fetch_array();
             </td>
         </tr>
         <tr style="text-align: center;">
-            <td width="110%"></td>
             <td colspan="3">
                 CAMAT,
                 <br><br><br><br><br>

@@ -110,7 +110,7 @@ $row  = $data->fetch_array();
         <tr style="vertical-align: top;">
             <td width="13%">Memberikan</td>
             <td width="3%">:</td>
-            <td style="padding-bottom: 5; font-weight: bold;" colspan="3"><b>SURAT KETERANGAN TEMPAT USAHA</b></td>
+            <td style="padding-bottom: 5; font-weight: bold;" colspan="3"><b>SURAT KETERANGAN TEMPAT USAHA KEPADA :</b></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>
