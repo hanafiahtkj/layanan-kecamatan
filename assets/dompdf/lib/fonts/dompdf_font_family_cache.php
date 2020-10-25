@@ -86,4 +86,12 @@
   'times new roman' => array(
     'bold' => $fontDir . '\bf11512877ef2223afd06e89358ef2fc',
   ),
+  'times new roman\", times, serif' => array(
+    'normal' => $fontDir . '\71fb9f3a0b77c6271b207e4f6a2da651',
+    'bold' => $fontDir . '\0501fbbd42c18005ace555d04a223836',
+  ),
+  'dejavusans' => array(
+    'normal' => $fontDir . '\80ebf7fce73047bc57e2a4a78c962806',
+    'bold' => $fontDir . '\27298d5fae828f1f8b085b27231f88fe',
+  ),
 ) ?>

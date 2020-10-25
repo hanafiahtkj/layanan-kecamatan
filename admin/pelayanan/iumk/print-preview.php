@@ -30,22 +30,26 @@ $row  = $data->fetch_array();
             margin-top: 12px;
         }
 
-        @font-face {
-            font-family: 'font';
-            font-style: normal;
-            font-weight: normal;
-            src: url(../../../assets/dompdf/lib/fonts/Times-Roman.afm);
+        .tinggi {
+            line-height: 1;
         }
 
-        body {
-            font-family: 'font';
+        @font-face {
+            font-family: "Times New Roman", Times, serif;
+            font-style: normal;
+            font-weight: bold;
+            src: url(../../../assets/dompdf/lib/fonts/times-new-roman.ttf) format('truetype');
         }
+
+        /* body {
+            font-family: "Times New Roman", Times, serif;
+        } */
     </style>
 </head>
 
 <body>
 
-    <img src="../../../assets/img/logo-bjm.png" style="position: absolute; width: 75px; height: 95px;">
+    <img src="../../../assets/img/logo-bjm.png" style="position: absolute; width: 75px; height: 90px;">
 
     <table style="width: 100%;" border="0" cellspacing="2">
         <tr>
@@ -71,126 +75,134 @@ $row  = $data->fetch_array();
             <b><u>SURAT IZIN USAHA MIKRO DAN KECIL</u> <br>
                 Nomor : <?= $row['nomor_iumk']; ?></b>
         </label>
-
-        <span style="text-align: justify; font-size: 11;">
-            <?= $row['peraturan']; ?>
-        </span>
-
-        <span>
-            <table border="0" width="100%" style="text-align: left; font-size: 11; margin-left: 5px;" cellpadding=" 1">
-                <tr>
-                    <td width="40%">Nama</td>
-                    <td width="3%">:</td>
-                    <td><?= $row['nama_pemohon']; ?></td>
-                </tr>
-                <tr>
-                    <td width="40%">Nomor KTP</td>
-                    <td width="3%">:</td>
-                    <td><?= $row['nomor_ktp']; ?></td>
-                </tr>
-                <tr>
-                    <td width="40%" valign="top">Alamat</td>
-                    <td width="3%" valign="top">:</td>
-                    <td><?= $row['alamat']; ?></td>
-                </tr>
-                <tr>
-                    <td width="40%">Nomor Telepon</td>
-                    <td width="3%">:</td>
-                    <td><?= $row['no_telp']; ?></td>
-                </tr>
-            </table>
-        </span>
-
     </p>
 
-    <div style="text-align: justify; font-size: 11; word-spacing: 5px;">
-        <p>
-            Untuk mendirikan Usaha Mikro dan Kecil yang mencakup perizinan dasar yang berupa : <br>
-            menempati lokasi/domisili, melakukan kegiatan usaha baik produksi maupun penjualan barang dan jasa, dengan identitas :
+    <div class="tinggi">
+
+        <div style="margin-bottom: -14px;">Berdasarkan</div>
+        <div style="text-align: justify; font-size: 11; margin-left: -20px;">
+            <?= $row['peraturan']; ?>
+        </div>
+
+        <div style="margin-bottom: -14px;">Bersama ini memberikan izin kepada</div>
+        <p style="text-align: center;">
+            <span>
+                <table border=" 0" width="100%" style="text-align: left; font-size: 11; margin-left: 5px;" cellpadding=" 1">
+                    <tr>
+                        <td width="40%">Nama</td>
+                        <td width="3%">:</td>
+                        <td><?= $row['nama_pemohon']; ?></td>
+                    </tr>
+                    <tr>
+                        <td width="40%">Nomor KTP</td>
+                        <td width="3%">:</td>
+                        <td><?= $row['nomor_ktp']; ?></td>
+                    </tr>
+                    <tr>
+                        <td width="40%" valign="top">Alamat</td>
+                        <td width="3%" valign="top">:</td>
+                        <td><?= $row['alamat']; ?></td>
+                    </tr>
+                    <tr>
+                        <td width="40%">Nomor Telepon</td>
+                        <td width="3%">:</td>
+                        <td><?= $row['no_telp']; ?></td>
+                    </tr>
+                </table>
+            </span>
+
         </p>
+
+        <div style="text-align: justify; font-size: 11; word-spacing: 5px; margin-top: -15px;">
+            <p>
+                Untuk mendirikan Usaha Mikro dan Kecil yang mencakup perizinan dasar yang berupa : <br>
+                menempati lokasi/domisili, melakukan kegiatan usaha baik produksi maupun penjualan barang dan jasa, dengan identitas :
+            </p>
+        </div>
+
+
+        <table border=" 0" width="100%" style="text-align: left; font-size: 11; margin-left: 5px;" cellpadding=" 1">
+            <tr>
+                <td width="40%">Nama Perusahaan</td>
+                <td width="3%">:</td>
+                <td><?= $row['nama_perusahaan']; ?></td>
+            </tr>
+            <tr>
+                <td width="40%">Bentuk Perusahaan</td>
+                <td width="3%">:</td>
+                <td><?= $row['bentuk_perusahaan']; ?></td>
+            </tr>
+            <tr>
+                <td width="40%">NPWP</td>
+                <td width="3%">:</td>
+                <td><?= $row['npwp']; ?></td>
+            </tr>
+            <tr>
+                <td width="40%">Kegiatan Usaha</td>
+                <td width="3%">:</td>
+                <td><?= $row['kegiatan_usaha']; ?></td>
+            </tr>
+            <tr>
+                <td width="40%">Sarana Usaha yang Digunakan</td>
+                <td width="3%">:</td>
+                <td><?= $row['sarana_usaha']; ?></td>
+            </tr>
+            <tr>
+                <td width="40%" valign="top">Alamat Usaha</td>
+                <td width="3%" valign="top">:</td>
+                <td><?= $row['alamat_usaha']; ?></td>
+            </tr>
+            <tr>
+                <td width="40%" valign="top">Jumlah Modal Usaha</td>
+                <td width="3%" valign="top">:</td>
+                <td>
+                    <?=
+                        "Rp. " . number_format($row['jumlah_modal_usaha'], '0', ',', '.') .
+                            " ( " . strtoupper(terbilang($row['jumlah_modal_usaha']) . " RUPIAH )");
+                    ?>
+                    <br><br>
+                </td>
+            </tr>
+            <tr>
+                <td width="40%">Nomor Pendaftaran</td>
+                <td width="3%">:</td>
+                <td><u><?= $row['nomor_pendaftaran']; ?></u></td>
+            </tr>
+        </table>
+
+        <table border="0" style="width: 100%; font-size: 11; margin-top: 7%;">
+            <tr>
+                <td width="60%">
+                    <?php if ($f == 0) : ?>
+                        <div style="border: 1px solid #000; margin-left: 68%; text-align: center; width: 3cm; height: 3cm; vertical-align: bottom;">
+                            <br><br>
+                            Foto 4x6
+                        </div>
+                    <?php else : ?>
+                        <img src="../../../assets/iumk_foto_pemohon/<?= $row['foto_pemohon']; ?>" style="width: 4cm; height: 6cm; margin-left: 60%;">
+                    <?php endif ?>
+
+                </td>
+                <td align="center">
+                    Ditetapkan di Banjarmasin <br>
+                    Pada Tanggal,
+                    <?php if ($row['tgl_selesai'] == "0000-00-00" or is_null($row['tgl_selesai'])) {
+                        echo tgl_indo(date('Y-m-d'));
+                    } else {
+                        echo tgl_indo($row['tgl_selesai']);
+                    }
+                    ?>
+                    <br>
+                    CAMAT,
+                    <br><br><br><br><br><br>
+                    <b><?= $row['nama_camat']; ?></b> <br>
+                    <?= $row['jabatan']; ?> <br>
+                    <?= "NIP. " . $row['nip']; ?>
+                </td>
+            </tr>
+        </table>
+
     </div>
-
-
-    <table border=" 0" width="100%" style="text-align: left; font-size: 11; margin-left: 5px;" cellpadding=" 1">
-        <tr>
-            <td width="40%">Nama Perusahaan</td>
-            <td width="3%">:</td>
-            <td><?= $row['nama_perusahaan']; ?></td>
-        </tr>
-        <tr>
-            <td width="40%">Bentuk Perusahaan</td>
-            <td width="3%">:</td>
-            <td><?= $row['bentuk_perusahaan']; ?></td>
-        </tr>
-        <tr>
-            <td width="40%">NPWP</td>
-            <td width="3%">:</td>
-            <td><?= $row['npwp']; ?></td>
-        </tr>
-        <tr>
-            <td width="40%">Kegiatan Usaha</td>
-            <td width="3%">:</td>
-            <td><?= $row['kegiatan_usaha']; ?></td>
-        </tr>
-        <tr>
-            <td width="40%">Sarana Usaha yang Digunakan</td>
-            <td width="3%">:</td>
-            <td><?= $row['sarana_usaha']; ?></td>
-        </tr>
-        <tr>
-            <td width="40%" valign="top">Alamat Usaha</td>
-            <td width="3%" valign="top">:</td>
-            <td><?= $row['alamat_usaha']; ?></td>
-        </tr>
-        <tr>
-            <td width="40%" valign="top">Jumlah Modal Usaha</td>
-            <td width="3%" valign="top">:</td>
-            <td>
-                <?=
-                    "Rp. " . number_format($row['jumlah_modal_usaha'], '0', ',', '.') .
-                        " ( " . strtoupper(terbilang($row['jumlah_modal_usaha']) . " RUPIAH )");
-                ?>
-                <br><br><br>
-            </td>
-        </tr>
-        <tr>
-            <td width="40%">Nomor Pendaftaran</td>
-            <td width="3%">:</td>
-            <td><u><?= $row['nomor_pendaftaran']; ?></u></td>
-        </tr>
-    </table>
-
-    <table border="0" style="width: 100%; font-size: 11; margin-top: 7%;">
-        <tr>
-            <td width="60%">
-                <?php if ($f == 0) : ?>
-                    <div style="border: 1px solid #000; margin-left: 68%; text-align: center; width: 3cm; height: 3cm; vertical-align: bottom;">
-                        <br><br>
-                        Foto 4x6
-                    </div>
-                <?php else : ?>
-                    <img src="../../../assets/iumk_foto_pemohon/<?= $row['foto_pemohon']; ?>" style="width: 4cm; height: 6cm; margin-left: 60%;">
-                <?php endif ?>
-
-            </td>
-            <td align="center">
-                Ditetapkan di Banjarmasin <br>
-                Pada Tanggal,
-                <?php if ($row['tgl_selesai'] == "0000-00-00" or is_null($row['tgl_selesai'])) {
-                    echo tgl_indo(date('Y-m-d'));
-                } else {
-                    echo tgl_indo($row['tgl_selesai']);
-                }
-                ?>
-                <br>
-                CAMAT,
-                <br><br><br><br><br><br>
-                <b><?= $row['nama_camat']; ?></b> <br>
-                <?= $row['jabatan']; ?> <br>
-                <?= "NIP. " . $row['nip']; ?>
-            </td>
-        </tr>
-    </table>
 
 
 </body>
