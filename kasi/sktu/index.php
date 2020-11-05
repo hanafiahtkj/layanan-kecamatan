@@ -124,7 +124,7 @@ include_once "../../template/head.php";
                                                                 <td><?= $row['status'] ?></td>
                                                                 <td width="15%">
                                                                     <?php if ($row['status'] == "Selesai") : ?>
-                                                                        <a href="baru/print-preview?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="blank"><i class="fa fa-print"></i></a>
+                                                                        <a href="<?= base_url() ?>/preview/sktu-baru?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="blank"><i class="fa fa-print"></i></a>
                                                                     <?php endif ?>
                                                                     <a href="baru/detail?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-info btn-sm" title="Cek Berkas"><i class="fa fa-eye"> Detail</i></a>
                                                                 </td>
@@ -195,7 +195,7 @@ include_once "../../template/head.php";
                                                                 <td><?= $row['status'] ?></td>
                                                                 <td width="15%">
                                                                     <?php if ($row['status'] == "Selesai") : ?>
-                                                                        <a href="perpanjangan/print-preview?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="blank"><i class="fa fa-print"></i></a>
+                                                                        <a href="<?= base_url() ?>/preview/sktu-ppj?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="blank"><i class="fa fa-print"></i></a>
                                                                     <?php endif ?>
                                                                     <a href="perpanjangan/detail?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-info btn-sm" title="Cek Berkas"><i class="fa fa-eye"> Detail</i></a>
 

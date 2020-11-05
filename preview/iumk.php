@@ -1,9 +1,9 @@
 <?php
 ob_start();
-include_once "../../../config/config.php";
-include_once "../../../config/auth-admin.php";
-include_once "../../../config/bulan.php";
-include_once "../../../config/terbilang.php";
+include_once "../config/config.php";
+include_once "../config/auth-admin.php";
+include_once "../config/bulan.php";
+include_once "../config/terbilang.php";
 
 $id   = encryptor('decrypt', $_GET['id']);
 $f    = $_GET['f'];
@@ -20,22 +20,22 @@ $row  = $data->fetch_array();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Surat Izin Usaha Mikro dan Kecil</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="../../../assets/img/logo-bjm.png">
+    <link rel="shortcut icon" href="../assets/img/logo-bjm.png">
 
     <style>
         .line-title {
             border: 0;
             border-style: inset;
             border-top: 1px solid #000;
-            margin-top: 12px;
+            margin-top: 15px;
         }
 
         @font-face {
             font-family: 'font';
             font-style: normal;
             font-weight: normal;
-            /* src: url(../../../assets/dompdf/lib/fonts/times-new-roman.ttf) format('truetype'); */
-            src: url(../../../assets/dompdf/lib/fonts/times-new-roman.ttf) format('truetype');
+            /* src: url(../assets/dompdf/lib/fonts/times-new-roman.ttf) format('truetype'); */
+            src: url(../assets/dompdf/lib/fonts/times-new-roman.ttf) format('truetype');
         }
 
         body {
@@ -43,31 +43,66 @@ $row  = $data->fetch_array();
             line-height: 1.0;
             font-size: 10;
         }
+
+        .bg-head {
+            background-image: url('../assets/bg-cover/iumk.png');
+            background-size: 100% 100%;
+            margin-top: -45px;
+            margin-left: -45px;
+            margin-right: -45px;
+            height: 120px;
+        }
+
+        .kop {
+            padding: 20px;
+            padding-left: 35px;
+            padding-right: 35px;
+            line-height: 24px;
+
+        }
+
+        .bg-foot {
+            background-image: url('../assets/bg-cover/iumk.png');
+            background-size: 100% 100%;
+            bottom: -45px;
+            height: 100px;
+            /* line-height: 50px; */
+            position: fixed;
+            margin-left: -45px;
+            margin-right: -45px;
+        }
     </style>
 </head>
 
 <body>
 
-    <img src="../../../assets/img/logo-bjm.png" style="position: absolute; width: 75px; height: 90px;">
+    <div class="bg-head">
+        <div class="kop">
+            <img src="../assets/img/logo-bjm.png" style="position: absolute; width: 70px; height: 95px; margin-top: -7px;">
 
-    <table style="width: 100%;" border="0" cellspacing="2">
-        <tr>
-            <td align="center">
-                <span style="font-weight: bold; font-size: 24px; letter-spacing: 1px;">
-                    KECAMATAN BANJARMASIN UTARA <br>
-                </span>
-                <span style="line-height: 1.2;">
-                    Jalan HKSN RT. 10 Kelurahan Alalak Utara Kecamatan Banjarmasin Utara <br>
-                    Kota Banjarmasin 70125, Telpon (0511) 3306828 <br>
-                    Email : <u style="color: blue;">kecamatan.bu@gmail.com</u>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Website : utara.banjarmasinkota.go.id
-                </span>
-            </td>
-        </tr>
-    </table>
+            <table style="width: 100%;" border="0" cellspacing="2">
+                <tr>
+                    <td align="center">
+                        <span style="font-weight: bold; font-size: 15; text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;">
+                            PEMERINTAH KOTA BANJARMASIN <br>
+                        </span>
+                        <span style="font-weight: bold; font-size: 20;">
+                            KECAMATAN BANJARMASIN UTARA
+                        </span>
+                        <!-- <span style="line-height: 1.2;">
+                        Jalan HKSN RT. 10 Kelurahan Alalak Utara Kecamatan Banjarmasin Utara <br>
+                        Kota Banjarmasin 70125, Telpon (0511) 3306828 <br>
+                        Email : <u style="color: blue;">kecamatan.bu@gmail.com</u>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Website : utara.banjarmasinkota.go.id
+                    </span> -->
+                    </td>
+                </tr>
+            </table>
 
-    <hr class="line-title">
+        </div>
+        <!-- <hr class="line-title"> -->
+    </div>
 
     <p style="text-align: center; margin-top: 2%;">
         <label>
@@ -88,7 +123,7 @@ $row  = $data->fetch_array();
                 <tr>
                     <td width="40%">Nama</td>
                     <td width="3%">:</td>
-                    <td><?= $row['nama_pemohon']; ?></td>
+                    <td><?= strtoupper($row['nama_pemohon']); ?></td>
                 </tr>
                 <tr>
                     <td width="40%">Nomor KTP</td>
@@ -98,7 +133,7 @@ $row  = $data->fetch_array();
                 <tr>
                     <td width="40%" valign="top">Alamat</td>
                     <td width="3%" valign="top">:</td>
-                    <td><?= $row['alamat']; ?></td>
+                    <td><?= strtoupper($row['alamat']); ?></td>
                 </tr>
                 <tr>
                     <td width="40%">Nomor Telepon</td>
@@ -122,32 +157,32 @@ $row  = $data->fetch_array();
         <tr>
             <td width="40%">Nama Perusahaan</td>
             <td width="3%">:</td>
-            <td><?= $row['nama_perusahaan']; ?></td>
+            <td><?= strtoupper($row['nama_perusahaan']); ?></td>
         </tr>
         <tr>
             <td width="40%">Bentuk Perusahaan</td>
             <td width="3%">:</td>
-            <td><?= $row['bentuk_perusahaan']; ?></td>
+            <td><?= strtoupper($row['bentuk_perusahaan']); ?></td>
         </tr>
         <tr>
             <td width="40%">NPWP</td>
             <td width="3%">:</td>
-            <td><?= $row['npwp']; ?></td>
+            <td><?= strtoupper($row['npwp']); ?></td>
         </tr>
         <tr>
             <td width="40%">Kegiatan Usaha</td>
             <td width="3%">:</td>
-            <td><?= $row['kegiatan_usaha']; ?></td>
+            <td><?= strtoupper($row['kegiatan_usaha']); ?></td>
         </tr>
         <tr>
             <td width="40%">Sarana Usaha yang Digunakan</td>
             <td width="3%">:</td>
-            <td><?= $row['sarana_usaha']; ?></td>
+            <td><?= strtoupper($row['sarana_usaha']); ?></td>
         </tr>
         <tr>
             <td width="40%" valign="top">Alamat Usaha</td>
             <td width="3%" valign="top">:</td>
-            <td><?= $row['alamat_usaha']; ?></td>
+            <td><?= strtoupper($row['alamat_usaha']); ?></td>
         </tr>
         <tr>
             <td width="40%" valign="top">Jumlah Modal Usaha</td>
@@ -176,7 +211,7 @@ $row  = $data->fetch_array();
                         Foto 4x6
                     </div>
                 <?php else : ?>
-                    <img src="../../../assets/iumk_foto_pemohon/<?= $row['foto_pemohon']; ?>" style="width: 4cm; height: 6cm; margin-left: 60%;">
+                    <img src="../assets/iumk_foto_pemohon/<?= $row['foto_pemohon']; ?>" style="width: 4cm; height: 6cm; margin-left: 60%;">
                 <?php endif ?>
 
             </td>
@@ -199,6 +234,7 @@ $row  = $data->fetch_array();
         </tr>
     </table>
 
+    <div class="bg-foot"></div>
 </body>
 
 </html>
@@ -208,7 +244,7 @@ $html = ob_get_clean();
 
 use Dompdf\Dompdf;
 
-require_once "../../../assets/dompdf/autoload.inc.php";
+require_once "../assets/dompdf/autoload.inc.php";
 $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
 $dompdf->setPaper('Legal', 'Portrait');

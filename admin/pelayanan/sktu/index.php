@@ -126,7 +126,7 @@ include_once "../../../template/head.php";
                                                                 <td><?= $po['posisi'] ?></td>
                                                                 <td><?= $row['status'] ?></td>
                                                                 <td width="15%">
-                                                                    <a href="baru/print-preview?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="_blank"><i class="fa fa-print"></i></a>
+                                                                    <a href="<?= base_url() ?>/preview/sktu-baru?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="_blank"><i class="fa fa-print"></i></a>
                                                                     <a href="baru/detail?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-info btn-sm" title="Detail"><i class="fa fa-eye"></i></a>
                                                                     <a href="baru/edit?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
                                                                     <a href="baru/hapus?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-danger btn-sm alert-hapus" data-id="<?= $row['nama_pemohon'] ?>" title="Hapus"><i class="fa fa-trash"></i></a>
@@ -199,7 +199,7 @@ include_once "../../../template/head.php";
                                                                 <td><?= $po['posisi'] ?></td>
                                                                 <td><?= $row['status'] ?></td>
                                                                 <td width="15%">
-                                                                    <a href="perpanjangan/print-preview?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="_blank"><i class="fa fa-print"></i></a>
+                                                                    <a href="<?= base_url() ?>/preview/sktu-ppj?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="_blank"><i class="fa fa-print"></i></a>
                                                                     <a href="perpanjangan/detail?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-info btn-sm" title="Detail"><i class="fa fa-eye"></i></a>
                                                                     <a href="perpanjangan/edit?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
                                                                     <a href="perpanjangan/hapus?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-danger btn-sm alert-hapus" data-id="<?= $row['nama_pemohon'] ?>" title="Hapus"><i class="fa fa-trash"></i></a>

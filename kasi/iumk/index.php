@@ -111,8 +111,8 @@ include_once "../../template/head.php";
                                                             <?php if ($row['id_posisi'] == 4) : ?>
                                                                 <button class="btn bg-gradient-primary btn-sm dropdown-toggle" data-toggle="dropdown" title="Print"><i class="fa fa-print"></i></button>
                                                                 <div class="dropdown-menu">
-                                                                    <a href="print-preview?id=<?= encryptor('encrypt', $row['id_iumk']); ?>&f=1" class="dropdown-item" target="blank">Print Dengan Foto</a>
-                                                                    <a href="print-preview?id=<?= encryptor('encrypt', $row['id_iumk']); ?>&f=0" class="dropdown-item" target="blank">Print Tanpa Foto</a>
+                                                                    <a href="<?= base_url() ?>/preview/iumk?id=<?= encryptor('encrypt', $row['id_iumk']); ?>&f=1" class="dropdown-item" target="blank">Print Dengan Foto</a>
+                                                                    <a href="<?= base_url() ?>/preview/iumk?id=<?= encryptor('encrypt', $row['id_iumk']); ?>&f=0" class="dropdown-item" target="blank">Print Tanpa Foto</a>
                                                                 </div>
                                                             <?php endif ?>
                                                             <a href="detail?id=<?= encryptor('encrypt', $row['id_iumk']); ?>" class="btn bg-gradient-info btn-sm" title="Detail"><i class="fa fa-eye"></i></a>

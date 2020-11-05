@@ -1,9 +1,9 @@
 <?php
 ob_start();
-include_once "../../../config/config.php";
-include_once "../../../config/auth-kasi.php";
-include_once "../../../config/bulan.php";
-include_once "../../../config/terbilang.php";
+include_once "../config/config.php";
+include_once "../config/auth-admin.php";
+include_once "../config/bulan.php";
+include_once "../config/terbilang.php";
 
 $id   = encryptor('decrypt', $_GET['id']);
 $data = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'");
@@ -19,52 +19,82 @@ $row  = $data->fetch_array();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Surat Keterangan Tempat Usaha</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="../../../assets/img/logo-bjm.png">
+    <link rel="shortcut icon" href="../assets/img/logo-bjm.png">
 
 
     <style type="text/css">
-        .kop {
-            text-align: center;
-        }
-
         @font-face {
             font-family: 'font';
             font-style: normal;
             font-weight: normal;
-            src: url(../../../assets/dompdf/lib/fonts/Times-Roman.afm);
+            src: url(../assets/dompdf/lib/fonts/Times-Roman.afm);
         }
 
         body {
             font-family: 'font';
+        }
+
+        .bg-head {
+            background-image: url('../assets/bg-cover/sktu-2.png');
+            background-size: 100% 100%;
+            margin-top: -45px;
+            margin-left: -45px;
+            margin-right: -45px;
+            height: 120px;
+        }
+
+        .kop {
+            padding: 8px;
+            padding-left: 35px;
+            padding-right: 35px;
+            line-height: 22px;
+            font-weight: bold;
+
+        }
+
+        .bg-foot {
+            background-image: url('../assets/bg-cover/sktu-2.png');
+            background-size: 100% 100%;
+            bottom: -45px;
+            height: 120px;
+            position: fixed;
+            margin-left: -45px;
+            margin-right: -45px;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="kop">
-        <img src="../../../assets/img/logo-bjm.png" style="width: 90px; height: 125px; margin-bottom: -10px; margin-top: 8px;">
+    <div class="bg-head">
+        <div class="kop">
+            <img src="../assets/img/logo-bjm.png" style="position: absolute; width: 70px; height: 95px; margin-top: 3px;">
 
-        <p style="margin-top: -20px; margin-bottom: -8px;">
-            <label style="font-weight: bold; font-size: 17;">
-                PEMERINTAH KOTA BANJARMASIN <br>
-            </label>
-            <label style="font-weight: bold; font-size: 21; line-height: 23px;">
-                KECAMATAN BANJARMASIN UTARA <br>
-            </label>
-            <label style="line-height: 1.2; font-size: 9;">
-                Jalan HKSN RT. 10 Alalak Utara Banjarmasin 70125<br>
-                <img src="../../../assets/img/phone.png" style="margin-top: 2px; width: 15px; height: 15px;"> (0511) 3306828
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../../../assets/img/mail.png" style="margin-top: 2px; width: 15px; height: 15px;"> kecamatan.bu@gmail.com
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="../../../assets/img/globe.png" style="margin-top: 2px; width: 15px; height: 14px;"> camatutara.banjarmasinkota.info
-            </label>
-        </p>
+            <table style="width: 100%;" border="0" cellspacing="2">
+                <tr>
+                    <td align="center">
+                        <span style="font-size: 15; text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;">
+                            PEMERINTAH KOTA BANJARMASIN <br>
+                        </span>
+                        <span style="font-size: 20;">
+                            KECAMATAN BANJARMASIN UTARA <br>
+                        </span>
+                        <span style="font-size: 9; line-height: 11px;">
+                            Jalan HKSN RT. 10 Kelurahan Alalak Utara Kecamatan Banjarmasin Utara <br>
+                            Kota Banjarmasin 70125, Telpon (0511) 3306828 <br>
+                            Email : kecamatan.bu@gmail.com
+                            &nbsp;&nbsp;&nbsp;
+                            Website : utara.banjarmasinkota.go.id
+                        </span>
+                    </td>
+                </tr>
+            </table>
 
+        </div>
+        <!-- <hr class="line-title"> -->
     </div>
 
-    <p style="text-align: center;">
+    <p style="text-align: center; margin-top: 2%;">
         <label>
             <b style="font-size: 15;"><u>SURAT KETERANGAN TEMPAT USAHA</u></b> <br>
             <b style="font-size: 9;">Nomor : <?= $row['nomor_sktu']; ?></b>
@@ -111,7 +141,7 @@ $row  = $data->fetch_array();
         <tr style="vertical-align: top;">
             <td width="13%">Memberikan</td>
             <td width="3%">:</td>
-            <td style="padding-bottom: 5; font-weight: bold;" colspan="3"><b>SURAT KETERANGAN TEMPAT USAHA</b></td>
+            <td style="padding-bottom: 5; font-weight: bold;" colspan="3"><b>SURAT KETERANGAN TEMPAT USAHA (SKTU) KEPADA :</b></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>
@@ -178,7 +208,7 @@ $row  = $data->fetch_array();
             </td>
         </tr>
     </table>
-
+    <br>
     <table border="0" style="width: 100%; font-size: 9;">
         <tr>
             <td width="110%"></td>
@@ -206,6 +236,7 @@ $row  = $data->fetch_array();
         </tr>
     </table>
 
+    <div class="bg-foot"></div>
 
 </body>
 
@@ -216,7 +247,7 @@ $html = ob_get_clean();
 
 use Dompdf\Dompdf;
 
-require_once "../../../assets/dompdf/autoload.inc.php";
+require_once "../assets/dompdf/autoload.inc.php";
 $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
 // $dompdf->setPaper('legal', 'Portrait');

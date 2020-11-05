@@ -94,4 +94,7 @@
     'normal' => $fontDir . '\80ebf7fce73047bc57e2a4a78c962806',
     'bold' => $fontDir . '\27298d5fae828f1f8b085b27231f88fe',
   ),
+  'font' => array(
+    'normal' => $fontDir . '\0501fbbd42c18005ace555d04a223836',
+  ),
 ) ?>
