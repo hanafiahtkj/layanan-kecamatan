@@ -19,7 +19,7 @@ if (isset($_POST['verif'])) {
         $ceknosktu  = $koneksi->query("SELECT * FROM nomor_urut_sktu")->fetch_array();
         $nourut     = $ceknosktu['nomor_urut'];
         $b_romawi   = $bulan_romawi[date('m')];
-        $nosktubaru = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
+        $nosktubaru = "517/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
 
         $submit = $koneksi->query("UPDATE sktu_baru SET nomor_sktu = '$nosktubaru', masa_berlaku_awal = '$masa_berlaku_awal', masa_berlaku_akhir = '$masa_berlaku_akhir', kelengkapan = '$kelengkapan', keterangan = '$keterangan', tgl_selesai = '$tgl_selesai', id_posisi = '$posisi' WHERE id_sktu = '$id_sktu'");
     } else {

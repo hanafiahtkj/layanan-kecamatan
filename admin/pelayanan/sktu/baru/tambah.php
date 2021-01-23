@@ -401,7 +401,7 @@ include_once "../../../../template/head.php";
             $ceknosktu  = $koneksi->query("SELECT * FROM nomor_urut_sktu")->fetch_array();
             $nourut     = $ceknosktu['nomor_urut'];
             $b_romawi   = $bulan_romawi[date('m')];
-            $nomor_sktu = "513/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
+            $nomor_sktu = "517/" . sprintf('%03s', $nourut) . "/SKTU-" . $b_romawi . "/CAM-BU/" . date('Y');
 
             $kelengkapan        = "Lengkap";
             $masa_berlaku_awal  = date('Y-m-d');

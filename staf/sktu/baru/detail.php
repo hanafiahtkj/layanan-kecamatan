@@ -58,7 +58,7 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                                     <h3 class="card-title">Form Detail Data</h3>
                                     <div class="card-tools">
                                         <?php if ($row['id_posisi'] == 4 and $row['status'] == 'Dalam Proses') : ?>
-                                            <a href="print-preview?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="blank"><i class="fa fa-print"> Print SKTU</i></a>
+                                            <a href="<?= base_url() ?>/preview/sktu-baru?id=<?= encryptor('encrypt', $row['id_sktu']); ?>" class="btn bg-gradient-primary btn-sm" title="Print" target="blank"><i class="fa fa-print"> Print SKTU</i></a>
                                             <button class="btn bg-gradient-success btn-tool" data-toggle="modal" data-target="#modal-verif"><i class="fa fa-edit"> Ubah Status</i></button>
                                         <?php endif ?>
                                         <a href="<?= base_url('staf/sktu') ?>" class="btn bg-gradient-secondary btn-tool"><i class="fa fa-arrow-left"> Kembali</i></a>
