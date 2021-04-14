@@ -69,7 +69,7 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                                                 <td width="2%">:</td>
                                                 <td>
                                                     <?=
-                                                        date('d', strtotime($row['tanggal'])) . " " . $bln[date('m', strtotime($row['tanggal']))] . " " . date('Y', strtotime($row['tanggal']));
+                                                    date('d', strtotime($row['tanggal'])) . " " . $bln[date('m', strtotime($row['tanggal']))] . " " . date('Y', strtotime($row['tanggal']));
                                                     ?>
                                                 </td>
                                             </tr>
@@ -193,9 +193,21 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                                 </div>
                                 <div class="card-body box-profile">
                                     <div class="text-center">
-                                        <a href="<?= base_url() ?>/assets/iumk_foto_pemohon/<?= $row['foto_pemohon'] ?>" title="Download Foto" download="">
-                                            <img class="profile-user-img img-fluid" style="width: 4cm; height: 6cm;" src="<?= base_url() ?>/assets/iumk_foto_pemohon/<?= $row['foto_pemohon'] ?>" alt="User profile picture">
-                                        </a>
+                                        <?php
+                                        $foto = $row['foto_pemohon'];
+                                        $ext  = explode('.', $foto);
+                                        if ($ext[1] == 'pdf') :
+                                        ?>
+                                            <embed type="application/pdf" src="<?= base_url() ?>/assets/iumk_foto_pemohon/<?= $row['foto_pemohon'] ?>" width="100%" height="400"></embed>
+
+                                        <?php else : ?>
+
+                                            <a href="<?= base_url() ?>/assets/iumk_foto_pemohon/<?= $row['foto_pemohon'] ?>" title="Download Foto" download="">
+                                                <img class="profile-user-img img-fluid" style="width: 4cm; height: 6cm;" src="<?= base_url() ?>/assets/iumk_foto_pemohon/<?= $row['foto_pemohon'] ?>" alt="User profile picture">
+                                            </a>
+
+                                        <?php endif ?>
+
                                     </div>
                                 </div>
                             </div>
