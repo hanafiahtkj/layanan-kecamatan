@@ -183,7 +183,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                                 <?php } ?>
                                             </label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input val_file" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
+                                                <input type="file" class="custom-file-input val_file" data-name="<?= $lampiran['nama_lampiran'] ?>" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
                                                                                                                         echo "required";
                                                                                                                     } else {
                                                                                                                     } ?>>
@@ -254,6 +254,48 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                     },
                     function(isConfirm) {
                         if (isConfirm) {
+                            var nama_perusahaan = $('#nama_perusahaan').val();
+                            var alamat_perusahaan = $('#alamat_perusahaan').val();
+                            var nama_pimpinan_perusahaan = $('#nama_pimpinan_perusahaan').val();
+                            var kegiatan_usaha = $('#kegiatan_usaha').val();
+
+                            if(nama_perusahaan == ''){
+                                setTimeout(function() {
+                                    toastr.error('Nama Perusahaan Tidak Boleh Kosong!');
+                                    $('#nama_perusahaan').focus();
+                                }, 20);
+                            }else
+                            if(alamat_perusahaan == ''){
+                                setTimeout(function() {
+                                    toastr.error('Alamat Perusahaan Tidak Boleh Kosong!');
+                                    $('#alamat_perusahaan').focus();
+                                }, 20);
+                            }else
+                            if(nama_pimpinan_perusahaan == ''){
+                                setTimeout(function() {
+                                    toastr.error('Nama Pimpinan Perusahaan Tidak Boleh Kosong!');
+                                    $('#nama_pimpinan_perusahaan').focus();
+                                }, 20);
+                            }else
+                            if(kegiatan_usaha == ''){
+                                setTimeout(function() {
+                                    toastr.error('Kegiatan Usaha Tidak Boleh Kosong!');
+                                    $('#kegiatan_usaha').focus();
+                                }, 20);
+                            }
+
+                            $('input[name^="file"]').each(function () {
+                                var attr = $(this).attr('required');
+                                if(attr){
+                                    if($(this).val() == ''){
+                                        var namafile = $(this).attr('data-name');
+                                        setTimeout(function() {
+                                            toastr.error('Lampiran '+ namafile +' Tidak Boleh Kosong!');
+                                        }, 20);
+                                    }
+                                }
+                            });
+
                             $("#tombol-submit").click();
                         }
                     });

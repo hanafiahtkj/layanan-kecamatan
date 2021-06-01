@@ -229,7 +229,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                                 <?php } ?>
                                             </label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input val_file req_file" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
+                                                <input type="file" class="custom-file-input val_file req_file" data-name="<?= $lampiran['nama_lampiran'] ?>" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
                                                                                                                                     echo "required";
                                                                                                                                 } else {
                                                                                                                                 } ?>>
@@ -304,6 +304,63 @@ $nourut       = $ceknoiumk['nomor_urut'];
                     },
                     function(isConfirm) {
                         if (isConfirm) {
+                            var nama_perusahaan = $('#nama_perusahaan').val();
+                            var kegiatan_usaha = $('#kegiatan_usaha').val();
+                            var sarana_usaha = $('#sarana_usaha').val();
+                            var alamat_usaha = $('#alamat_usaha').val();
+                            var jumlah_modal_usaha = $('#jumlah_modal_usaha').val();
+                            var foto_pemohon = $('input[name="foto_pemohon"]').val();
+
+                            if(nama_perusahaan == ''){
+                                setTimeout(function() {
+                                    toastr.error('Nama Perusahaan Tidak Boleh Kosong!');
+                                    $('#nama_perusahaan').focus();
+                                }, 20);
+                            }else
+                            if(kegiatan_usaha == ''){
+                                setTimeout(function() {
+                                    toastr.error('Kegiatan Usaha Tidak Boleh Kosong!');
+                                    $('#kegiatan_usaha').focus();
+                                }, 20);
+                            }else
+                            if(sarana_usaha == ''){
+                                setTimeout(function() {
+                                    toastr.error('Sarana Usaha Tidak Boleh Kosong!');
+                                    $('#sarana_usaha').focus();
+                                }, 20);
+                            }else
+                            if(alamat_usaha == ''){
+                                setTimeout(function() {
+                                    toastr.error('Alamat Usaha Tidak Boleh Kosong!');
+                                    $('#alamat_usaha').focus();
+                                }, 20);
+                            }else
+                            if(jumlah_modal_usaha == ''){
+                                setTimeout(function() {
+                                    toastr.error('Jumlah Modal Usaha Tidak Boleh Kosong!');
+                                    $('#jumlah_modal_usaha').focus();
+                                }, 20);
+                            }else
+                            if(foto_pemohon == ''){
+                                setTimeout(function() {
+                                    toastr.error('Foto Pemohon Tidak Boleh Kosong!');
+                                    $('#foto_pemohon').focus();
+                                }, 20);
+                            }
+                            
+
+                            $('input[name^="file"]').each(function () {
+                                var attr = $(this).attr('required');
+                                if(attr){
+                                    if($(this).val() == ''){
+                                        var namafile = $(this).attr('data-name');
+                                        setTimeout(function() {
+                                            toastr.error('Lampiran '+ namafile +' Tidak Boleh Kosong!');
+                                        }, 20);
+                                    }
+                                }
+                            });
+
                             $("#tombol-submit").click();
                         }
                     });

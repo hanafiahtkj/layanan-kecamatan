@@ -231,10 +231,7 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                                                 <?php } ?>
                                             </label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input val_file" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
-                                                                                                                        echo "required";
-                                                                                                                    } else {
-                                                                                                                    } ?>>
+                                                <input type="file" class="custom-file-input val_file" name="file[]">
                                                 <input type="hidden" name="id_lampiran[]" value="<?= $lampiran['id_lampiran'] ?>">
                                                 <label class="custom-file-label">Choose File</label>
                                             </div>
