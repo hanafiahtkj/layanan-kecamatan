@@ -113,9 +113,50 @@ include_once "template/ui/head.php";
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Alamat</label>
+                                        <label class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" name="alamat" rows="2" required placeholder="Alamat Lengkap"></textarea>
+                                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+                                    <legend style="margin-bottom: 15px;">Alamat Lengkap</legend>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Jalan</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" name="alamat" rows="2" required placeholder="Jalan"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">RT / RW</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control" name="rt" required placeholder="RT" maxlength="10" onkeypress="return Angkasaja(event)">
+                                        </div>
+                                        <span style="margin-top: 5px;">/</span>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control" name="rw" required placeholder="RW" maxlength="10" onkeypress="return Angkasaja(event)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">No. Rumah</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="no_rumah" required placeholder="Nomor Rumah" maxlength="10" onkeypress="return Angkasaja(event)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Kelurahan</label>
+                                        <div class="col-sm-10">
+                                            <select name="kelurahan" id="kelurahan" class="form-control select2" data-placeholder="Pilih Kelurahan" style="width: 100%;" required>
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $kelurahan = $koneksi->query("SELECT * FROM kelurahan ORDER BY kelurahan ASC");
+                                                    foreach ($kelurahan as $kel) {
+                                                    ?>
+                                                        <option value="<?= $kel['kelurahan'] ?>"><?= $kel['kelurahan'] ?></option>
+                                                    <?php } ?>
+                                                </select>
                                         </div>
                                     </div>
 
@@ -218,7 +259,23 @@ include_once "template/ui/head.php";
                     telpon: {
                         required: true
                     },
+                    email: {
+                        required: true,
+                        email: true
+                    },
                     alamat: {
+                        required: true
+                    },
+                    no_rumah: {
+                        required: true
+                    },
+                    rt: {
+                        required: true
+                    },
+                    rw: {
+                        required: true
+                    },
+                    kelurahan: {
                         required: true
                     },
                     password: {
@@ -254,8 +311,24 @@ include_once "template/ui/head.php";
                     telpon: {
                         required: "Nomor Telpon Wajib Diisi"
                     },
+                    email: {
+                        required: "Email Wajib Diisi",
+                        email: "Format Email Salah"
+                    },
                     alamat: {
-                        required: "Alamat Wajib Diisi"
+                        required: "Jalan Wajib Diisi"
+                    },
+                    no_rumah: {
+                        required: "Nomor Rumah Wajib Diisi"
+                    },
+                    rt: {
+                        required: "RT Wajib Diisi"
+                    },
+                    rw: {
+                        required: "RW Wajib Diisi"
+                    },
+                    kelurahan: {
+                        required: "Kelurahan Wajib Diisi"
                     },
                     password: {
                         required: "Password Wajib Diisi",
@@ -349,7 +422,12 @@ include_once "template/ui/head.php";
         $jk             = $_POST['jk'];
         $agama          = $_POST['agama'];
         $telpon         = $_POST['telpon'];
+        $email          = $_POST['email'];
         $alamat         = $_POST['alamat'];
+        $no_rumah       = $_POST['no_rumah'];
+        $rt             = $_POST['rt'];
+        $rw             = $_POST['rw'];
+        $kelurahan      = $_POST['kelurahan'];
         $pass           = $_POST['password'];
         $ulangipassword = $_POST['ulangipassword'];
         $captcha        = $_POST['g-recaptcha-response'];
@@ -414,7 +492,7 @@ include_once "template/ui/head.php";
                 } ,5000);  
             </script>";
             } else {
-                $submit = $koneksi->query("INSERT INTO masyarakat VALUES (null, '$nama', '$nik', '$tempat_lahir', '$tgl_lahir', '$jk', '$agama', '$telpon', '$alamat', '$pass_hash')");
+                $submit = $koneksi->query("INSERT INTO masyarakat VALUES (null, '$nama', '$nik', '$tempat_lahir', '$tgl_lahir', '$jk', '$agama', '$telpon', '$email', '$alamat', '$no_rumah', '$rt', '$rw', '$kelurahan', '$pass_hash')");
 
                 if ($submit) {
 
@@ -429,7 +507,7 @@ include_once "template/ui/head.php";
                         toastr.success('Registrasi Berhasil, Silahkan Login Dengan Akun Anda');     
                     },30);  
                     window.setTimeout(function(){ 
-                        window.location.replace('login');
+                        window.location.replace('". base_url() ."');
                     } ,5000);   
                     </script>";
                 }

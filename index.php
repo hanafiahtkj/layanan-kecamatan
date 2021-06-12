@@ -29,6 +29,40 @@ include_once "config/config.php";
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/template/login-user/css/util.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/template/login-user/css/main.css">
     <!--===============================================================================================-->
+
+    <style type="text/css">
+        .loading-halaman::before {
+                content: " ";
+                display: block;
+                position: fixed;
+                z-index: 10;
+                height: 3px;
+                width: 100%;
+                top: 0;
+                left: 0;
+                background-color: #ff0505;
+                -webkit-animation: load-halaman ease-out 2s;
+                        animation: load-halaman ease-out 2s;
+            }
+
+            @-webkit-keyframes load-halaman {
+                from {
+                    width:0;
+                }
+                to {
+                    width:100%;
+                }
+            }
+
+            @keyframes load-halaman {
+                from {
+                    width:0;
+                }
+                to {
+                    width:100%;
+                }
+            }
+    </style>
 </head>
 
 <body>
@@ -62,24 +96,32 @@ include_once "config/config.php";
                     </div>
 
                     <div class="container-login100-form-btn p-t-10">
-                        <button class="login100-form-btn" type="submit" name="login">
+                        <button class="login100-form-btn m-b-5" type="submit" name="login">
                             Login
                         </button>
+
+                        <a href="<?= base_url('regis') ?>" class="login100-form-btn" style="background-color: #228B22;">
+                            Registrasi
+                        </a>
+
+                        <div class="text-center w-full p-t-10">
+                            <span class="txt1">
+                                Lupa Password ?
+                                <a href="#" data-toggle="modal" data-target="#modal-lupa-password" style="color: yellow;">Klik Disini</a>
+                            </span>
+                        </div>
                     </div>
 
                     <div class="text-center w-full p-t-25">
                         <span class="txt1">
-                            Belum punya akun ? <br>
-                            <a href="<?= base_url('regis'); ?>" style="color: yellow;">Daftar Disini</a>
+                            <a href="<?= base_url('dashboard') ?>" class="txt1">
+                                <i class="fa fa-arrow-left">
+                                    Kembali Ke Dashboard
+                                </i>
+                            </a>
                         </span>
                     </div>
 
-                    <!-- <div class="text-center w-full">
-                        <a class="txt1" href="#">
-                            Create new account
-                            <i class="fa fa-long-arrow-right"></i>
-                        </a>
-                    </div> -->
                 </form>
             </div>
         </div>
@@ -96,6 +138,119 @@ include_once "config/config.php";
     <script src="<?= base_url() ?>/assets/plugins/toastr/toastr.min.js"></script>
     <!--===============================================================================================-->
     <script src="<?= base_url() ?>/template/login-user/js/main.js"></script>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-lupa-password" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Lupa Password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <form action="" method="POST">
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label>NIK</label>
+                    <input type="number" class="form-control" name="nik" maxlength="18" required placeholder="Masukkan NIK KTP Anda">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" required placeholder="Masukkan Email Anda">
+                  </div>
+              </div>
+              
+              <div class="modal-footer justify-content-center">
+                <button type="submit" name="lupa_password" class="btn btn-primary url_loader">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+        var links = document.getElementsByClassName("url_loader"),
+            i = 0,
+            l = links.length,
+            body = document.body;
+
+            for (; i < l; i++) {
+                links[i].addEventListener("click", function() {
+                    body.className = "loading-halaman";
+                    setTimeout(function() {
+                        body.className = "";
+                    }, 30000);
+                }, false);
+            }
+    </script>
+
+    <?php
+        if (isset($_POST['lupa_password'])) {
+            $nik   = $_POST['nik'];
+            $email = $_POST['email'];
+
+            $cek = $koneksi->query("SELECT nik, nama, email, password FROM masyarakat WHERE nik = '$nik' AND email = '$email'")->fetch_array();
+            if(!$cek){
+                echo "
+                    <script type='text/javascript'>
+                        toastr.error('NIK atau Email Tidak Ditemukan');  
+                    </script>";
+            }else{
+                $nama  = $cek['nama'];
+                $email = $cek['email'];
+                $pass  = $cek['password'];
+
+                require_once('assets/phpmail/class.phpmailer.php');
+                require_once('assets/phpmail/class.smtp.php');
+                $mail = new PHPMailer();
+                
+                $body = "Klik link berikut untuk reset Password akun Elok Anda, <a href='http://localhost/layanan-kecamatan/reset_password.php?reset=$pass&key=$email'>$pass<a>";
+                            
+               // $mail->CharSet =  "utf-8";
+                $mail->IsSMTP();
+                // enable SMTP authentication
+                $mail->SMTPDebug  = 1;
+                $mail->SMTPAuth = true;                  
+                // GMAIL username
+                $mail->Username = "gusti.fahrubi@gmail.com";
+                // GMAIL password
+                $mail->Password = "RobyXtander212";
+                $mail->SMTPSecure = "ssl";  
+                // sets GMAIL as the SMTP server
+                $mail->Host = "smtp.gmail.com";
+                // set the SMTP port for the GMAIL server
+                $mail->Port = "465";
+                $mail->From='gusti.fahrubi@gmail.com';
+                $mail->FromName='Admin Elok Kecamatan Banjarmasin Utara';
+                  
+                $email = $_POST['email'];
+                
+                $mail->AddAddress($email, $nama);
+                $mail->Subject  =  'Reset Password';
+                $mail->IsHTML(true);
+                $mail->MsgHTML($body);
+                if($mail->Send())
+                {
+                  echo "<script> 
+                            toastr.success('Link reset password telah dikirim ke email anda, Cek email untuk melakukan reset'); 
+                            window.location.replace = '". base_url() ."'; 
+                        </script>";//jika pesan terkirim
+                            
+                }
+                else
+                {
+                  echo "<script> 
+                            toastr.error('Mail Error - > ". $mail->ErrorInfo ."'); 
+                            window.location = 'index.html'; 
+                        </script>";
+                }
+            }
+        }
+    ?>
 
     <?php
     if (isset($_POST['login'])) {

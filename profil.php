@@ -108,12 +108,33 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                             <td><?= $row['telpon'] ?></td>
                                         </tr>
                                         <tr>
-                                            <th width="30%">Alamat</th>
+                                            <th width="30%">Email</th>
+                                            <td width="2%">:</td>
+                                            <td><?= $row['email'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="font-style: italic; font-size: 12px;">Alamat Lengkap :</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="30%">Jalan</th>
                                             <td width="2%">:</td>
                                             <td><?= $row['alamat'] ?></td>
                                         </tr>
-
-
+                                        <tr>
+                                            <th width="30%">Nomor Rumah</th>
+                                            <td width="2%">:</td>
+                                            <td><?= $row['no_rumah'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="30%">Rt / Rw</th>
+                                            <td width="2%">:</td>
+                                            <td><?= $row['rt'].' / '.$row['rw'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="30%">Kelurahan</th>
+                                            <td width="2%">:</td>
+                                            <td><?= $row['kelurahan'] ?></td>
+                                        </tr>
                                     </table>
                                 </div>
 

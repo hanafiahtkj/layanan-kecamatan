@@ -134,9 +134,50 @@ $row  = $data->fetch_array();
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
+                                        <label class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <textarea name="alamat" id="alamat" rows="2" class="form-control alamat" required maxlength="110"><?= $row['alamat']; ?></textarea>
+                                            <input type="email" class="form-control" name="email" placeholder="Email" required value="<?= $row['email'] ?>">
+                                        </div>
+                                    </div>
+
+                                    <hr>
+                                    <legend style="margin-bottom: 15px;">Alamat Lengkap</legend>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Jalan</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" name="alamat" rows="2" required placeholder="Jalan"><?= $row['alamat'] ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">RT / RW</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control" name="rt" required placeholder="RT" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rt'] ?>">
+                                        </div>
+                                        <span style="margin-top: 5px;">/</span>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control" name="rw" required placeholder="RW" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rw'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">No. Rumah</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="no_rumah" required placeholder="Nomor Rumah" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['no_rumah'] ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Kelurahan</label>
+                                        <div class="col-sm-10">
+                                            <select name="kelurahan" id="kelurahan" class="form-control select2" data-placeholder="Pilih Kelurahan" style="width: 100%;" required>
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $kelurahan = $koneksi->query("SELECT * FROM kelurahan ORDER BY kelurahan ASC");
+                                                    foreach ($kelurahan as $kel) {
+                                                    ?>
+                                                        <option value="<?= $kel['kelurahan'] ?>" <?= $row['kelurahan'] == $kel['kelurahan'] ? 'selected' : '' ?>><?= $kel['kelurahan'] ?></option>
+                                                    <?php } ?>
+                                                </select>
                                         </div>
                                     </div>
 
@@ -196,6 +237,111 @@ $row  = $data->fetch_array();
     <?php include_once "template/ui/script.php"; ?>
 
     <script>
+        $(document).ready(function() {
+            $('#validasi_regis').validate({
+                rules: {
+                    nama: {
+                        required: true
+                    },
+                    nik: {
+                        required: true,
+                        minlength: 16,
+                        maxlength: 20,
+                    },
+                    tempat_lahir: {
+                        required: true
+                    },
+                    tgl_lahir: {
+                        required: true
+                    },
+                    jk: {
+                        required: true
+                    },
+                    agama: {
+                        required: true
+                    },
+                    telpon: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    alamat: {
+                        required: true
+                    },
+                    no_rumah: {
+                        required: true
+                    },
+                    rt: {
+                        required: true
+                    },
+                    rw: {
+                        required: true
+                    },
+                    kelurahan: {
+                        required: true
+                    }
+                },
+                messages: {
+                    nama: {
+                        required: "Nama Lengkap Wajib Diisi"
+                    },
+                    nik: {
+                        required: "NIK Wajib Diisi",
+                        minlength: "NIK Tidak Kurang Dari 16 Digit",
+                        maxlength: "NIK Maksimal 20 Karakter"
+                    },
+                    tempat_lahir: {
+                        required: "Tempat Lahir Wajib Diisi"
+                    },
+                    tgl_lahir: {
+                        required: "Tanggal Lahir Wajib Diisi"
+                    },
+                    jk: {
+                        required: "Jenis Kelamin Wajib Diisi"
+                    },
+                    agama: {
+                        required: "Agama Wajib Diisi"
+                    },
+                    telpon: {
+                        required: "Nomor Telpon Wajib Diisi"
+                    },
+                    email: {
+                        required: "Email Wajib Diisi",
+                        email: "Format Email Salah"
+                    },
+                    alamat: {
+                        required: "Jalan Wajib Diisi"
+                    },
+                    no_rumah: {
+                        required: "Nomor Rumah Wajib Diisi"
+                    },
+                    rt: {
+                        required: "RT Wajib Diisi"
+                    },
+                    rw: {
+                        required: "RW Wajib Diisi"
+                    },
+                    kelurahan: {
+                        required: "Kelurahan Wajib Diisi"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.col-sm-10').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
+
         function lihatpass() {
             var x = document.getElementById('pass').type;
 
@@ -228,7 +374,12 @@ $row  = $data->fetch_array();
         $jk           = $_POST['jk'];
         $agama        = $_POST['agama'];
         $telpon       = $_POST['telpon'];
+        $email        = $_POST['email'];
         $alamat       = $_POST['alamat'];
+        $no_rumah     = $_POST['no_rumah'];
+        $rt           = $_POST['rt'];
+        $rw           = $_POST['rw'];
+        $kelurahan    = $_POST['kelurahan'];
         $pass         = $_POST['password'];
 
         if (empty($pass)) {
@@ -249,10 +400,15 @@ $row  = $data->fetch_array();
                                     jk           = '$jk', 
                                     agama        = '$agama', 
                                     telpon       = '$telpon', 
+                                    email        = '$email', 
                                     alamat       = '$alamat', 
+                                    no_rumah     = '$no_rumah', 
+                                    rt           = '$rt', 
+                                    rw           = '$rw', 
+                                    kelurahan    = '$kelurahan', 
                                     password     = '$password'
                                     WHERE id_masyarakat = '$id'
-                                    ");
+                                ");
 
         if ($submit) {
             echo "

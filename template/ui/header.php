@@ -30,7 +30,7 @@
 
                 <?php if (!isset($_SESSION['id_masyarakat'])) { ?>
                     <li>
-                        <a href="<?= base_url('login') ?>"><b>Login</b></a>
+                        <a href="<?= base_url('') ?>"><b>Login</b></a>
                     </li>
                 <?php } else { ?>
                     <li class="drop-down"><a href="#"><b><?= $_SESSION['nama'] ?></b></a>

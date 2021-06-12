@@ -176,7 +176,11 @@ $nourut       = $ceknoiumk['nomor_urut'];
 
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Foto Pemohon</label>
+                                        <label class="col-sm-3 col-form-label">
+                                            Foto Pemohon <br> 
+                                            <span style="color: red; font-style: italic; font-size: 12px;">
+                                            (*Diharapkan Pas Foto Ukuran 4x6)</span>
+                                        </label>
                                         <div class="col-sm-9">
                                             <input type="file" name="foto_pemohon" id="input-file-now-custom-2" class="dropify val_file" data-height="200" required>
                                         </div>
@@ -203,7 +207,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                             <div class="card">
                                 <div class="card-body">
 
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <div class="form-check">
                                             <input class="form-check-input cekfile" type="checkbox" value="">
                                             <label class="form-check-label" for="defaultCheck1" style="color: red; font-style: italic; font-weight: bold;">
@@ -213,7 +217,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                         </div>
                                     </div>
 
-                                    <hr>
+                                    <hr> -->
 
                                     <?php
                                     $datalampiran = $koneksi->query("SELECT * FROM lampiran_iumk ORDER BY id_lampiran ASC");
@@ -282,15 +286,15 @@ $nourut       = $ceknoiumk['nomor_urut'];
             $("#npwp").mask("99.999.999.9-999.999");
 
             // FILE CENTANG UNTUK MENGABAIKAN JIKA FILE TIDAK DI UPLOAD
-            $('.cekfile').click(function() {
-                if ($(this).is(':checked')) {
-                    $('.req_file').attr('disabled', true);
-                    $('.req_file').removeAttr('required');
-                } else {
-                    $('.req_file').removeAttr('disabled');
-                    $('.req_file').attr('required', true);
-                }
-            });
+            // $('.cekfile').click(function() {
+            //     if ($(this).is(':checked')) {
+            //         $('.req_file').attr('disabled', true);
+            //         $('.req_file').removeAttr('required');
+            //     } else {
+            //         $('.req_file').removeAttr('disabled');
+            //         $('.req_file').attr('required', true);
+            //     }
+            // });
 
             // VALIDASI SUBMIT
             $('#submit').click(function() {
