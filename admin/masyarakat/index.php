@@ -98,7 +98,30 @@ include_once "../../template/head.php";
                                                         <td><?= $row['jk'] ?></td>
                                                         <td><?= $row['agama'] ?></td>
                                                         <td><?= $row['telpon'] ?></td>
-                                                        <td align="left"><?= $row['alamat'] ?></td>
+                                                        <td>
+                                                            <table class="table" width="100%">
+                                                                <tr>
+                                                                    <th>Jalan</th>
+                                                                    <td>:</td>
+                                                                    <td><?= $row['alamat'] ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Nomor Rumah</th>
+                                                                    <td>:</td>
+                                                                    <td><?= $row['no_rumah'] ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Rt / Rw</th>
+                                                                    <td>:</td>
+                                                                    <td><?= $row['rt'].' / '.$row['rw'] ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Kelurahan</th>
+                                                                    <td>:</td>
+                                                                    <td><?= $row['kelurahan'] ?></td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
                                                         <td width="15%">
                                                             <a href="edit?id=<?= encryptor('encrypt', $row['id_masyarakat']); ?>" class="btn bg-gradient-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
                                                             <a href="hapus?id=<?= encryptor('encrypt', $row['id_masyarakat']); ?>" class="btn bg-gradient-danger btn-sm alert-hapus" data-id="<?= $row['nama'] ?>" title="Hapus"><i class="fa fa-trash"></i></a>

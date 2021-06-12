@@ -67,7 +67,7 @@ $row  = $data->fetch_array();
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="nik" class="col-sm-2 col-form-label">nik</label>
+                                            <label for="nik" class="col-sm-2 col-form-label">NIK</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" id="nik" name="nik" maxlength="25" required onkeypress="return Angkasaja(event)" value="<?= $row['nik']; ?>">
                                             </div>
@@ -137,9 +137,50 @@ $row  = $data->fetch_array();
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
+                                            <label class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-10">
-                                                <textarea name="alamat" id="alamat" rows="3" class="form-control" required><?= $row['alamat']; ?></textarea>
+                                                <input type="email" class="form-control" name="email" placeholder="Email" required value="<?= $row['email'] ?>">
+                                            </div>
+                                        </div>
+
+                                        <hr>
+                                        <legend style="margin-bottom: 15px;">Alamat Lengkap</legend>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Jalan</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" name="alamat" rows="2" required placeholder="Jalan"><?= $row['alamat'] ?></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">RT / RW</label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="rt" required placeholder="RT" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rt'] ?>">
+                                            </div>
+                                            <span style="margin-top: 5px;">/</span>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="rw" required placeholder="RW" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rw'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">No. Rumah</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="no_rumah" required placeholder="Nomor Rumah" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['no_rumah'] ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Kelurahan</label>
+                                            <div class="col-sm-10">
+                                                <select name="kelurahan" id="kelurahan" class="form-control select2" data-placeholder="Pilih Kelurahan" style="width: 100%;" required>
+                                                        <option value=""></option>
+                                                        <?php
+                                                        $kelurahan = $koneksi->query("SELECT * FROM kelurahan ORDER BY kelurahan ASC");
+                                                        foreach ($kelurahan as $kel) {
+                                                        ?>
+                                                            <option value="<?= $kel['kelurahan'] ?>" <?= $row['kelurahan'] == $kel['kelurahan'] ? 'selected' : '' ?>><?= $kel['kelurahan'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
                                             </div>
                                         </div>
 
@@ -151,7 +192,7 @@ $row  = $data->fetch_array();
                                                     <input type="password" class="form-control" name="password" id="pass" placeholder="Kosongkan Password jika tidak diubah" autocomplete="off">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text" id="ikon">
-                                                            <span id="mybutton" onclick="lihatpass();" class="fas fa-eye" title="Lihat Password"></span>
+                                                            <span id="mybutton" onclick="lihatpass();" class="fas fa-eye-slash" title="Lihat Password"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -201,7 +242,7 @@ $row  = $data->fetch_array();
                 document.getElementById('ikon').innerHTML = '<span id="mybutton" onclick="lihatpass();" class="fas fa-eye" style="color: blue;" title="Lihat Password"></span>';
             } else {
                 document.getElementById('pass').type = 'password';
-                document.getElementById('ikon').innerHTML = '<span id="mybutton" onclick="lihatpass();" class="fas fa-eye" title="Lihat Password"></span>';
+                document.getElementById('ikon').innerHTML = '<span id="mybutton" onclick="lihatpass();" class="fas fa-eye-slash" title="Lihat Password"></span>';
             }
         }
     </script>
@@ -215,7 +256,12 @@ $row  = $data->fetch_array();
         $jk           = $_POST['jk'];
         $agama        = $_POST['agama'];
         $telpon       = $_POST['telpon'];
+        $email        = $_POST['email'];
         $alamat       = $_POST['alamat'];
+        $no_rumah     = $_POST['no_rumah'];
+        $rt           = $_POST['rt'];
+        $rw           = $_POST['rw'];
+        $kelurahan    = $_POST['kelurahan'];
         $password     = $_POST['password'];
 
         if (empty($pass)) {
@@ -236,7 +282,12 @@ $row  = $data->fetch_array();
                                     jk           = '$jk', 
                                     agama        = '$agama', 
                                     telpon       = '$telpon', 
+                                    email        = '$email', 
                                     alamat       = '$alamat', 
+                                    no_rumah     = '$no_rumah', 
+                                    rt           = '$rt', 
+                                    rw           = '$rw', 
+                                    kelurahan    = '$kelurahan',
                                     password     = '$password'
                                     WHERE id_masyarakat = '$id'
                                     ");
