@@ -82,7 +82,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                             <div class="form-group row">
                                                 <label for="alamat_kediaman" class="col-sm-3 col-form-label">Alamat Kediaman</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required readonly><?= $data_mas['alamat'].' No. '.$data_mas['no_rumah'].' Rt. '.$data_mas['rt'].' Rw. '.$data_mas['rw'] ?></textarea>
+                                                    <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required readonly><?= $data_mas['alamat'].' No. '.$data_mas['no_rumah'].' Rt. '.$data_mas['rt'].' Rw. '.$data_mas['rw'].' Kelurahan '.$data_mas['kelurahan'] ?></textarea>
                                                 </div>
                                             </div>
 

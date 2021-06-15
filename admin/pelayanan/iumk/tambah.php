@@ -95,6 +95,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                                                     no_rumah:'" . addslashes($mas['no_rumah']) . "',
                                                                     rt:'" . addslashes($mas['rt']) . "',
                                                                     rw:'" . addslashes($mas['rw']) . "',
+                                                                    kelurahan:'" . addslashes($mas['kelurahan']) . "',
                                                                     no_telp:'" . addslashes($mas['telpon']) . "' 
                                                                 };\n";
                                                     } ?>
@@ -390,7 +391,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
         function changeValue(id) {
             document.getElementById('id_masyarakat').value = mas[id].id_masyarakat;
             document.getElementById('nomor_ktp').value = mas[id].nomor_ktp;
-            document.getElementById('alamat').value = [mas[id].alamat + ' No. '+ mas[id].no_rumah + ' Rt. '+ mas[id].rt + ' Rw. '+ mas[id].rw];
+            document.getElementById('alamat').value = [mas[id].alamat + ' No. '+ mas[id].no_rumah + ' Rt. '+ mas[id].rt + ' Rw. '+ mas[id].rw + ' Kelurahan '+ mas[id].kelurahan];
             document.getElementById('no_telp').value = mas[id].no_telp;
         }
     </script>

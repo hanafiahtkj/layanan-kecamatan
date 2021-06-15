@@ -88,7 +88,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                             <div class="form-group row">
                                                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control alamat" name="alamat" id="alamat" rows="2" required readonly><?= $data_mas['alamat'].' No. '.$data_mas['no_rumah'].' Rt. '.$data_mas['rt'].' Rw. '.$data_mas['rw'] ?>
+                                                    <textarea class="form-control alamat" name="alamat" id="alamat" rows="2" required readonly><?= $data_mas['alamat'].' No. '.$data_mas['no_rumah'].' Rt. '.$data_mas['rt'].' Rw. '.$data_mas['rw'].' Kelurahan '.$data_mas['kelurahan'] ?>
                                                     </textarea>
                                                 </div>
                                             </div>

@@ -148,20 +148,12 @@ include_once "../../template/head.php";
                                         </div>
                                     </div>
 
-                                    <!-- <div class="form-group row">
+                                    <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Kelurahan</label>
                                         <div class="col-sm-10">
-                                            <select name="kelurahan" id="kelurahan" class="form-control select2" data-placeholder="Pilih Kelurahan" style="width: 100%;" required>
-                                                    <option value=""></option>
-                                                    <?php
-                                                    $kelurahan = $koneksi->query("SELECT * FROM kelurahan ORDER BY kelurahan ASC");
-                                                    foreach ($kelurahan as $kel) {
-                                                    ?>
-                                                        <option value="<?= $kel['kelurahan'] ?>"><?= $kel['kelurahan'] ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                            <input type="text" name="kelurahan" class="form-control" maxlength="100" required>
                                         </div>
-                                    </div> -->
+                                    </div>
 
 
                                         <div class="form-group row">
@@ -240,6 +232,7 @@ include_once "../../template/head.php";
         $no_rumah     = $_POST['no_rumah'];
         $rt           = $_POST['rt'];
         $rw           = $_POST['rw'];
+        $kelurahan    = $_POST['kelurahan'];
         $password     = $_POST['password'];
 
         // hash password
@@ -268,7 +261,7 @@ include_once "../../template/head.php";
             </script>";
         } else {
 
-            $submit = $koneksi->query("INSERT INTO masyarakat VALUES (null, '$nama', '$nik', '$tempat_lahir', '$tgl_lahir', '$jk', '$agama', '$telpon', '$email', '$alamat', '$no_rumah', '$rt', '$rw', '', '$pass_hash')");
+            $submit = $koneksi->query("INSERT INTO masyarakat VALUES (null, '$nama', '$nik', '$tempat_lahir', '$tgl_lahir', '$jk', '$agama', '$telpon', '$email', '$alamat', '$no_rumah', '$rt', '$rw', '$kelurahan', '$pass_hash')");
             if ($submit) {
                 $_SESSION['pesan'] = "Data Masyarakat Ditambahkan";
                 echo "<script>window.location.replace('../masyarakat/');</script>";

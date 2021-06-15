@@ -166,20 +166,12 @@ $row  = $data->fetch_array();
                                         </div>
                                     </div>
 
-                                    <!-- <div class="form-group row">
+                                    <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Kelurahan</label>
                                         <div class="col-sm-10">
-                                            <select name="kelurahan" id="kelurahan" class="form-control select2" data-placeholder="Pilih Kelurahan" style="width: 100%;" required>
-                                                    <option value=""></option>
-                                                    <?php
-                                                    $kelurahan = $koneksi->query("SELECT * FROM kelurahan ORDER BY kelurahan ASC");
-                                                    foreach ($kelurahan as $kel) {
-                                                    ?>
-                                                        <option value="<?= $kel['kelurahan'] ?>" <?= $row['kelurahan'] == $kel['kelurahan'] ? 'selected' : '' ?>><?= $kel['kelurahan'] ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                            <input type="text" name="kelurahan" class="form-control" maxlength="100" required value="<?= $row['kelurahan'] ?>">
                                         </div>
-                                    </div> -->
+                                    </div>
 
 
                                     <div class="form-group row">
@@ -278,6 +270,9 @@ $row  = $data->fetch_array();
                     },
                     rw: {
                         required: true
+                    },
+                    kelurahan: {
+                        required: true
                     }
                 },
                 messages: {
@@ -318,6 +313,9 @@ $row  = $data->fetch_array();
                         required: "RT Wajib Diisi"
                     },
                     rw: {
+                        required: "RW Wajib Diisi"
+                    },
+                    kelurahan: {
                         required: "RW Wajib Diisi"
                     }
                 },
@@ -373,6 +371,7 @@ $row  = $data->fetch_array();
         $no_rumah     = $_POST['no_rumah'];
         $rt           = $_POST['rt'];
         $rw           = $_POST['rw'];
+        $kelurahan    = $_POST['kelurahan'];
         $pass         = $_POST['password'];
 
         if (empty($pass)) {
@@ -398,6 +397,7 @@ $row  = $data->fetch_array();
                                     no_rumah     = '$no_rumah', 
                                     rt           = '$rt', 
                                     rw           = '$rw', 
+                                    kelurahan    = '$kelurahan',
                                     password     = '$password'
                                     WHERE id_masyarakat = '$id'
                                 ");

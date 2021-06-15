@@ -95,6 +95,7 @@ include_once "../../../../template/head.php";
                                                                     no_rumah:'" . addslashes($mas['no_rumah']) . "',
                                                                     rt:'" . addslashes($mas['rt']) . "',
                                                                     rw:'" . addslashes($mas['rw']) . "',
+                                                                    kelurahan:'" . addslashes($mas['kelurahan']) . "',
                                                                 };\n";
                                                     } ?>
                                                 </select>
@@ -310,7 +311,7 @@ include_once "../../../../template/head.php";
             <?php echo $jsArray; ?>
             $("#id_masyarakat").val(mas[this.value].id_masyarakat);
             $("#no_telp").val(mas[this.value].no_telp);
-            $("#alamat_kediaman").val([mas[this.value].alamat_kediaman + ' No. '+ mas[this.value].no_rumah + ' Rt. '+ mas[this.value].rt + ' Rw. '+ mas[this.value].rw]);
+            $("#alamat_kediaman").val([mas[this.value].alamat_kediaman + ' No. '+ mas[this.value].no_rumah + ' Rt. '+ mas[this.value].rt + ' Rw. '+ mas[this.value].rw + ' Kelurahan '+ mas[this.value].kelurahan]);
             // var tes = mas[this.value].alamat_kediaman;
             // console.log(tes);
             // document.getElementById('id_masyarakat').value = mas[this.value].id_masyarakat;
