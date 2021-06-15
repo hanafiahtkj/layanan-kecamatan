@@ -26,7 +26,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Input SKTU Baru</h2>
                     <ol>
-                        <li><a href="<?= base_url(); ?>">Home</a></li>
+                        <li><a href="<?= base_url('dashboard'); ?>">Home</a></li>
                         <li><a href="<?= base_url('page/sktu'); ?>">SKTU</a></li>
                         <li>Input SKTU Baru</li>
                     </ol>
@@ -82,7 +82,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                             <div class="form-group row">
                                                 <label for="alamat_kediaman" class="col-sm-3 col-form-label">Alamat Kediaman</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required readonly><?= $data_mas['alamat']; ?></textarea>
+                                                    <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required readonly><?= $data_mas['alamat'].' No. '.$data_mas['no_rumah'].' Rt. '.$data_mas['rt'].' Rw. '.$data_mas['rw'] ?></textarea>
                                                 </div>
                                             </div>
 

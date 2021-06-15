@@ -28,7 +28,7 @@ $row = $koneksi->query("SELECT * FROM sktu_baru WHERE id_sktu = '$id'")->fetch_a
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Edit SKTU Baru</h2>
                     <ol>
-                        <li><a href="<?= base_url(); ?>">Home</a></li>
+                        <li><a href="<?= base_url('dashboard'); ?>">Home</a></li>
                         <li><a href="<?= base_url('page/sktu'); ?>">SKTU</a></li>
                         <li>Edit SKTU Baru</li>
                     </ol>

@@ -27,7 +27,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Profil</h2>
                     <ol>
-                        <li><a href="<?= base_url(); ?>">Home</a></li>
+                        <li><a href="<?= base_url('dashboard'); ?>">Home</a></li>
                         <li>Profil</li>
                     </ol>
                 </div>
@@ -130,11 +130,11 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                             <td width="2%">:</td>
                                             <td><?= $row['rt'].' / '.$row['rw'] ?></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <th width="30%">Kelurahan</th>
                                             <td width="2%">:</td>
                                             <td><?= $row['kelurahan'] ?></td>
-                                        </tr>
+                                        </tr> -->
                                     </table>
                                 </div>
 

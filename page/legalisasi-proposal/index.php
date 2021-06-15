@@ -27,7 +27,7 @@ include_once "../../template/ui/head.php";
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Surat Legalisasi Proposal</h2>
                     <ol>
-                        <li><a href="<?= base_url(); ?>">Home</a></li>
+                        <li><a href="<?= base_url('dashboard'); ?>">Home</a></li>
                         <li>Legalisasi Proposal</li>
                     </ol>
                 </div>

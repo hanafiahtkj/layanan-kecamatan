@@ -28,7 +28,7 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Edit Surat Izin Usaha Mikro dan Kecil</h2>
                     <ol>
-                        <li><a href="<?= base_url(); ?>">Home</a></li>
+                        <li><a href="<?= base_url('dashboard'); ?>">Home</a></li>
                         <li><a href="<?= base_url('page/iumk'); ?>">IUMK</a></li>
                         <li>Edit IUMK</li>
                     </ol>

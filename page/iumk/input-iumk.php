@@ -29,7 +29,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Buat Surat Izin Usaha Mikro dan Kecil Baru</h2>
                     <ol>
-                        <li><a href="<?= base_url(); ?>">Home</a></li>
+                        <li><a href="<?= base_url('dashboard'); ?>">Home</a></li>
                         <li><a href="<?= base_url('page/iumk'); ?>">IUMK</a></li>
                         <li>Input</li>
                     </ol>
@@ -88,7 +88,8 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                             <div class="form-group row">
                                                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control alamat" name="alamat" id="alamat" rows="2" maxlength="110" required readonly><?= $data_mas['alamat'] ?></textarea>
+                                                    <textarea class="form-control alamat" name="alamat" id="alamat" rows="2" required readonly><?= $data_mas['alamat'].' No. '.$data_mas['no_rumah'].' Rt. '.$data_mas['rt'].' Rw. '.$data_mas['rw'] ?>
+                                                    </textarea>
                                                 </div>
                                             </div>
 

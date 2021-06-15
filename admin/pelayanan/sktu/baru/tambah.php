@@ -91,7 +91,10 @@ include_once "../../../../template/head.php";
                                                         $jsArray .= "mas['" . $mas['nama'] . "'] = {
                                                                     id_masyarakat:'" . addslashes($mas['id_masyarakat']) . "', 
                                                                     no_telp:'" . addslashes($mas['telpon']) . "', 
-                                                                    alamat_kediaman:'" . addslashes($mas['alamat']) . "'
+                                                                    alamat_kediaman:'" . addslashes($mas['alamat']) . "',
+                                                                    no_rumah:'" . addslashes($mas['no_rumah']) . "',
+                                                                    rt:'" . addslashes($mas['rt']) . "',
+                                                                    rw:'" . addslashes($mas['rw']) . "',
                                                                 };\n";
                                                     } ?>
                                                 </select>
@@ -307,7 +310,7 @@ include_once "../../../../template/head.php";
             <?php echo $jsArray; ?>
             $("#id_masyarakat").val(mas[this.value].id_masyarakat);
             $("#no_telp").val(mas[this.value].no_telp);
-            $("#alamat_kediaman").val(mas[this.value].alamat_kediaman);
+            $("#alamat_kediaman").val([mas[this.value].alamat_kediaman + ' No. '+ mas[this.value].no_rumah + ' Rt. '+ mas[this.value].rt + ' Rw. '+ mas[this.value].rw]);
             // var tes = mas[this.value].alamat_kediaman;
             // console.log(tes);
             // document.getElementById('id_masyarakat').value = mas[this.value].id_masyarakat;

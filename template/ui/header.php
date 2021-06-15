@@ -12,7 +12,7 @@
 
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li class="active"><a href="<?= base_url(); ?>">Home</a></li>
+                <li class="active"><a href="<?= base_url('dashboard'); ?>">Home</a></li>
 
                 <?php
                 $namaHalaman = $_SERVER['PHP_SELF'];

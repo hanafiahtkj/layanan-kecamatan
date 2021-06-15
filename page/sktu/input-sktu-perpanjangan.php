@@ -35,7 +35,7 @@ if (mysqli_num_rows($cekdata) === 0) {
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Input Perpanjangan SKTU</h2>
                     <ol>
-                        <li><a href="<?= base_url(); ?>">Home</a></li>
+                        <li><a href="<?= base_url('dashboard'); ?>">Home</a></li>
                         <li><a href="<?= base_url('page/sktu'); ?>">SKTU</a></li>
                         <li>Input Perpanjangan SKTU</li>
                     </ol>

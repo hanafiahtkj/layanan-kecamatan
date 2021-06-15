@@ -115,11 +115,6 @@ include_once "../../template/head.php";
                                                                     <td>:</td>
                                                                     <td><?= $row['rt'].' / '.$row['rw'] ?></td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <th>Kelurahan</th>
-                                                                    <td>:</td>
-                                                                    <td><?= $row['kelurahan'] ?></td>
-                                                                </tr>
                                                             </table>
                                                         </td>
                                                         <td width="15%">

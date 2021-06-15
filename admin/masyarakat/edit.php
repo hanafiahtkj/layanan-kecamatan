@@ -169,7 +169,7 @@ $row  = $data->fetch_array();
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
+                                        <!-- <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Kelurahan</label>
                                             <div class="col-sm-10">
                                                 <select name="kelurahan" id="kelurahan" class="form-control select2" data-placeholder="Pilih Kelurahan" style="width: 100%;" required>
@@ -182,7 +182,7 @@ $row  = $data->fetch_array();
                                                         <?php } ?>
                                                     </select>
                                             </div>
-                                        </div>
+                                        </div> -->
 
 
                                         <div class="form-group row">
@@ -261,7 +261,6 @@ $row  = $data->fetch_array();
         $no_rumah     = $_POST['no_rumah'];
         $rt           = $_POST['rt'];
         $rw           = $_POST['rw'];
-        $kelurahan    = $_POST['kelurahan'];
         $password     = $_POST['password'];
 
         if (empty($pass)) {
@@ -286,8 +285,7 @@ $row  = $data->fetch_array();
                                     alamat       = '$alamat', 
                                     no_rumah     = '$no_rumah', 
                                     rt           = '$rt', 
-                                    rw           = '$rw', 
-                                    kelurahan    = '$kelurahan',
+                                    rw           = '$rw',
                                     password     = '$password'
                                     WHERE id_masyarakat = '$id'
                                     ");

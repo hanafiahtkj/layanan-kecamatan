@@ -1,5 +1,9 @@
 <?php
 include_once "config/config.php";
+
+// if($_SESSION['id_masyarakat']){
+//     header("location:javascript://history.go(-1)");
+// }
 ?>
 
 <!DOCTYPE html>
@@ -216,15 +220,15 @@ include_once "config/config.php";
                 $mail->SMTPDebug  = 1;
                 $mail->SMTPAuth = true;                  
                 // GMAIL username
-                $mail->Username = "gusti.fahrubi@gmail.com";
+                $mail->Username = "elok.utara@gmail.com";
                 // GMAIL password
-                $mail->Password = "RobyXtander212";
+                $mail->Password = "AdminElokUtara123";
                 $mail->SMTPSecure = "ssl";  
                 // sets GMAIL as the SMTP server
                 $mail->Host = "smtp.gmail.com";
                 // set the SMTP port for the GMAIL server
                 $mail->Port = "465";
-                $mail->From='gusti.fahrubi@gmail.com';
+                $mail->From='elok.utara@gmail.com';
                 $mail->FromName='Admin Elok Kecamatan Banjarmasin Utara';
                   
                 $email = $_POST['email'];
