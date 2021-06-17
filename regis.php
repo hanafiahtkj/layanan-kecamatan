@@ -488,6 +488,11 @@ include_once "template/ui/head.php";
 
                 if ($submit) {
 
+                    // PROSES LOGIN
+                    $query = $koneksi->query("SELECT * FROM masyarakat WHERE nik = '$nik'")->fetch_array();
+                    $_SESSION['id_masyarakat'] = $query['id_masyarakat'];
+                    $_SESSION['nama']          = $query['nama'];
+
                     // log
                     $ket  = "Registrasi Masyarakat -> NIK = " . $nik;
                     $koneksi->query("INSERT INTO log VALUES(null, '$ket', CURRENT_TIME(), '$nama', null, null)");
@@ -496,11 +501,11 @@ include_once "template/ui/head.php";
                     echo "
                     <script type='text/javascript'>
                     setTimeout(function () {    
-                        toastr.success('Registrasi Berhasil, Silahkan Login Dengan Akun Anda');     
+                        toastr.success('Registrasi Berhasil, Anda akan masuk ke halaman dashboard');     
                     },30);  
                     window.setTimeout(function(){ 
-                        window.location.replace('". base_url() ."');
-                    } ,5000);   
+                        window.location.replace('". base_url('dashboard') ."');
+                    } ,3000);   
                     </script>";
                 }
             }

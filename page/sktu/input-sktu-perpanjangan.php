@@ -164,19 +164,6 @@ if (mysqli_num_rows($cekdata) === 0) {
                             <div class="card">
                                 <div class="card-body">
 
-
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            <input class="form-check-input cekfile" type="checkbox" value="">
-                                            <label class="form-check-label" for="defaultCheck1" style="color: red; font-style: italic; font-weight: bold;">
-                                                Centang jika file tidak diupload <br>
-                                                <small>*Catatan : Jika file tidak diupload, masyarakat diharuskan membawa berkas fisik ke Kantor Kecamatan Banjarmasin Utara</small>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <hr>
-
                                     <?php
                                     $datalampiran = $koneksi->query("SELECT * FROM lampiran_sktu WHERE keterangan LIKE '%Perpanjangan%' ORDER BY id_lampiran ASC");
                                     foreach ($datalampiran as $lampiran) {
@@ -239,16 +226,6 @@ if (mysqli_num_rows($cekdata) === 0) {
 
     <script>
         $(document).ready(function() {
-
-            $('.cekfile').click(function() {
-                if ($(this).is(':checked')) {
-                    $('.val_file').attr('disabled', true);
-                    $('.val_file').removeAttr('required');
-                } else {
-                    $('.val_file').removeAttr('disabled');
-                    $('.val_file').attr('required', true);
-                }
-            });
 
             // VALIDASI SUBMIT
             $('#submit').click(function() {
