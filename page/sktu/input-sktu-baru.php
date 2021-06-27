@@ -82,7 +82,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                             <div class="form-group row">
                                                 <label for="alamat_kediaman" class="col-sm-3 col-form-label">Alamat Kediaman</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required readonly><?= $data_mas['alamat'].' No. '.$data_mas['no_rumah'].' Rt. '.$data_mas['rt'].' Rw. '.$data_mas['rw'].' Kelurahan '.$data_mas['kelurahan'] ?></textarea>
+                                                    <textarea class="form-control" name="alamat_kediaman" id="alamat_kediaman" rows="3" required readonly><?= $data_mas['alamat'] . ' No. ' . $data_mas['no_rumah'] . ' Rt. ' . $data_mas['rt'] . ' Rw. ' . $data_mas['rw'] . ' Kelurahan ' . $data_mas['kelurahan'] ?></textarea>
                                                 </div>
                                             </div>
 
@@ -172,9 +172,9 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                             </label>
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input val_file" data-name="<?= $lampiran['nama_lampiran'] ?>" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
-                                                                                                                        echo "required";
-                                                                                                                    } else {
-                                                                                                                    } ?>>
+                                                                                                                                                                        echo "required";
+                                                                                                                                                                    } else {
+                                                                                                                                                                    } ?>>
                                                 <input type="hidden" name="id_lampiran[]" value="<?= $lampiran['id_lampiran'] ?>">
                                                 <label class="custom-file-label">Choose File</label>
                                             </div>
@@ -237,38 +237,38 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                             var nama_pimpinan_perusahaan = $('#nama_pimpinan_perusahaan').val();
                             var kegiatan_usaha = $('#kegiatan_usaha').val();
 
-                            if(nama_perusahaan == ''){
+                            if (nama_perusahaan == '') {
                                 setTimeout(function() {
                                     toastr.error('Nama Perusahaan Tidak Boleh Kosong!');
                                     $('#nama_perusahaan').focus();
                                 }, 20);
-                            }else
-                            if(alamat_perusahaan == ''){
+                            } else
+                            if (alamat_perusahaan == '') {
                                 setTimeout(function() {
                                     toastr.error('Alamat Perusahaan Tidak Boleh Kosong!');
                                     $('#alamat_perusahaan').focus();
                                 }, 20);
-                            }else
-                            if(nama_pimpinan_perusahaan == ''){
+                            } else
+                            if (nama_pimpinan_perusahaan == '') {
                                 setTimeout(function() {
                                     toastr.error('Nama Pimpinan Perusahaan Tidak Boleh Kosong!');
                                     $('#nama_pimpinan_perusahaan').focus();
                                 }, 20);
-                            }else
-                            if(kegiatan_usaha == ''){
+                            } else
+                            if (kegiatan_usaha == '') {
                                 setTimeout(function() {
                                     toastr.error('Kegiatan Usaha Tidak Boleh Kosong!');
                                     $('#kegiatan_usaha').focus();
                                 }, 20);
                             }
 
-                            $('input[name^="file"]').each(function () {
+                            $('input[name^="file"]').each(function() {
                                 var attr = $(this).attr('required');
-                                if(attr){
-                                    if($(this).val() == ''){
+                                if (attr) {
+                                    if ($(this).val() == '') {
                                         var namafile = $(this).attr('data-name');
                                         setTimeout(function() {
-                                            toastr.error('Lampiran '+ namafile +' Tidak Boleh Kosong!');
+                                            toastr.error('Lampiran ' + namafile + ' Tidak Boleh Kosong!');
                                         }, 20);
                                     }
                                 }
@@ -287,20 +287,20 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
             var ext = this.files[0].type;
 
             // VALIDASI UKURAN FILE TIDAK LEBIH DARI 1 MB
-            if (this.files[0].size > 1 * 1024 * 1024) {
-                setTimeout(function() {
-                    toastr.error('File ' + nf + ' Terlalu Besar ! Silahkan Upload File Dengan Ukuran Maksimal 1 Mb');
-                }, 20);
-                this.value = "";
-            }
+            // if (this.files[0].size > 1 * 1024 * 1024) {
+            //     setTimeout(function() {
+            //         toastr.error('File ' + nf + ' Terlalu Besar ! Silahkan Upload File Dengan Ukuran Maksimal 1 Mb');
+            //     }, 20);
+            //     this.value = "";
+            // }
 
             // VALIDAST EKSTENSION FILE UPLOAD
-            if (ext != "image/jpeg" && ext != "image/png" && ext != "application/pdf") {
-                setTimeout(function() {
-                    toastr.error('Format File ' + nf + ' Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');
-                }, 20);
-                this.value = "";
-            }
+            // if (ext != "image/jpeg" && ext != "image/png" && ext != "application/pdf") {
+            //     setTimeout(function() {
+            //         toastr.error('Format File ' + nf + ' Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');
+            //     }, 20);
+            //     this.value = "";
+            // }
         });
 
 
@@ -340,70 +340,109 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
         $status                   = "Belum Diproses";
 
 
-        $submit = $koneksi->query("INSERT INTO sktu_baru VALUES (
-            null, 
-            '$idm', 
-            '-', 
-            '$nama_pemohon', 
-            '$no_telp', 
-            '$tgl', 
-            '$peraturan', 
-            '$nama_perusahaan', 
-            '$alamat_perusahaan', 
-            '$nama_pimpinan_perusahaan',
-            '$alamat_kediaman',
-            '$kegiatan_usaha',
-            null,
-            null,
-            '$sifat',
-            '$nama_camat',
-            '$nip',
-            '$jabatan',
-            null,
-            null,
-            null,
-            1,
-            '$status'
-            )");
+        $gambar_arr = array();
+        $idl        = $_POST['id_lampiran'];
+        $hitungidl  = count($idl);
+        $event      = "";
+        $ekstensi   =  array('png', 'jpg', 'jpeg', 'pdf');
 
-        if ($submit) {
-            $ambilidsktu = $koneksi->query("SELECT * FROM sktu_baru ORDER BY id_sktu DESC LIMIT 1")->fetch_array();
-            $idsktu      = $ambilidsktu['id_sktu'];
+        for ($i = 0; $i < $hitungidl; $i++) {
 
-            $gambar_arr    = array();
-            $idl           = $_POST['id_lampiran'];
-            $hitungidl     = count($idl);
-            $event = "";
+            if (!empty($_FILES['file']['name'][$i])) {
+                $file        = $_FILES['file']['name'][$i];
+                $nama_lamp   = explode('.', $file);
+                $format_lamp = end($nama_lamp);
+                $ext         = strtolower($format_lamp);
 
-            for ($i = 0; $i < $hitungidl; $i++) {
-
-                if (!empty($_FILES['file']['name'][$i])) {
-
-                    $file      = $_FILES['file']['name'][$i];
-                    $nama_lamp     = explode('.', $file);
-                    $format_lamp   = end($nama_lamp);
-                    $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
-                    $allow_sizefile = 1024 * 1024 * 1;
-
-                    // temporari file
-                    $tmp_file  = $_FILES['file']['tmp_name'][$i];
-
-                    $targer_dir = '../../assets/sktu/';
-                    $target_file = $targer_dir . $nama_lampiran;
-
-                    if (move_uploaded_file($tmp_file, $target_file)) {
-                        $gambar_arr[] = $target_file;
-                        $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', '$nama_lampiran', 'Baru')");
-                        $event .= "upload berhasil";
-                    }
+                if (!in_array($ext, $ekstensi)) {
+                    echo "
+                        <script type='text/javascript'>
+                            setTimeout(function () {    
+                                toastr.error('File " . $file . " Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');      
+                            },30);  
+                            window.setTimeout(function(){ 
+                                window.history.back();
+                            } ,4000);  
+                        </script>";
+                    $event .= "";
+                    exit;
                 } else {
-                    $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', 'Belum Ada Lampiran', 'Baru')");
-                    $event .= "upload berhasil";
+                    if ($size < 1044070) {
+                        $event .= 'next';
+                    } else {
+                        echo "
+                            <script type='text/javascript'>
+                                setTimeout(function () {    
+                                    toastr.error('File " . $file . " Terlalu Besar ! Silahkan Upload File Dengan Ukuran Maksimal 1 Mb');      
+                                },30);  
+                                window.setTimeout(function(){ 
+                                    window.history.back();
+                                } ,4000);  
+                            </script>";
+                        $event .= "";
+                        exit;
+                    }
                 }
             }
+        }
 
-            if (!empty($event)) {
+        if (!empty($event) || $event == 'next') {
+            $submit = $koneksi->query("INSERT INTO sktu_baru VALUES (
+                    null, 
+                    '$idm', 
+                    '-', 
+                    '$nama_pemohon', 
+                    '$no_telp', 
+                    '$tgl', 
+                    '$peraturan', 
+                    '$nama_perusahaan', 
+                    '$alamat_perusahaan', 
+                    '$nama_pimpinan_perusahaan',
+                    '$alamat_kediaman',
+                    '$kegiatan_usaha',
+                    null,
+                    null,
+                    '$sifat',
+                    '$nama_camat',
+                    '$nip',
+                    '$jabatan',
+                    null,
+                    null,
+                    null,
+                    1,
+                    '$status'
+                    )");
+
+            if ($submit) {
+                $ambilidsktu = $koneksi->query("SELECT * FROM sktu_baru ORDER BY id_sktu DESC LIMIT 1")->fetch_array();
+                $idsktu      = $ambilidsktu['id_sktu'];
                 $koneksi->query("INSERT INTO riwayat_tgl_sktu VALUES (null, '$idm', '$idsktu', '-', '$tgl', null)");
+
+                for ($i = 0; $i < $hitungidl; $i++) {
+
+                    if (!empty($_FILES['file']['name'][$i])) {
+
+                        $file      = $_FILES['file']['name'][$i];
+                        $nama_lamp     = explode('.', $file);
+                        $format_lamp   = end($nama_lamp);
+                        $nama_lampiran = rand(1, 99999) . '.' . $format_lamp;
+                        $allow_sizefile = 1024 * 1024 * 1;
+
+                        $tmp_file  = $_FILES['file']['tmp_name'][$i];
+
+                        $targer_dir = '../../assets/sktu/';
+                        $target_file = $targer_dir . $nama_lampiran;
+
+                        move_uploaded_file($tmp_file, $target_file);
+                        $gambar_arr[] = $target_file;
+                        $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', '$nama_lampiran', 'Baru')");
+                    }
+                    // else {
+                    //     $koneksi->query("INSERT INTO lampiran_sktu_file VALUES (null, '$idl[$i]', '$idsktu', 'Belum Ada Lampiran', 'Baru')");
+                    //     $event .= "upload berhasil";
+                    // }
+                }
+
                 echo "
                 <script type='text/javascript'>
                 setTimeout(function () {    
@@ -416,6 +455,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
             }
         }
     }
+
     ?>
 
 </body>

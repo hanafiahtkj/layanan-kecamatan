@@ -88,7 +88,7 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                             <div class="form-group row">
                                                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control alamat" name="alamat" id="alamat" rows="2" required readonly><?= $data_mas['alamat'].' No. '.$data_mas['no_rumah'].' Rt. '.$data_mas['rt'].' Rw. '.$data_mas['rw'].' Kelurahan '.$data_mas['kelurahan'] ?>
+                                                    <textarea class="form-control alamat" name="alamat" id="alamat" rows="2" required readonly><?= $data_mas['alamat'] . ' No. ' . $data_mas['no_rumah'] . ' Rt. ' . $data_mas['rt'] . ' Rw. ' . $data_mas['rw'] . ' Kelurahan ' . $data_mas['kelurahan'] ?>
                                                     </textarea>
                                                 </div>
                                             </div>
@@ -178,9 +178,9 @@ $nourut       = $ceknoiumk['nomor_urut'];
 
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">
-                                            Foto Pemohon <br> 
+                                            Foto Pemohon <br>
                                             <span style="color: red; font-style: italic; font-size: 12px;">
-                                            (*Diharapkan Pas Foto Ukuran 4x6)</span>
+                                                (*Diharapkan Pas Foto Ukuran 4x6)</span>
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="file" name="foto_pemohon" id="input-file-now-custom-2" class="dropify val_file" data-height="200" required>
@@ -235,9 +235,9 @@ $nourut       = $ceknoiumk['nomor_urut'];
                                             </label>
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input val_file req_file" data-name="<?= $lampiran['nama_lampiran'] ?>" name="file[]" <?php if ($lampiran['ketentuan'] == "Wajib") {
-                                                                                                                                    echo "required";
-                                                                                                                                } else {
-                                                                                                                                } ?>>
+                                                                                                                                                                                echo "required";
+                                                                                                                                                                            } else {
+                                                                                                                                                                            } ?>>
                                                 <input type="hidden" name="id_lampiran[]" value="<?= $lampiran['id_lampiran'] ?>">
                                                 <label class="custom-file-label">Choose File</label>
                                             </div>
@@ -316,51 +316,51 @@ $nourut       = $ceknoiumk['nomor_urut'];
                             var jumlah_modal_usaha = $('#jumlah_modal_usaha').val();
                             var foto_pemohon = $('input[name="foto_pemohon"]').val();
 
-                            if(nama_perusahaan == ''){
+                            if (nama_perusahaan == '') {
                                 setTimeout(function() {
                                     toastr.error('Nama Perusahaan Tidak Boleh Kosong!');
                                     $('#nama_perusahaan').focus();
                                 }, 20);
-                            }else
-                            if(kegiatan_usaha == ''){
+                            } else
+                            if (kegiatan_usaha == '') {
                                 setTimeout(function() {
                                     toastr.error('Kegiatan Usaha Tidak Boleh Kosong!');
                                     $('#kegiatan_usaha').focus();
                                 }, 20);
-                            }else
-                            if(sarana_usaha == ''){
+                            } else
+                            if (sarana_usaha == '') {
                                 setTimeout(function() {
                                     toastr.error('Sarana Usaha Tidak Boleh Kosong!');
                                     $('#sarana_usaha').focus();
                                 }, 20);
-                            }else
-                            if(alamat_usaha == ''){
+                            } else
+                            if (alamat_usaha == '') {
                                 setTimeout(function() {
                                     toastr.error('Alamat Usaha Tidak Boleh Kosong!');
                                     $('#alamat_usaha').focus();
                                 }, 20);
-                            }else
-                            if(jumlah_modal_usaha == ''){
+                            } else
+                            if (jumlah_modal_usaha == '') {
                                 setTimeout(function() {
                                     toastr.error('Jumlah Modal Usaha Tidak Boleh Kosong!');
                                     $('#jumlah_modal_usaha').focus();
                                 }, 20);
-                            }else
-                            if(foto_pemohon == ''){
+                            } else
+                            if (foto_pemohon == '') {
                                 setTimeout(function() {
                                     toastr.error('Foto Pemohon Tidak Boleh Kosong!');
                                     $('#foto_pemohon').focus();
                                 }, 20);
                             }
-                            
 
-                            $('input[name^="file"]').each(function () {
+
+                            $('input[name^="file"]').each(function() {
                                 var attr = $(this).attr('required');
-                                if(attr){
-                                    if($(this).val() == ''){
+                                if (attr) {
+                                    if ($(this).val() == '') {
                                         var namafile = $(this).attr('data-name');
                                         setTimeout(function() {
-                                            toastr.error('Lampiran '+ namafile +' Tidak Boleh Kosong!');
+                                            toastr.error('Lampiran ' + namafile + ' Tidak Boleh Kosong!');
                                         }, 20);
                                     }
                                 }
@@ -380,20 +380,20 @@ $nourut       = $ceknoiumk['nomor_urut'];
             var ext = this.files[0].type;
 
             // VALIDASI UKURAN FILE TIDAK LEBIH DARI 1 MB
-            if (this.files[0].size > 1 * 1024 * 1024) {
-                setTimeout(function() {
-                    toastr.error('File ' + nf + ' Terlalu Besar ! Silahkan Upload File Dengan Ukuran Maksimal 1 Mb');
-                }, 20);
-                this.value = "";
-            }
+            // if (this.files[0].size > 1 * 1024 * 1024) {
+            //     setTimeout(function() {
+            //         toastr.error('File ' + nf + ' Terlalu Besar ! Silahkan Upload File Dengan Ukuran Maksimal 1 Mb');
+            //     }, 20);
+            //     this.value = "";
+            // }
 
             // VALIDAST EKSTENSION FILE UPLOAD
-            if (ext != "image/jpeg" && ext != "image/png" && ext != "application/pdf") {
-                setTimeout(function() {
-                    toastr.error('Format File ' + nf + ' Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');
-                }, 20);
-                this.value = "";
-            }
+            // if (ext != "image/jpeg" && ext != "image/png" && ext != "application/pdf") {
+            //     setTimeout(function() {
+            //         toastr.error('Format File ' + nf + ' Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');
+            //     }, 20);
+            //     this.value = "";
+            // }
         });
 
         // EVENT ON ENTER IN TEXT AREA
@@ -437,83 +437,126 @@ $nourut       = $ceknoiumk['nomor_urut'];
         $jabatan            = $camat['jabatan'];
         $status             = "Belum Diproses";
 
-        // UPLOAD FOTO PEMOHON
-        $fotopemohon      = $_FILES['foto_pemohon']['name'];
-        $x_fotopemohon    = explode('.', $fotopemohon);
-        $ext_fotopemohon  = end($x_fotopemohon);
-        $nama_fotopemohon = rand(1, 99999) . '.' . $ext_fotopemohon;
-        $tmp_fotopemohon  = $_FILES['foto_pemohon']['tmp_name'];
-        $dir_fotopemohon  = '../../assets/iumk_foto_pemohon/';
+        // UPLOAD FILE LAMPIRAN
+        $gambar_arr    = array();
+        $idl           = $_POST['id_lampiran'];
+        $hitungidl     = count($idl);
 
-        move_uploaded_file($tmp_fotopemohon, $dir_fotopemohon . $nama_fotopemohon);
+        $event = "";
+        $ekstensi =  array('png', 'jpg', 'jpeg', 'pdf');
 
-        $submit = $koneksi->query("INSERT INTO iumk VALUES (
-            null, 
-            '$id_masyarakat', 
-            '$nomor_iumk', 
-            '$peraturan', 
-            '$nama_pemohon', 
-            '$nomor_ktp', 
-            '$alamat', 
-            '$tanggal', 
-            '$no_telp', 
-            '$nama_perusahaan',
-            '$bentuk_perusahaan',
-            '$npwp',
-            '$kegiatan_usaha',
-            '$sarana_usaha',
-            '$alamat_usaha',
-            '$jumlah_modal_usaha',
-            '$nomor_pendaftaran',
-            '$nama_camat',
-            '$jabatan',
-            '$nip',
-            '$nama_fotopemohon',
-            null,
-            null,
-            null,
-            1,
-            '$status'
-            )");
+        for ($i = 0; $i < $hitungidl; $i++) {
 
+            if (!empty($_FILES['file']['name'][$i])) {
 
-        if ($submit) {
-            $ambilidiumk = $koneksi->query("SELECT * FROM iumk ORDER BY id_iumk DESC LIMIT 1")->fetch_array();
-            $idiumk      = $ambilidiumk['id_iumk'];
+                $file           = $_FILES['file']['name'][$i];
+                $size           = $_FILES['file']['size'][$i];
+                $nama_lamp      = explode('.', $file);
+                $format_lamp    = end($nama_lamp);
+                $ext            = strtolower($format_lamp);
 
-            // UPLOAD FILE LAMPIRAN
-            $gambar_arr    = array();
-            $idl           = $_POST['id_lampiran'];
-            $hitungidl     = count($idl);
-
-            $event = "";
-
-            for ($i = 0; $i < $hitungidl; $i++) {
-
-                if (!empty($_FILES['file']['name'][$i])) {
-
-                    $file           = $_FILES['file']['name'][$i];
-                    $nama_lamp      = explode('.', $file);
-                    $format_lamp    = end($nama_lamp);
-                    $nama_lampiran  = rand(1, 99999) . '.' . $format_lamp;
-
-                    // temporari file
-                    $tmp_file  = $_FILES['file']['tmp_name'][$i];
-
-                    $targer_dir = '../../assets/iumk/';
-                    $target_file = $targer_dir . $nama_lampiran;
-
-                    move_uploaded_file($tmp_file, $target_file);
-                    $koneksi->query("INSERT INTO lampiran_iumk_file VALUES (null, '$idl[$i]', '$idiumk', '$nama_lampiran')");
-                    $gambar_arr[] = $target_file;
-                    $event .= "upload berhasil";
+                if (!in_array($ext, $ekstensi)) {
+                    echo "
+                        <script type='text/javascript'>
+                            setTimeout(function () {    
+                                toastr.error('File " . $file . " Tidak Diperbolehkan ! Silahkan Upload File Dengan Format JPG / PNG / PDF');      
+                            },30);  
+                            window.setTimeout(function(){ 
+                                window.history.back();
+                            } ,4000);  
+                        </script>";
+                    $event .= "";
+                    exit;
                 } else {
-                    $koneksi->query("INSERT INTO lampiran_iumk_file VALUES (null, '$idl[$i]', '$idiumk', 'Belum Ada Lampiran')");
-                    $event .= "upload berhasil";
+                    if ($size < 1044070) {
+                        $event .= 'next';
+                    } else {
+                        echo "
+                            <script type='text/javascript'>
+                                setTimeout(function () {    
+                                    toastr.error('File " . $file . " Terlalu Besar ! Silahkan Upload File Dengan Ukuran Maksimal 1 Mb');      
+                                },30);  
+                                window.setTimeout(function(){ 
+                                    window.history.back();
+                                } ,4000);  
+                            </script>";
+                        $event .= "";
+                        exit;
+                    }
                 }
             }
+            // else {
+            //     $koneksi->query("INSERT INTO lampiran_iumk_file VALUES (null, '$idl[$i]', '$idiumk', 'Belum Ada Lampiran')");
+            //     $event .= "upload berhasil";
+            // }
+        }
 
-            if (!empty($event)) {
+        if (!empty($event) || $event == 'next') {
+            // UPLOAD FOTO PEMOHON
+            $fotopemohon      = $_FILES['foto_pemohon']['name'];
+            $x_fotopemohon    = explode('.', $fotopemohon);
+            $ext_fotopemohon  = end($x_fotopemohon);
+            $nama_fotopemohon = rand(1, 99999) . '.' . $ext_fotopemohon;
+            $tmp_fotopemohon  = $_FILES['foto_pemohon']['tmp_name'];
+            $dir_fotopemohon  = '../../assets/iumk_foto_pemohon/';
+
+            move_uploaded_file($tmp_fotopemohon, $dir_fotopemohon . $nama_fotopemohon);
+
+            $submit = $koneksi->query("INSERT INTO iumk VALUES (
+                                null, 
+                                '$id_masyarakat', 
+                                '$nomor_iumk', 
+                                '$peraturan', 
+                                '$nama_pemohon', 
+                                '$nomor_ktp', 
+                                '$alamat', 
+                                '$tanggal', 
+                                '$no_telp', 
+                                '$nama_perusahaan',
+                                '$bentuk_perusahaan',
+                                '$npwp',
+                                '$kegiatan_usaha',
+                                '$sarana_usaha',
+                                '$alamat_usaha',
+                                '$jumlah_modal_usaha',
+                                '$nomor_pendaftaran',
+                                '$nama_camat',
+                                '$jabatan',
+                                '$nip',
+                                '$nama_fotopemohon',
+                                null,
+                                null,
+                                null,
+                                1,
+                                '$status'
+                                )");
+
+            if ($submit) {
+                $ambilidiumk = $koneksi->query("SELECT * FROM iumk ORDER BY id_iumk DESC LIMIT 1")->fetch_array();
+                $idiumk      = $ambilidiumk['id_iumk'];
+
+                for ($i = 0; $i < $hitungidl; $i++) {
+
+                    if (!empty($_FILES['file']['name'][$i])) {
+
+                        $file           = $_FILES['file']['name'][$i];
+                        $size           = $_FILES['file']['size'][$i];
+                        $nama_lamp      = explode('.', $file);
+                        $format_lamp    = end($nama_lamp);
+                        $ext            = strtolower($format_lamp);
+                        $nama_lampiran  = rand(1, 99999) . '.' . $format_lamp;
+
+                        $tmp_file  = $_FILES['file']['tmp_name'][$i];
+
+                        $targer_dir = '../../assets/iumk/';
+                        $target_file = $targer_dir . $nama_lampiran;
+
+                        move_uploaded_file($tmp_file, $target_file);
+                        $koneksi->query("INSERT INTO lampiran_iumk_file VALUES (null, '$idl[$i]', '$idiumk', '$nama_lampiran')");
+                        $gambar_arr[] = $target_file;
+                    }
+                }
+
                 echo "
                         <script type='text/javascript'>
                         setTimeout(function () {    
