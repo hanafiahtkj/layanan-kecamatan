@@ -359,20 +359,19 @@ $row  = $data->fetch_array();
 
     <?php
     if (isset($_POST['submit'])) {
-        $nama         = $_POST['nama'];
-        $nik          = $_POST['nik'];
-        $tempat_lahir = $_POST['tempat_lahir'];
-        $tgl_lahir    = $_POST['tgl_lahir'];
-        $jk           = $_POST['jk'];
-        $agama        = $_POST['agama'];
-        $telpon       = $_POST['telpon'];
+        $nama         = strip_tags($_POST['nama']);
+        $nik          = strip_tags($_POST['nik']);
+        $tempat_lahir = strip_tags($_POST['tempat_lahir']);
+        $tgl_lahir    = strip_tags($_POST['tgl_lahir']);
+        $jk           = strip_tags($_POST['jk']);
+        $agama        = strip_tags($_POST['agama']);
+        $telpon       = strip_tags($_POST['telpon']);
         $email        = $_POST['email'];
-        $alamat       = $_POST['alamat'];
-        $no_rumah     = $_POST['no_rumah'];
-        $rt           = $_POST['rt'];
-        $rw           = $_POST['rw'];
-        $kelurahan    = $_POST['kelurahan'];
-        $pass         = $_POST['password'];
+        $alamat       = strip_tags($_POST['alamat']);
+        $no_rumah     = strip_tags($_POST['no_rumah']);
+        $rt           = strip_tags($_POST['rt']);
+        $rw           = strip_tags($_POST['rw']);
+        $kelurahan    = strip_tags($_POST['kelurahan']);
 
         if (empty($pass)) {
             $password  = $row['password'];
@@ -397,8 +396,7 @@ $row  = $data->fetch_array();
                                     no_rumah     = '$no_rumah', 
                                     rt           = '$rt', 
                                     rw           = '$rw', 
-                                    kelurahan    = '$kelurahan',
-                                    password     = '$password'
+                                    kelurahan    = '$kelurahan'
                                     WHERE id_masyarakat = '$id'
                                 ");
 

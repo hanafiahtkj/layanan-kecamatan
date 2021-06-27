@@ -58,9 +58,9 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                     <a href="edit-profil?id=<?= encryptor('encrypt', $row['id_masyarakat']) ?>" class="btn btn-primary btn-tool">
                                         <i class="fa fa-edit"> Edit Profil</i>
                                     </a>
-                                    <!-- <a href="password-reset?id=<?= encryptor('encrypt', $row['id_masyarakat']) ?>" class="btn btn-danger btn-tool">
-                                        <i class="fa fa-edit"> Reset Password</i>
-                                    </a> -->
+                                    <button type="button" data-toggle="modal" data-target="#modal-edit-pw" class="btn btn-dark btn-tool">
+                                        <i class="fa fa-lock"> Edit Password</i>
+                                    </button>
                                 </div>
                             </div>
 
@@ -88,7 +88,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                             <td width="2%">:</td>
                                             <td>
                                                 <?=
-                                                    date('d', strtotime($row['tgl_lahir'])) . " " . $bln[date('m', strtotime($row['tgl_lahir']))] . " " . date('Y', strtotime($row['tgl_lahir']));
+                                                date('d', strtotime($row['tgl_lahir'])) . " " . $bln[date('m', strtotime($row['tgl_lahir']))] . " " . date('Y', strtotime($row['tgl_lahir']));
                                                 ?>
                                             </td>
                                         </tr>
@@ -128,7 +128,7 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                                         <tr>
                                             <th width="30%">Rt / Rw</th>
                                             <td width="2%">:</td>
-                                            <td><?= $row['rt'].' / '.$row['rw'] ?></td>
+                                            <td><?= $row['rt'] . ' / ' . $row['rw'] ?></td>
                                         </tr>
                                         <tr>
                                             <th width="30%">Kelurahan</th>
@@ -158,10 +158,161 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
+    <!-- MODAL EDIT PASSWORD -->
+    <div class="modal fade" id="modal-edit-pw" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold">Ubah Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="pass_lama">Password Lama</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" name="pass_lama" id="pass_lama">
+                                <div class="input-group-append" id="btn_lama">
+                                    <button type="button" class="btn btn-dark" onclick="lihatpass('pass_lama');" title="Tampilkan Password"><i class="fas fa-eye-slash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass_lama">Password Baru</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" name="pass_baru" id="pass_baru">
+                                <div class="input-group-append" id="btn_baru">
+                                    <button type="button" class="btn btn-dark" onclick="lihatpass('pass_baru');" title="Tampilkan Password"><i class="fas fa-eye-slash"></i></button>
+                                </div>
+                            </div>
+                            <small class="text-muted font-italic">*Password Minimal 8 Karakter</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button class="btn btn-primary text-white" type="submit" name="edit-pw">
+                            <i class="fa fa-save"> Simpan</i>
+                        </button>
+                        <button class="btn btn-dark text-white" type="button" data-dismiss="modal">
+                            <i class="fa fa-times"> Batal</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- // MODAL EDIT PASSWORD -->
+
 
     <?php include_once "template/ui/script.php"; ?>
 
+    <script>
+        // LIHAT PASSWORD
+        function lihatpass(id) {
+            var getid = document.getElementById(id).id;
+            let tipe = document.getElementById(id).type;
+
+            if (getid == 'pass_lama') {
+                if (tipe == 'password') {
+                    document.getElementById(id).type = 'text';
+                    document.getElementById('btn_lama').innerHTML =
+                        '<button type="button" class="btn btn-success" onclick=lihatpass("pass_lama") title="Sembunyikan Password"><i class="fas fa-eye"></i></button>';
+                } else {
+                    document.getElementById(id).type = 'password';
+                    document.getElementById('btn_lama').innerHTML =
+                        '<button type="button" class="btn btn-dark" onclick=lihatpass("pass_lama"); title="Tampilkan Password"><i class="fas fa-eye-slash"></i></button>';
+                }
+            }
+
+            if (getid == 'pass_baru') {
+                if (tipe == 'password') {
+                    document.getElementById(id).type = 'text';
+                    document.getElementById('btn_baru').innerHTML =
+                        '<button type="button" class="btn btn-success" onclick=lihatpass("pass_baru") title="Sembunyikan Password"><i class="fas fa-eye"></i></button>';
+                } else {
+                    document.getElementById(id).type = 'password';
+                    document.getElementById('btn_baru').innerHTML =
+                        '<button type="button" class="btn btn-dark" onclick=lihatpass("pass_baru"); title="Tampilkan Password"><i class="fas fa-eye-slash"></i></button>';
+                }
+            }
+
+            if (getid == 'pass') {
+                if (tipe == 'password') {
+                    document.getElementById(id).type = 'text';
+                    document.getElementById('btn_pass').innerHTML =
+                        '<button type="button" class="btn btn-success" onclick=lihatpass("pass") title="Sembunyikan Password"><i class="fas fa-eye"></i></button>';
+                } else {
+                    document.getElementById(id).type = 'password';
+                    document.getElementById('btn_pass').innerHTML =
+                        '<button type="button" class="btn btn-dark" onclick=lihatpass("pass"); title="Tampilkan Password"><i class="fas fa-eye-slash"></i></button>';
+                }
+            }
+        }
+    </script>
 
 </body>
 
 </html>
+
+<?php
+if (isset($_POST['edit-pw'])) {
+    $id_masyarakat = $_SESSION['id_masyarakat'];
+    $pass_lama     = $_POST['pass_lama'];
+    $pass_baru     = $_POST['pass_baru'];
+
+    if (empty($pass_lama) || empty($pass_baru)) {
+        echo "
+            <script type='text/javascript'>   
+                toastr.error('Password tidak boleh kosong!');  
+                $('#modal-edit-pw').modal('show');
+            </script>";
+    } elseif (strlen($pass_lama) < 8 || strlen($pass_baru) < 8) {
+        echo "
+            <script type='text/javascript'>    
+                toastr.error('Password minimal 8 karakter!');   
+                $('#modal-edit-pw').modal('show');
+            </script>";
+    } else {
+
+        $options = [
+            'cost' => 10,
+        ];
+        $password_baru = password_hash($pass_baru, PASSWORD_DEFAULT, $options);
+
+        $cek_pass_lama = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id_masyarakat'");
+
+        if (mysqli_num_rows($cek_pass_lama) === 1) {
+            $data = mysqli_fetch_array($cek_pass_lama);
+            if (password_verify($pass_lama, $data["password"])) {
+                $ubah = $koneksi->query("UPDATE masyarakat SET password = '$password_baru' WHERE id_masyarakat = '$id_masyarakat'");
+                if ($ubah) {
+                    echo "
+                    <script type='text/javascript'>
+                        setTimeout(function () {    
+                            toastr.success('Password berhasil diubah');     
+                        },10);
+                        window.setTimeout(function(){ 
+                            window.location.replace('" . base_url('profil') . "');
+                        } ,1500);   
+                    </script>";
+                }
+            } else {
+                echo "
+            <script type='text/javascript'>   
+                toastr.error('Password lama yang anda masukkan salah!');
+                $('#modal-edit-pw').modal('show');
+            </script>";
+            }
+        } else {
+            echo "
+            <script type='text/javascript'>   
+                toastr.error('Password lama yang anda masukkan salah!');
+                $('#modal-edit-pw').modal('show');
+            </script>";
+        }
+    }
+}
+?>

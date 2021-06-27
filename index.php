@@ -36,36 +36,38 @@ include_once "config/config.php";
 
     <style type="text/css">
         .loading-halaman::before {
-                content: " ";
-                display: block;
-                position: fixed;
-                z-index: 10;
-                height: 3px;
+            content: " ";
+            display: block;
+            position: fixed;
+            z-index: 10;
+            height: 3px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: #ff0505;
+            -webkit-animation: load-halaman ease-out 2s;
+            animation: load-halaman ease-out 2s;
+        }
+
+        @-webkit-keyframes load-halaman {
+            from {
+                width: 0;
+            }
+
+            to {
                 width: 100%;
-                top: 0;
-                left: 0;
-                background-color: #ff0505;
-                -webkit-animation: load-halaman ease-out 2s;
-                        animation: load-halaman ease-out 2s;
+            }
+        }
+
+        @keyframes load-halaman {
+            from {
+                width: 0;
             }
 
-            @-webkit-keyframes load-halaman {
-                from {
-                    width:0;
-                }
-                to {
-                    width:100%;
-                }
+            to {
+                width: 100%;
             }
-
-            @keyframes load-halaman {
-                from {
-                    width:0;
-                }
-                to {
-                    width:100%;
-                }
-            }
+        }
     </style>
 </head>
 
@@ -98,6 +100,8 @@ include_once "config/config.php";
                             <i class="fa fa-lock"></i>
                         </span>
                     </div>
+
+                    <div class="g-recaptcha" style="text-align: center; padding-left: 45px; justify-content: center;" data-sitekey="6LeKrb4ZAAAAAC5zORPJNdM2kIRORQ8FiWMI-MzX"></div>
 
                     <div class="container-login100-form-btn p-t-10">
                         <button class="login100-form-btn m-b-5" type="submit" name="login">
@@ -142,38 +146,40 @@ include_once "config/config.php";
     <script src="<?= base_url() ?>/assets/plugins/toastr/toastr.min.js"></script>
     <!--===============================================================================================-->
     <script src="<?= base_url() ?>/template/login-user/js/main.js"></script>
+    <!-- Link javascript untuk api reCAPTCHA -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 
 
     <!-- Modal -->
     <div class="modal fade" id="modal-lupa-password" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Lupa Password</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-            <form action="" method="POST">
-              <div class="modal-body">
-                  <div class="form-group">
-                    <label>NIK</label>
-                    <input type="number" class="form-control" name="nik" maxlength="18" required placeholder="Masukkan NIK KTP Anda">
-                  </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Lupa Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>NIK</label>
+                            <input type="number" class="form-control" name="nik" maxlength="18" required placeholder="Masukkan NIK KTP Anda">
+                        </div>
 
-                  <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" name="email" required placeholder="Masukkan Email Anda">
-                  </div>
-              </div>
-              
-              <div class="modal-footer justify-content-center">
-                <button type="submit" name="lupa_password" class="btn btn-primary url_loader">Submit</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-              </div>
-            </form>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" required placeholder="Masukkan Email Anda">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" name="lupa_password" class="btn btn-primary url_loader">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
 
     <script type="text/javascript">
@@ -182,105 +188,124 @@ include_once "config/config.php";
             l = links.length,
             body = document.body;
 
-            for (; i < l; i++) {
-                links[i].addEventListener("click", function() {
-                    body.className = "loading-halaman";
-                    setTimeout(function() {
-                        body.className = "";
-                    }, 30000);
-                }, false);
-            }
+        for (; i < l; i++) {
+            links[i].addEventListener("click", function() {
+                body.className = "loading-halaman";
+                setTimeout(function() {
+                    body.className = "";
+                }, 30000);
+            }, false);
+        }
     </script>
 
     <?php
-        if (isset($_POST['lupa_password'])) {
-            $nik   = $_POST['nik'];
-            $email = $_POST['email'];
+    if (isset($_POST['lupa_password'])) {
+        $nik   = $_POST['nik'];
+        $email = $_POST['email'];
 
-            $cek = $koneksi->query("SELECT nik, nama, email, password FROM masyarakat WHERE nik = '$nik' AND email = '$email'")->fetch_array();
-            if(!$cek){
-                echo "
+        $cek = $koneksi->query("SELECT nik, nama, email, password FROM masyarakat WHERE nik = '$nik' AND email = '$email'")->fetch_array();
+        if (!$cek) {
+            echo "
                     <script type='text/javascript'>
                         toastr.error('NIK atau Email Tidak Ditemukan');  
                     </script>";
-            }else{
-                $nama  = $cek['nama'];
-                $email = $cek['email'];
-                $pass  = $cek['password'];
+        } else {
+            $nama  = $cek['nama'];
+            $email = $cek['email'];
+            $pass  = $cek['password'];
 
-                require_once('assets/phpmail/class.phpmailer.php');
-                require_once('assets/phpmail/class.smtp.php');
-                $mail = new PHPMailer();
-                
-                $body = "Klik link berikut untuk reset Password akun Elok Anda, <a href='http://localhost/layanan-kecamatan/reset_password.php?reset=$pass&key=$email'>$pass<a>";
-                            
-               // $mail->CharSet =  "utf-8";
-                $mail->IsSMTP();
-                // enable SMTP authentication
-                $mail->SMTPDebug  = 1;
-                $mail->SMTPAuth = true;                  
-                // GMAIL username
-                $mail->Username = "elok.utara@gmail.com";
-                // GMAIL password
-                $mail->Password = "AdminElokUtara123";
-                $mail->SMTPSecure = "ssl";  
-                // sets GMAIL as the SMTP server
-                $mail->Host = "smtp.gmail.com";
-                // set the SMTP port for the GMAIL server
-                $mail->Port = "465";
-                $mail->From='elok.utara@gmail.com';
-                $mail->FromName='Admin Elok Kecamatan Banjarmasin Utara';
-                  
-                $email = $_POST['email'];
-                
-                $mail->AddAddress($email, $nama);
-                $mail->Subject  =  'Reset Password';
-                $mail->IsHTML(true);
-                $mail->MsgHTML($body);
-                if($mail->Send())
-                {
-                  echo "<script> 
+            require_once('assets/phpmail/class.phpmailer.php');
+            require_once('assets/phpmail/class.smtp.php');
+            $mail = new PHPMailer();
+
+            $body = "Klik link berikut untuk reset Password akun Elok Anda, <a href='http://localhost/layanan-kecamatan/reset_password.php?reset=$pass&key=$email'>$pass<a>";
+
+            // $mail->CharSet =  "utf-8";
+            $mail->IsSMTP();
+            // enable SMTP authentication
+            $mail->SMTPDebug  = 1;
+            $mail->SMTPAuth = true;
+            // GMAIL username
+            $mail->Username = "elok.utara@gmail.com";
+            // GMAIL password
+            $mail->Password = "AdminElokUtara123";
+            $mail->SMTPSecure = "ssl";
+            // sets GMAIL as the SMTP server
+            $mail->Host = "smtp.gmail.com";
+            // set the SMTP port for the GMAIL server
+            $mail->Port = "465";
+            $mail->From = 'elok.utara@gmail.com';
+            $mail->FromName = 'Admin Elok Kecamatan Banjarmasin Utara';
+
+            $email = $_POST['email'];
+
+            $mail->AddAddress($email, $nama);
+            $mail->Subject  =  'Reset Password';
+            $mail->IsHTML(true);
+            $mail->MsgHTML($body);
+            if ($mail->Send()) {
+                echo "<script> 
                             toastr.success('Link reset password telah dikirim ke email anda, Cek email untuk melakukan reset'); 
-                            window.location.replace = '". base_url() ."'; 
-                        </script>";//jika pesan terkirim
-                            
-                }
-                else
-                {
-                  echo "<script> 
-                            toastr.error('Mail Error - > ". $mail->ErrorInfo ."'); 
+                            window.location.replace = '" . base_url() . "'; 
+                        </script>"; //jika pesan terkirim
+
+            } else {
+                echo "<script> 
+                            toastr.error('Mail Error - > " . $mail->ErrorInfo . "'); 
                             window.location = 'index.html'; 
                         </script>";
-                }
             }
         }
+    }
     ?>
 
     <?php
     if (isset($_POST['login'])) {
-        $nik = mysqli_real_escape_string($koneksi, $_POST['nik']);
-        $pass = mysqli_real_escape_string($koneksi, $_POST['password']);
+        $nik     = mysqli_real_escape_string($koneksi, $_POST['nik']);
+        $pass    = mysqli_real_escape_string($koneksi, $_POST['password']);
+        $captcha = $_POST['g-recaptcha-response'];
 
-        $query = mysqli_query($koneksi, "SELECT * FROM masyarakat WHERE nik = '$nik'");
+        $secretKey    = "6LeKrb4ZAAAAACxHcpT2kHPYxmVaNTTDbHaKud2b";
+        $ip           = $_SERVER['REMOTE_ADDR'];
+        $response     = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secretKey . "&response=" . $captcha . "&remoteip=" . $ip);
+        $responseKeys = json_decode($response, true);
 
-        // CEK USERNAME
-        if (mysqli_num_rows($query) === 1) {
+        // echo "<pre>";
+        // var_dump($responseKeys);
+        // die;
 
-            // CEK PASSWORD
-            $data = mysqli_fetch_array($query);
-            if (password_verify($pass, $data["password"])) {
+        if (intval($responseKeys["success"]) == false) {
+            echo "
+            <script type='text/javascript'>
+                setTimeout(function () {    
+                    toastr.error('Captcha Belum Dicentang !');      
+                },30);  
+                window.setTimeout(function(){ 
+                    window.location.replace = '" . base_url() . "'; 
+                } ,3000);  
+            </script>";
+        } else {
 
-                $id_masyarakat = $data['id_masyarakat'];
-                $nama          = $data['nama'];
-                $_SESSION['id_masyarakat'] = $id_masyarakat;
-                $_SESSION['nama']          = $nama;
+            $query = mysqli_query($koneksi, "SELECT * FROM masyarakat WHERE nik = '$nik'");
 
-                // log
-                $ket  = "Login Masyarakat -> NIK = " . $data['nik'];
-                $koneksi->query("INSERT INTO log VALUES(null, '$ket', CURRENT_TIME(), '$nama', null, null)");
-                // --Log
+            // CEK USERNAME
+            if (mysqli_num_rows($query) === 1) {
 
-                echo "
+                // CEK PASSWORD
+                $data = mysqli_fetch_array($query);
+                if (password_verify($pass, $data["password"])) {
+
+                    $id_masyarakat = $data['id_masyarakat'];
+                    $nama          = $data['nama'];
+                    $_SESSION['id_masyarakat'] = $id_masyarakat;
+                    $_SESSION['nama']          = $nama;
+
+                    // log
+                    $ket  = "Login Masyarakat -> NIK = " . $data['nik'];
+                    $koneksi->query("INSERT INTO log VALUES(null, '$ket', CURRENT_TIME(), '$nama', null, null)");
+                    // --Log
+
+                    echo "
                     <script type='text/javascript'>
                     setTimeout(function () {    
                         toastr.success('Login Berhasil');     
@@ -289,17 +314,18 @@ include_once "config/config.php";
                         window.location.replace('" . base_url('dashboard') . "');
                     } ,1800);   
                     </script>";
+                } else {
+                    echo "
+                <script type='text/javascript'>
+                    toastr.error('NIK atau Password Tidak Ditemukan');  
+                </script>";
+                }
             } else {
                 echo "
                 <script type='text/javascript'>
                     toastr.error('NIK atau Password Tidak Ditemukan');  
                 </script>";
             }
-        } else {
-            echo "
-                <script type='text/javascript'>
-                    toastr.error('NIK atau Password Tidak Ditemukan');  
-                </script>";
         }
     }
     ?>
