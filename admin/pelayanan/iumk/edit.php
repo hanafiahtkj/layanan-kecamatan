@@ -149,10 +149,36 @@ $row  = $data->fetch_array();
                                             </div>
                                         </div>
 
+                                        <hr>
+                                        <legend style="margin-bottom: 15px;">Alamat Usaha</legend>
+
                                         <div class="form-group row">
-                                            <label for="alamat_usaha" class="col-sm-2 col-form-label">Alamat Usaha</label>
+                                            <label class="col-sm-2 col-form-label">Jalan</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="alamat_usaha" id="alamat_usaha" rows="3" required><?= $row['alamat_usaha'] ?></textarea>
+                                                <textarea class="form-control alamat" name="alamat_usaha" id="alamat_usaha" rows="2" maxlength="110" required><?= $row['alamat_usaha'] ?></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">RT / RW</label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="rt" id="rt" required placeholder="RT" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rt'] ?>">
+                                            </div>
+                                            <span style="margin-top: 5px;">/</span>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="rw" id="rw" required placeholder="RW" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rw'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">No. Rumah</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="no_rumah" id="no_rumah" required maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['no_rumah'] ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Kelurahan</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="kelurahan" id="kelurahan" class="form-control" maxlength="100" required value="<?= $row['kelurahan'] ?>">
                                             </div>
                                         </div>
 
@@ -399,6 +425,10 @@ $row  = $data->fetch_array();
         $kegiatan_usaha     = $_POST['kegiatan_usaha'];
         $sarana_usaha       = $_POST['sarana_usaha'];
         $alamat_usaha       = $_POST['alamat_usaha'];
+        $rt                 = $_POST['rt'];
+        $rw                 = $_POST['rw'];
+        $no_rumah           = $_POST['no_rumah'];
+        $kelurahan          = $_POST['kelurahan'];
         $jumlah_modal_usaha = $_POST['jumlah_modal_usaha'];
         $jumlah_modal_usaha = preg_replace('/[.]/', '', $jumlah_modal_usaha);
         $nomor_pendaftaran  = $_POST['nomor_pendaftaran'];
@@ -470,6 +500,10 @@ $row  = $data->fetch_array();
             kegiatan_usaha     = '$kegiatan_usaha',
             sarana_usaha       = '$sarana_usaha',
             alamat_usaha       = '$alamat_usaha',
+            no_rumah           = '$no_rumah',
+            rt                 = '$rt',
+            rw                 = '$rw',
+            kelurahan          = '$kelurahan',
             jumlah_modal_usaha = '$jumlah_modal_usaha',
             nama_camat         = '$nama_camat',
             jabatan            = '$jabatan',
@@ -500,6 +534,10 @@ $row  = $data->fetch_array();
             kegiatan_usaha     = '$kegiatan_usaha',
             sarana_usaha       = '$sarana_usaha',
             alamat_usaha       = '$alamat_usaha',
+            no_rumah           = '$no_rumah',
+            rt                 = '$rt',
+            rw                 = '$rw',
+            kelurahan          = '$kelurahan',
             jumlah_modal_usaha = '$jumlah_modal_usaha',
             nama_camat         = '$nama_camat',
             jabatan            = '$jabatan',
@@ -526,6 +564,10 @@ $row  = $data->fetch_array();
             kegiatan_usaha     = '$kegiatan_usaha',
             sarana_usaha       = '$sarana_usaha',
             alamat_usaha       = '$alamat_usaha',
+            no_rumah           = '$no_rumah',
+            rt                 = '$rt',
+            rw                 = '$rw',
+            kelurahan          = '$kelurahan',
             jumlah_modal_usaha = '$jumlah_modal_usaha',
             nama_camat         = '$nama_camat',
             jabatan            = '$jabatan',

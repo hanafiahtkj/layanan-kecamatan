@@ -118,10 +118,36 @@ include_once "../../../../template/head.php";
                                             </div>
                                         </div>
 
+                                        <hr>
+                                        <legend style="margin-bottom: 15px;">Alamat Perusahaan</legend>
+
                                         <div class="form-group row">
-                                            <label for="alamat_perusahaan" class="col-sm-2 col-form-label">Alamat Perusahaan</label>
+                                            <label class="col-sm-2 col-form-label">Jalan</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="alamat_perusahaan" id="alamat_perusahaan" rows="3" required></textarea>
+                                                <textarea class="form-control" name="alamat_perusahaan" id="alamat_perusahaan" rows="2" required maxlength="110"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">RT / RW</label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="rt" id="rt" required placeholder="RT" maxlength="10" onkeypress="return Angkasaja(event)">
+                                            </div>
+                                            <span style="margin-top: 5px;">/</span>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="rw" id="rw" required placeholder="RW" maxlength="10" onkeypress="return Angkasaja(event)">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">No. Rumah</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="no_rumah" id="no_rumah" required maxlength="10" onkeypress="return Angkasaja(event)">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Kelurahan</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="kelurahan" id="kelurahan" class="form-control" maxlength="100" required>
                                             </div>
                                         </div>
 
@@ -386,6 +412,10 @@ include_once "../../../../template/head.php";
         $peraturan                = $dataperaturan['peraturan'];
         $nama_perusahaan          = $_POST['nama_perusahaan'];
         $alamat_perusahaan        = $_POST['alamat_perusahaan'];
+        $rt                       = $_POST['rt'];
+        $rw                       = $_POST['rw'];
+        $no_rumah                 = $_POST['no_rumah'];
+        $kelurahan                = $_POST['kelurahan'];
         $nama_pimpinan_perusahaan = $_POST['nama_pimpinan_perusahaan'];
         $alamat_kediaman          = $_POST['alamat_kediaman'];
         $kegiatan_usaha           = $_POST['kegiatan_usaha'];
@@ -424,6 +454,10 @@ include_once "../../../../template/head.php";
                 '$peraturan', 
                 '$nama_perusahaan', 
                 '$alamat_perusahaan', 
+                '$no_rumah', 
+                '$rt', 
+                '$rw', 
+                '$kelurahan', 
                 '$nama_pimpinan_perusahaan',
                 '$alamat_kediaman',
                 '$kegiatan_usaha',
@@ -452,7 +486,11 @@ include_once "../../../../template/head.php";
                 '$tgl', 
                 '$peraturan', 
                 '$nama_perusahaan', 
-                '$alamat_perusahaan', 
+                '$alamat_perusahaan',  
+                '$no_rumah', 
+                '$rt', 
+                '$rw', 
+                '$kelurahan',
                 '$nama_pimpinan_perusahaan',
                 '$alamat_kediaman',
                 '$kegiatan_usaha',

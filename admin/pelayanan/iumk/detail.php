@@ -134,7 +134,7 @@ $po = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_po
                                             <tr>
                                                 <th width="30%">Alamat Usaha</th>
                                                 <td width="2%">:</td>
-                                                <td><?= $row['alamat_usaha'] ?></td>
+                                                <td><?= $row['alamat_usaha'] . ' No. ' . $row['no_rumah'] . ' Rt. ' . $row['rt'] . ' Rw. ' . $row['rw'] . ' Kelurahan ' . $row['kelurahan'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%">Jumlah Modal Usaha</th>

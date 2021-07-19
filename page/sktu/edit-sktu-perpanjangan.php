@@ -90,10 +90,37 @@ $row = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_sktu = '$id'")-
                                         </div>
                                     </div>
 
+                                    
+                                    <hr>
+                                    <legend style="margin-bottom: 15px;">Alamat Perusahaan</legend>
+
                                     <div class="form-group row">
-                                        <label for="alamat_perusahaan" class="col-sm-3 col-form-label">Alamat Perusahaan</label>
+                                        <label class="col-sm-3 col-form-label">Jalan</label>
                                         <div class="col-sm-9">
                                             <textarea class="form-control alamat" name="alamat_perusahaan" id="alamat_perusahaan" rows="2" required maxlength="110"><?= $row['alamat_perusahaan']; ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">RT / RW</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control" name="rt" id="rt" required placeholder="RT" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rt']; ?>">
+                                        </div>
+                                        <span style="margin-top: 5px;">/</span>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control" name="rw" id="rw" required placeholder="RW" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rw']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">No. Rumah</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="no_rumah" id="no_rumah" required maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['no_rumah']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Kelurahan</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="kelurahan" id="kelurahan" class="form-control" maxlength="100" required value="<?= $row['kelurahan']; ?>">
                                         </div>
                                     </div>
 
@@ -245,6 +272,30 @@ $row = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_sktu = '$id'")-
                                     $('#alamat_perusahaan').focus();
                                 }, 20);
                             }else
+                            if (no_rumah == '') {
+                                setTimeout(function() {
+                                    toastr.error('Nomor Rumah Tidak Boleh Kosong!');
+                                    $('#no_rumah').focus();
+                                }, 20);
+                            } else
+                            if (rt == '') {
+                                setTimeout(function() {
+                                    toastr.error('Rt Tidak Boleh Kosong!');
+                                    $('#rt').focus();
+                                }, 20);
+                            } else
+                            if (rw == '') {
+                                setTimeout(function() {
+                                    toastr.error('Rw Tidak Boleh Kosong!');
+                                    $('#rw').focus();
+                                }, 20);
+                            } else
+                            if (kelurahan == '') {
+                                setTimeout(function() {
+                                    toastr.error('Kelurahan Tidak Boleh Kosong!');
+                                    $('#kelurahan').focus();
+                                }, 20);
+                            } else
                             if(nama_pimpinan_perusahaan == ''){
                                 setTimeout(function() {
                                     toastr.error('Nama Pimpinan Perusahaan Tidak Boleh Kosong!');
@@ -311,11 +362,15 @@ $row = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_sktu = '$id'")-
         $tgl                      = $row['tgl'];
         $tgl_time                 = $_POST['tgl'] . " " . date('H:i:s');
         $peraturan                = $dasarhukum['peraturan'];
-        $nama_perusahaan          = $_POST['nama_perusahaan'];
-        $alamat_perusahaan        = $_POST['alamat_perusahaan'];
-        $nama_pimpinan_perusahaan = $_POST['nama_pimpinan_perusahaan'];
-        $alamat_kediaman          = $_POST['alamat_kediaman'];
-        $kegiatan_usaha           = $_POST['kegiatan_usaha'];
+        $nama_perusahaan          = strip_tags($_POST['nama_perusahaan']);
+        $alamat_perusahaan        = strip_tags($_POST['alamat_perusahaan']);
+        $rt                       = strip_tags($_POST['rt']);
+        $rw                       = strip_tags($_POST['rw']);
+        $no_rumah                 = strip_tags($_POST['no_rumah']);
+        $kelurahan                = strip_tags($_POST['kelurahan']);
+        $nama_pimpinan_perusahaan = strip_tags($_POST['nama_pimpinan_perusahaan']);
+        $alamat_kediaman          = strip_tags($_POST['alamat_kediaman']);
+        $kegiatan_usaha           = strip_tags($_POST['kegiatan_usaha']);
         $masa_berlaku_akhir       = $_POST['masa_berlaku_akhir'];
         $nama_camat               = $camat['nama_camat'];
         $nip                      = $camat['nip'];
@@ -329,6 +384,10 @@ $row = $koneksi->query("SELECT * FROM sktu_perpanjangan WHERE id_sktu = '$id'")-
             peraturan                = '$peraturan', 
             nama_perusahaan          = '$nama_perusahaan', 
             alamat_perusahaan        = '$alamat_perusahaan', 
+            no_rumah                 = '$no_rumah', 
+            rt                       = '$rt', 
+            rw                       = '$rw', 
+            kelurahan                = '$kelurahan', 
             nama_pimpinan_perusahaan = '$nama_pimpinan_perusahaan',
             alamat_kediaman          = '$alamat_kediaman',
             kegiatan_usaha           = '$kegiatan_usaha',

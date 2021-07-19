@@ -42,7 +42,7 @@ $po  = $koneksi->query("SELECT * FROM posisi_berkas WHERE id_posisi = '$row[id_p
         <tr>
             <th width="30%">Alamat Perusahaan</th>
             <td width="2%">:</td>
-            <td><?= $row['alamat_perusahaan'] ?></td>
+            <td><?= $row['alamat_perusahaan'] . ' No. ' . $row['no_rumah'] . ' Rt. ' . $row['rt'] . ' Rw. ' . $row['rw'] . ' Kelurahan ' . $row['kelurahan'] ?></td>
         </tr>
         <tr>
             <th width="30%">Nama Pimpinan Perusahaan</th>

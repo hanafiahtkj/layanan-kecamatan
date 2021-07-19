@@ -160,10 +160,36 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                                         </div>
                                     </div>
 
+                                    <hr>
+                                    <legend style="margin-bottom: 15px;">Alamat Usaha</legend>
+
                                     <div class="form-group row">
-                                        <label for="alamat_usaha" class="col-sm-3 col-form-label">Alamat Usaha</label>
+                                        <label class="col-sm-3 col-form-label">Jalan</label>
                                         <div class="col-sm-9">
                                             <textarea class="form-control alamat" name="alamat_usaha" id="alamat_usaha" rows="2" maxlength="110" required><?= $row['alamat_usaha'] ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">RT / RW</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control" name="rt" id="rt" required placeholder="RT" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rt'] ?>">
+                                        </div>
+                                        <span style="margin-top: 5px;">/</span>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control" name="rw" id="rw" required placeholder="RW" maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['rw'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">No. Rumah</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="no_rumah" id="no_rumah" required maxlength="10" onkeypress="return Angkasaja(event)" value="<?= $row['no_rumah'] ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Kelurahan</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="kelurahan" id="kelurahan" class="form-control" maxlength="100" required value="<?= $row['kelurahan'] ?>">
                                         </div>
                                     </div>
 
@@ -342,17 +368,21 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
 
         $id_masyarakat      = $idm;
         $peraturan          = $dataperaturan['peraturan'];
-        $nama_pemohon       = $_POST['nama_pemohon'];
-        $nomor_ktp          = $_POST['nomor_ktp'];
-        $alamat             = $_POST['alamat'];
-        $tanggal            = $_POST['tanggal'] . " " . date('H:i:s');;
-        $no_telp            = $_POST['no_telp'];
-        $nama_perusahaan    = $_POST['nama_perusahaan'];
-        $bentuk_perusahaan  = $_POST['bentuk_perusahaan'];
+        $nama_pemohon       = strip_tags($_POST['nama_pemohon']);
+        $nomor_ktp          = strip_tags($_POST['nomor_ktp']);
+        $alamat             = strip_tags($_POST['alamat']);
+        $tanggal            = $_POST['tanggal'] . " " . date('H:i:s');
+        $no_telp            = strip_tags($_POST['no_telp']);
+        $nama_perusahaan    = strip_tags($_POST['nama_perusahaan']);
+        $bentuk_perusahaan  = strip_tags($_POST['bentuk_perusahaan']);
         $npwp               = $_POST['npwp'];
-        $kegiatan_usaha     = $_POST['kegiatan_usaha'];
-        $sarana_usaha       = $_POST['sarana_usaha'];
-        $alamat_usaha       = $_POST['alamat_usaha'];
+        $kegiatan_usaha     = strip_tags($_POST['kegiatan_usaha']);
+        $sarana_usaha       = strip_tags($_POST['sarana_usaha']);
+        $alamat_usaha       = strip_tags($_POST['alamat_usaha']);
+        $rt                 = strip_tags($_POST['rt']);
+        $rw                 = strip_tags($_POST['rw']);
+        $no_rumah           = strip_tags($_POST['no_rumah']);
+        $kelurahan          = strip_tags($_POST['kelurahan']);
         $jumlah_modal_usaha = $_POST['jumlah_modal_usaha'];
         $jumlah_modal_usaha = preg_replace('/[.]/', '', $jumlah_modal_usaha);
         $nomor_pendaftaran  = $_POST['nomor_pendaftaran'];
@@ -448,6 +478,10 @@ $row = $koneksi->query("SELECT * FROM iumk WHERE id_iumk = '$id'")->fetch_array(
                 kegiatan_usaha     = '$kegiatan_usaha',
                 sarana_usaha       = '$sarana_usaha',
                 alamat_usaha       = '$alamat_usaha',
+                no_rumah           = '$no_rumah',
+                rt                 = '$rt',
+                rw                 = '$rw',
+                kelurahan          = '$kelurahan',
                 jumlah_modal_usaha = '$jumlah_modal_usaha',
                 id_posisi          = 1,
                 nama_camat         = '$nama_camat',
