@@ -154,7 +154,7 @@ $row  = $data->fetch_array();
             <td width="3%"></td>
             <td width="35%">2. Alamat Perusahaan</td>
             <td style="text-align: center;">:</td>
-            <td width="60%"><?= strtoupper($row['alamat_perusahaan']); ?></td>
+            <td width="60%"><?= strtoupper($row['alamat_perusahaan'] . ' No. ' . $row['no_rumah'] . ' Rt. ' . $row['rt'] . ' Rw. ' . $row['rw'] . ' Kelurahan ' . $row['kelurahan']); ?></td>
         </tr>
         <tr style="vertical-align: top;">
             <td width="13%"></td>

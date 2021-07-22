@@ -182,7 +182,7 @@ $row  = $data->fetch_array();
         <tr>
             <td width="40%" valign="top">Alamat Usaha</td>
             <td width="3%" valign="top">:</td>
-            <td><?= strtoupper($row['alamat_usaha']); ?></td>
+            <td><?= strtoupper($row['alamat_usaha'] . ' No. ' . $row['no_rumah'] . ' Rt. ' . $row['rt'] . ' Rw. ' . $row['rw'] . ' Kelurahan ' . $row['kelurahan']); ?></td>
         </tr>
         <tr>
             <td width="40%" valign="top">Jumlah Modal Usaha</td>
