@@ -128,7 +128,7 @@ include_once "../../../../template/head.php";
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Jalan</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="alamat_perusahaan" id="alamat_perusahaan" rows="2" required maxlength="110"></textarea>
+                                                <textarea class="form-control alamat" name="alamat_perusahaan" id="alamat_perusahaan" rows="2" required maxlength="110"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">
