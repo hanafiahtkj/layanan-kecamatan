@@ -34,6 +34,12 @@ include_once "config/config.php";
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/template/login-user/css/main.css">
     <!--===============================================================================================-->
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://sso.banjarmasinkota.go.id/vendor/bjm-sso/bjm-sso.css">
+	<script src="https://sso.banjarmasinkota.go.id/vendor/bjm-sso/bjm-sso.js"></script>
+    <!-- <link rel="stylesheet"type="text/css" href="http://server.banjarmasinkota.go.id:8000/vendor/bjm-sso/bjm-sso.css">
+	<script src="http://server.banjarmasinkota.go.id:8000/vendor/bjm-sso/bjm-sso.js"></script> -->
+
     <style type="text/css">
         .loading-halaman::before {
             content: " ";
@@ -107,10 +113,12 @@ include_once "config/config.php";
                         <button class="login100-form-btn m-b-5" type="submit" name="login">
                             Login
                         </button>
-
-                        <a href="<?= base_url('regis') ?>" class="login100-form-btn" style="background-color: #228B22;">
+                        <a href="<?= base_url('regis') ?>" class="login100-form-btn m-b-5" style="background-color: #228B22;">
                             Registrasi
                         </a>
+                        <button class="login100-form-btn" type="button" onClick="clickLogin();" name="login_sso" style="background-color: #228B22;">
+                            Login / Registrasi SSO
+                        </button>
 
                         <div class="text-center w-full p-t-10">
                             <span class="txt1">
@@ -196,6 +204,114 @@ include_once "config/config.php";
                 }, 30000);
             }, false);
         }
+    </script>
+
+    <script>
+    <?php 
+    if (isset($_GET['is_sso'])) { ?>
+    $(function() { 
+        var sso = new BjmSSO();
+        sso.login(function(result) {
+            console.log(result);
+            if (result['status']) {
+                sendLoginToServer(result);
+            }
+        });
+    });
+    <?php } ?>
+
+    async function isRegister(id_sso) {
+        var formData = new FormData();
+        formData.append('id_sso', id_sso);
+        // formData.append('email', email);
+        const response = await axios.post("sso/api-is-register.php", formData, {withCredentials: true});
+        return response.data;
+    }
+
+    async function clickLogin() {
+        var sso = new BjmSSO();
+        sso.loginWindow(beforeLoginToServer);
+    }
+
+    function clickRegister() {
+        console.log('Click Register');
+        sendRegisterToServer();
+    }
+
+    // cek apakah sudah terdaftar
+    async function beforeLoginToServer(result) {
+        console.log(result);
+        if (result['status']) {
+            var user = result['data']['user'];
+            var key = result['data']['key'];
+            console.log(result);
+            if (result['status']) {
+                const isRegister = await self.isRegister(user['id']);
+                if (isRegister['status']) {
+                    sendLoginToServer(result);
+                }
+                else {
+                    const stringifiedData = JSON.stringify(result.data)
+                    sessionStorage.setItem("result", stringifiedData);
+                    window.location.replace("sso/regis-sso");
+                }
+            }
+        }
+    }
+
+    function sendLoginToServer(result) {
+        var user = result['data']['user'];
+        var token = result['data']['key'];
+        var formData = new FormData();
+        for ( var key in user ) {
+            formData.append(key, user[key]);
+        }
+        formData.append('id_sso', user['id']);
+        formData.append('token', token);
+        //formData.append('_token', '{{ csrf_token() }}');
+        $.ajax({
+            type: "POST",
+            url: "sso/api-register.php",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function(data, textStatus, jqXHR) {
+                setTimeout(function () {    
+                    toastr.success('Login Berhasil, Anda akan masuk ke halaman dashboard');     
+                },30);  
+                window.setTimeout(function(){ 
+                    window.location.replace('dashboard');
+                } ,3000);  
+            },
+            error: function(data, textStatus, jqXHR) {
+                console.log(data);
+                console.log('Login Gagal!');
+            },
+        });
+    }
+
+    function sendRegisterToServer() {
+        var form = $('#form-register')[0];
+        var formData = new FormData(form);
+        $.ajax({
+            type: "POST",
+            url: "{{ route('sso.register') }}",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function(data, textStatus, jqXHR) {
+                if (data['status'] == true) {
+                    window.location.replace("{{ url('/') }}");
+                }   
+            },
+            error: function(data, textStatus, jqXHR) {
+                console.log(data);
+                console.log('Login Gagal!');
+            },
+        });
+    }
     </script>
 
     <?php
