@@ -55,6 +55,18 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-tools float-right">
+                                    <?php if ($row['id_sso'] != null) { ?>
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-check-circle text-aqua"> </i>Terhubung dengan SSO
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <a class="dropdown-item" href="#" onClick="clickLogin();">Ganti Akun SSO</a>
+                                        </div>
+                                    <?php } else { ?>
+                                        <a href="#" onClick="clickLogin();" data-id="<?= encryptor('encrypt', $row['id_masyarakat']) ?>" class="btn btn-danger btn-tool">
+                                            <i class="fas fa-times-circle"></i> </i>Tidak Terhubung dengan SSO
+                                        </a>
+                                    <?php } ?>
                                     <a href="edit-profil?id=<?= encryptor('encrypt', $row['id_masyarakat']) ?>" class="btn btn-primary btn-tool">
                                         <i class="fa fa-edit"> Edit Profil</i>
                                     </a>
@@ -208,8 +220,56 @@ $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$id
 
 
     <?php include_once "template/ui/script.php"; ?>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://sso.banjarmasinkota.go.id/vendor/bjm-sso/bjm-sso.css">
+	<script src="https://sso.banjarmasinkota.go.id/vendor/bjm-sso/bjm-sso.js"></script>
+    <!-- <link rel="stylesheet"type="text/css" href="http://server.banjarmasinkota.go.id:8000/vendor/bjm-sso/bjm-sso.css">
+	<script src="http://server.banjarmasinkota.go.id:8000/vendor/bjm-sso/bjm-sso.js"></script> -->
     <script>
+        function clickLogin() {
+            var sso = new BjmSSO();
+            sso.loginWindow(function(result) {
+                console.log(result);
+                if (result['status']) {
+                    sendToServer(result);
+                }
+            });
+        }
+
+        function sendToServer(result) {
+            var user = result['data']['user'];
+            var token = result['data']['key'];
+            var formData = new FormData();
+            for ( var key in user ) {
+                formData.append(key, user[key]);
+            }
+            formData.append('id_app', '<?php echo $_SESSION['id_masyarakat']; ?>');
+            formData.append('id_sso', user['id']);
+            formData.append('token', token);
+            $.ajax({
+                type: "POST",
+                url: "sso/api-sync.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function(data, textStatus, jqXHR) {
+                    // $(".is-invalid").removeClass("is-invalid");
+                    if (data['status'] == true) {
+                        location.reload();
+                    }
+                    else {
+                        console.log(data['message']);
+                        toastr.error(data['message']);
+                    } 
+                },
+                error: function(data, textStatus, jqXHR) {
+                    console.log(data);
+                    console.log('Login Gagal!');
+                },
+            });
+        }
+
         // LIHAT PASSWORD
         function lihatpass(id) {
             var getid = document.getElementById(id).id;
