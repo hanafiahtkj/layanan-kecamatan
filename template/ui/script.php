@@ -69,6 +69,14 @@
         return true;
     }
 
+    // EVENT ON ENTER IN TEXT AREA
+      $('.alamat').on('keydown', function(e) {
+        if (e.keyCode == 13 && !e.shiftKey) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
     // NOTIF SEBELUM LOGOUT
     $('.alert-logout').on('click', function() {
         var getLink = $(this).attr('href');

@@ -146,7 +146,7 @@ $row  = $data->fetch_array();
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Jalan</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" name="alamat" rows="2" required placeholder="Jalan"><?= $row['alamat'] ?></textarea>
+                                            <textarea class="form-control alamat" name="alamat" rows="2" required placeholder="Jalan"><?= $row['alamat'] ?></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
