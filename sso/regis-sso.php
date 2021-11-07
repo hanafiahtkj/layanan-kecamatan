@@ -553,6 +553,27 @@ include_once "../template/ui/head.php";
                     $cekSso = $koneksi->query("SELECT * FROM masyarakat WHERE id_sso = ".$id_sso)->fetch_array();
                     if($cekSso)
                     {
+                        $curl = curl_init();
+
+                        curl_setopt_array($curl, array(
+                            CURLOPT_URL => $this->base_url.'/api/sso/register-app',
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'POST',
+                            CURLOPT_POSTFIELDS => array('id_user' => $id_sso, 'id_aplikasi' => 23), //14 = id aplikasi di app_sso
+                            // CURLOPT_HTTPHEADER => array(
+                            //     'Authorization: Bearer '.$token,
+                            // ),
+                        ));
+
+                        $response = curl_exec($curl);
+
+                        curl_close($curl);
+
                         // PROSES LOGIN
                         $query = $koneksi->query("SELECT * FROM masyarakat where id_masyarakat ='$cekSso[id_masyarakat]'")->fetch_array();
                         $_SESSION['id_masyarakat'] = $query['id_masyarakat'];
