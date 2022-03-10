@@ -10,7 +10,7 @@ $id_app = $_POST['id_app'];
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://sso.banjarmasinkota.go.id/api/sso/is-valid',
+    CURLOPT_URL => 'https://bapintar.banjarmasinkota.go.id/api/sso/is-valid',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,
