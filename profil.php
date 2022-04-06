@@ -10,7 +10,6 @@ include_once "template/ui/head.php";
 $idm      = $_SESSION['id_masyarakat'];
 $data_mas = $koneksi->query("SELECT * FROM masyarakat WHERE id_masyarakat = '$idm'")->fetch_array();
 
-
 ?>
 
 <body>

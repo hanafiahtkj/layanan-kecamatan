@@ -39,7 +39,6 @@ include_once "config/config.php";
 	<script src="https://bapintar.banjarmasinkota.go.id/vendor/bjm-sso/bjm-sso.js"></script>
     <!-- <link rel="stylesheet"type="text/css" href="http://server.banjarmasinkota.go.id:8000/vendor/bjm-sso/bjm-sso.css">
 	<script src="http://server.banjarmasinkota.go.id:8000/vendor/bjm-sso/bjm-sso.js"></script> -->
-	
 
     <style type="text/css">
         .loading-halaman::before {

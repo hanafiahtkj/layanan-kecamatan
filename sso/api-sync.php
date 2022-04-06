@@ -2,7 +2,6 @@
 
 include_once '../config/config.php';
 
-
 $id_sso = $_POST['id_sso'];
 $email  = $_POST['email'];
 $token  = $_POST['token'];
